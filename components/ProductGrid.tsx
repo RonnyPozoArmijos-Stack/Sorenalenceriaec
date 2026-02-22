@@ -24,6 +24,10 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
     return result;
   }, [products, sizeFilter]);
 
+  const availableCount = useMemo(() => {
+    return filteredProducts.filter(p => p.inStock).length;
+  }, [filteredProducts]);
+
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   
   useEffect(() => {
@@ -94,7 +98,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
             </div>
         </div>
         <div className="h-px w-8 bg-rose-gold/20 hidden md:block"></div>
-        <span className="text-[9px] text-gray-500 font-bold tracking-[0.3em] uppercase opacity-70 italic">{filteredProducts.length} Modelos Disponibles</span>
+        <span className="text-[9px] text-gray-500 font-bold tracking-[0.3em] uppercase opacity-70 italic">{availableCount} Modelos Disponibles</span>
       </div>
 
       <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
