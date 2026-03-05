@@ -7,6 +7,7 @@ export interface Product {
   discountPercentage?: number;
   img: string;
   secondaryImg?: string;
+  tertiaryImg?: string;
   category: string;
   tag?: 'NUEVO' | 'MAS VENDIDO' | 'DESCUENTO' | null;
   description?: string;

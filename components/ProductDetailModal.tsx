@@ -74,6 +74,9 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   if (product.secondaryImg && product.secondaryImg.trim() !== "") {
     images.push(product.secondaryImg);
   }
+  if (product.tertiaryImg && product.tertiaryImg.trim() !== "") {
+    images.push(product.tertiaryImg);
+  }
 
   const availableSizes: Size[] = product.availableSizes || ['XS', 'S', 'M', 'L', 'XL'];
   const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
