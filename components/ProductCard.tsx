@@ -7,9 +7,10 @@ interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product, size: Size) => void;
   onViewDetails: (product: Product) => void;
+  activeSizeFilter?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewDetails }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewDetails, activeSizeFilter }) => {
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -33,7 +34,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
     }
   }, [feedback]);
 
-  const availableSizes: Size[] = product.availableSizes || ['XS', 'S', 'M', 'L', 'XL'];
+  const availableSizes: Size[] = product.availableSizes || [];
+  const outOfStockSizes: Size[] = product.outOfStockSizes || [];
+  const allSizes: Size[] = [...availableSizes, ...outOfStockSizes].sort((a, b) => {
+    const order: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'Única'];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+
   const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
   const finalPrice = hasDiscount 
     ? product.price * (1 - (product.discountPercentage! / 100)) 
@@ -62,9 +69,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
 
   const hasSecondaryImg = product.secondaryImg && product.secondaryImg.trim() !== "";
 
+  const isOutOfStockInFilter = activeSizeFilter !== 'all' && 
+                               activeSizeFilter && 
+                               outOfStockSizes.includes(activeSizeFilter as Size);
+  
+  const showAgotado = !product.inStock || isOutOfStockInFilter;
+
   return (
     <div 
-        className={`group flex flex-col h-full bg-transparent relative transition-all duration-700 ${!product.inStock ? 'opacity-80' : ''}`}
+        className={`group flex flex-col h-full bg-transparent relative transition-all duration-700 ${showAgotado ? 'opacity-80' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
     >
@@ -76,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         onClick={() => onViewDetails(product)}
       >
         {/* Filtro Agotado */}
-        {!product.inStock && (
+        {showAgotado && (
           <div className="absolute inset-0 z-30 bg-rich-black/40 backdrop-grayscale-[0.5] flex items-center justify-center pointer-events-none">
             <span className="bg-rich-black/80 text-white text-[10px] font-bold uppercase tracking-[0.3em] px-6 py-2 border border-white/10 rounded-sm">
               Agotado
@@ -154,19 +167,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
           <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700 hidden md:block">
               <div className="bg-white/80 dark:bg-black/60 backdrop-blur-xl p-4 rounded-[4px] border border-white/20 dark:border-white/5 shadow-2xl flex flex-col gap-3">
                    <div className="flex justify-center gap-2">
-                      {availableSizes.map((size) => (
-                          <button
-                              key={size}
-                              onClick={(e) => { e.stopPropagation(); setSelectedSize(size); }}
-                              className={`w-8 h-8 flex items-center justify-center text-[9px] font-bold rounded-full border transition-all duration-500 ${
-                                  selectedSize === size 
-                                  ? 'bg-rose-gold text-white border-rose-gold' 
-                                  : 'bg-transparent text-warm-charcoal dark:text-soft-white border-gray-200 dark:border-white/10 hover:border-rose-gold/40'
-                              }`}
-                          >
-                              {size}
-                          </button>
-                      ))}
+                      {allSizes.map((size) => {
+                          const isSizeOutOfStock = outOfStockSizes.includes(size);
+                          return (
+                              <button
+                                  key={size}
+                                  disabled={isSizeOutOfStock}
+                                  onClick={(e) => { e.stopPropagation(); setSelectedSize(size); }}
+                                  className={`w-8 h-8 flex items-center justify-center text-[9px] font-bold rounded-full border transition-all duration-500 ${
+                                      isSizeOutOfStock
+                                      ? 'opacity-30 border-gray-200 text-gray-300 cursor-not-allowed'
+                                      : selectedSize === size 
+                                        ? 'bg-rose-gold text-white border-rose-gold' 
+                                        : 'bg-transparent text-warm-charcoal dark:text-soft-white border-gray-200 dark:border-white/10 hover:border-rose-gold/40'
+                                  }`}
+                              >
+                                  {size}
+                              </button>
+                          );
+                      })}
                   </div>
                   <button 
                       onClick={handleAddToCartClick}

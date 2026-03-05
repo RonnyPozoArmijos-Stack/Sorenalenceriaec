@@ -19,19 +19,29 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
   const filteredProducts = useMemo(() => {
     let result = [...products];
     if (sizeFilter !== 'all') {
-      result = result.filter(p => p.availableSizes?.includes(sizeFilter as Size));
+      result = result.filter(p => 
+        p.availableSizes?.includes(sizeFilter as Size) || 
+        p.outOfStockSizes?.includes(sizeFilter as Size)
+      );
       // Sort available products first
       result.sort((a, b) => {
-        if (a.inStock === b.inStock) return 0;
-        return a.inStock ? -1 : 1;
+        const aAvailable = a.inStock && a.availableSizes?.includes(sizeFilter as Size);
+        const bAvailable = b.inStock && b.availableSizes?.includes(sizeFilter as Size);
+        if (aAvailable === bAvailable) return 0;
+        return aAvailable ? -1 : 1;
       });
     }
     return result;
   }, [products, sizeFilter]);
 
   const availableCount = useMemo(() => {
-    return filteredProducts.filter(p => p.inStock).length;
-  }, [filteredProducts]);
+    if (sizeFilter === 'all') {
+      return filteredProducts.filter(p => p.inStock).length;
+    }
+    return filteredProducts.filter(p => 
+      p.inStock && p.availableSizes?.includes(sizeFilter as Size)
+    ).length;
+  }, [filteredProducts, sizeFilter]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   
@@ -109,7 +119,12 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
       <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
         {currentProducts.map((product) => (
           <div key={product.id} className="animate-fade-in">
-            <ProductCard product={product} onAddToCart={onAddToCart} onViewDetails={onViewDetails} />
+            <ProductCard 
+              product={product} 
+              onAddToCart={onAddToCart} 
+              onViewDetails={onViewDetails} 
+              activeSizeFilter={sizeFilter}
+            />
           </div>
         ))}
       </div>

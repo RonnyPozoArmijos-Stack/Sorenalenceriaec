@@ -12,6 +12,7 @@ export interface Product {
   tag?: 'NUEVO' | 'MAS VENDIDO' | 'DESCUENTO' | null;
   description?: string;
   availableSizes?: Size[];
+  outOfStockSizes?: Size[];
   inStock: boolean;
   featured?: boolean;
 }

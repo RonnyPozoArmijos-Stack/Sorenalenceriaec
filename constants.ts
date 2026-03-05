@@ -219,6 +219,7 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "MAS VENDIDO",
     availableSizes: ['S', 'L'],
+    outOfStockSizes: ['XL'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },

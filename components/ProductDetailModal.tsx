@@ -78,7 +78,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
     images.push(product.tertiaryImg);
   }
 
-  const availableSizes: Size[] = product.availableSizes || ['XS', 'S', 'M', 'L', 'XL'];
+  const availableSizes: Size[] = product.availableSizes || [];
+  const outOfStockSizes: Size[] = product.outOfStockSizes || [];
+  const allSizes: Size[] = [...availableSizes, ...outOfStockSizes].sort((a, b) => {
+    const order: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'Única'];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+
   const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
   const finalPrice = hasDiscount 
     ? product.price * (1 - (product.discountPercentage! / 100)) 
@@ -271,22 +277,25 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 )}
               </div>
               <div className="flex gap-4 flex-wrap">
-                {availableSizes.map((size) => (
-                  <button
-                    key={size}
-                    disabled={!product.inStock}
-                    onClick={() => setSelectedSize(prev => prev === size ? null : size)}
-                    className={`h-14 w-14 flex items-center justify-center rounded-full border text-[11px] font-bold transition-all duration-500 ${
-                      !product.inStock 
-                      ? 'opacity-40 border-gray-100 text-gray-300 cursor-not-allowed'
-                      : selectedSize === size 
-                        ? 'bg-rose-gold text-white border-rose-gold shadow-lg scale-110' 
-                        : 'border-gray-100 dark:border-white/10 text-gray-400 dark:text-gray-500 hover:border-rose-gold hover:text-rose-gold'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+                {allSizes.map((size) => {
+                  const isSizeOutOfStock = outOfStockSizes.includes(size);
+                  return (
+                    <button
+                      key={size}
+                      disabled={!product.inStock || isSizeOutOfStock}
+                      onClick={() => setSelectedSize(prev => prev === size ? null : size)}
+                      className={`h-14 w-14 flex items-center justify-center rounded-full border text-[11px] font-bold transition-all duration-500 ${
+                        !product.inStock || isSizeOutOfStock
+                        ? 'opacity-40 border-gray-100 text-gray-300 cursor-not-allowed'
+                        : selectedSize === size 
+                          ? 'bg-rose-gold text-white border-rose-gold shadow-lg scale-110' 
+                          : 'border-gray-100 dark:border-white/10 text-gray-400 dark:text-gray-500 hover:border-rose-gold hover:text-rose-gold'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
