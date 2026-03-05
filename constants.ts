@@ -352,7 +352,7 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555301/WhatsApp_Image_2025-12-11_at_5.52.36_4_nnhkpe.jpg",
     category: "Conjuntos",
     availableSizes: ['L'],
-    inStock: true,
+    inStock: false,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {

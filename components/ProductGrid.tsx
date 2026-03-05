@@ -17,9 +17,14 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const filteredProducts = useMemo(() => {
-    let result = products;
+    let result = [...products];
     if (sizeFilter !== 'all') {
       result = result.filter(p => p.availableSizes?.includes(sizeFilter as Size));
+      // Sort available products first
+      result.sort((a, b) => {
+        if (a.inStock === b.inStock) return 0;
+        return a.inStock ? -1 : 1;
+      });
     }
     return result;
   }, [products, sizeFilter]);
