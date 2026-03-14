@@ -50,7 +50,7 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "NUEVO",
     availableSizes: ['M'],
-    inStock: true,
+    inStock: false,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
@@ -86,7 +86,7 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "NUEVO",
     availableSizes: ['S'],
-    inStock: true,
+    inStock: false,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
@@ -123,7 +123,7 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "NUEVO",
     availableSizes: ['M'],
-    inStock: true,
+    inStock: false,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
