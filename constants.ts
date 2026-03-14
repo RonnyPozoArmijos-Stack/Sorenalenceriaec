@@ -1,8 +1,8 @@
 
 import { Product } from './types';
 
-// Ecuador (593) + 995238677
-export const WHATSAPP_NUMBER = "593995238677";
+// Ecuador (593) + 969001613
+export const WHATSAPP_NUMBER = "593969001613";
 export const PHONE_NUMBER = WHATSAPP_NUMBER;
 
 export const CATEGORIES = [
