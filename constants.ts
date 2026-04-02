@@ -265,18 +265,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 11,
-    title: "Valeri",
-    price: 24.99,
-    discountPercentage: 20,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554944/WhatsApp_Image_2025-12-11_at_5.52.36_PM_2_xjm6wi.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554935/WhatsApp_Image_2025-12-11_at_5.52.36_PM_3_pbszra.jpg",
-    category: "Conjuntos",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 3,
     title: "Lunaria",
     price: 14.99,
