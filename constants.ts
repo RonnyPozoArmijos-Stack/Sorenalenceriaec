@@ -23,7 +23,7 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159364/WhatsApp_Image_2026-04-02_at_1.42.50_PM_2_eowhgj.jpg",
     tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159361/WhatsApp_Image_2026-04-02_at_1.42.50_PM_1_vtkkxp.jpg",
     category: "Conjuntos",
-    tag: "NUEVO",
+    tag: "PREVENTA",
     availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159342/WhatsApp_Image_2026-04-02_at_1.41.06_PM_1_lyi9zv.jpg",
     tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159340/WhatsApp_Image_2026-04-02_at_1.41.06_PM_rowxjv.jpg",
     category: "Conjuntos",
-    tag: "NUEVO",
+    tag: "PREVENTA",
     availableSizes: ['L'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159335/WhatsApp_Image_2026-04-02_at_1.40.37_PM_1_wx01o4.jpg",
     tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775161338/WhatsApp_Image_2026-04-02_at_1.40.37_PM_ijbydk.jpg",
     category: "Conjuntos",
-    tag: "NUEVO",
+    tag: "PREVENTA",
     availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159349/WhatsApp_Image_2026-04-02_at_1.41.44_PM_hviftu.jpg",
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159356/WhatsApp_Image_2026-04-02_at_1.41.45_PM_kimnus.jpg",
     category: "Conjuntos",
-    tag: "NUEVO",
+    tag: "PREVENTA",
     availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."

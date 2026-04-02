@@ -9,7 +9,7 @@ export interface Product {
   secondaryImg?: string;
   tertiaryImg?: string;
   category: string;
-  tag?: 'NUEVO' | 'MAS VENDIDO' | 'DESCUENTO' | null;
+  tag?: 'NUEVO' | 'MAS VENDIDO' | 'DESCUENTO' | 'PREVENTA' | null;
   description?: string;
   availableSizes?: Size[];
   outOfStockSizes?: Size[];
