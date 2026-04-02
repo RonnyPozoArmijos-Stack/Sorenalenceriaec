@@ -7,11 +7,12 @@ interface ProductGridProps {
   products: Product[];
   onAddToCart: (product: Product, size: Size) => void;
   onViewDetails: (product: Product) => void;
+  hideFilters?: boolean;
 }
 
 const ITEMS_PER_PAGE = 12;
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onViewDetails }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onViewDetails, hideFilters = false }) => {
   const [sizeFilter, setSizeFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -70,51 +71,48 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
 
   return (
     <div className="mb-32">
-      <div className="text-center mb-16 animate-fade-in px-4">
-        <h2 className="font-serif text-4xl md:text-7xl text-warm-charcoal dark:text-soft-white mb-6 font-light italic leading-tight transition-colors duration-500">Nuestra Colección</h2>
-        <div className="w-16 h-px bg-rose-gold/20 mx-auto"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 lg:px-0 mb-16 flex flex-col md:flex-row justify-between items-center gap-8 border-y border-gray-100 dark:border-white/5 py-8 transition-colors duration-500">
-        <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="flex items-center gap-2 text-gray-500">
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Filtrar:</span>
-            </div>
-            <div className="flex gap-2 items-center overflow-x-auto no-scrollbar pb-1">
-                <button 
-                  onClick={() => setSizeFilter('all')} 
-                  className={`px-5 py-2 rounded-full text-[9px] font-bold border transition-all duration-500 tracking-widest flex items-center gap-2 ${sizeFilter === 'all' ? 'bg-warm-charcoal text-white dark:bg-soft-white dark:text-rich-black border-transparent shadow-lg' : 'text-gray-500 border-gray-100 dark:border-white/10 hover:border-rose-gold/40'}`}
-                >
-                  TODAS
-                </button>
-                {sizes.map(size => (
-                    <button 
-                      key={size} 
-                      onClick={() => setSizeFilter(size)} 
-                      className={`w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-full text-[9px] font-bold border transition-all duration-500 tracking-tighter ${sizeFilter === size ? 'bg-rose-gold text-white border-rose-gold shadow-lg scale-110' : 'text-gray-500 border-gray-100 dark:border-white/10 hover:border-rose-gold/40'}`}
-                    >
-                      {size}
-                    </button>
-                ))}
-                
-                {sizeFilter !== 'all' && (
+      {!hideFilters && (
+        <div className="max-w-7xl mx-auto px-4 lg:px-0 mb-16 flex flex-col md:flex-row justify-between items-center gap-8 border-y border-gray-100 dark:border-white/5 py-8 transition-colors duration-500">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="flex items-center gap-2 text-gray-500">
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Filtrar:</span>
+              </div>
+              <div className="flex gap-2 items-center overflow-x-auto no-scrollbar pb-1">
                   <button 
-                    onClick={() => setSizeFilter('all')}
-                    className="ml-4 flex items-center gap-2 text-rose-gold hover:text-warm-charcoal dark:hover:text-white transition-colors group"
-                    title="Limpiar filtros"
+                    onClick={() => setSizeFilter('all')} 
+                    className={`px-5 py-2 rounded-full text-[9px] font-bold border transition-all duration-500 tracking-widest flex items-center gap-2 ${sizeFilter === 'all' ? 'bg-warm-charcoal text-white dark:bg-soft-white dark:text-rich-black border-transparent shadow-lg' : 'text-gray-500 border-gray-100 dark:border-white/10 hover:border-rose-gold/40'}`}
                   >
-                    <div className="p-2 rounded-full border border-rose-gold/30 group-hover:bg-rose-gold group-hover:text-white transition-all">
-                      <X className="w-3 h-3" />
-                    </div>
-                    <span className="text-[9px] font-bold uppercase tracking-widest hidden sm:inline">Limpiar</span>
+                    TODAS
                   </button>
-                )}
-            </div>
+                  {sizes.map(size => (
+                      <button 
+                        key={size} 
+                        onClick={() => setSizeFilter(size)} 
+                        className={`w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-full text-[9px] font-bold border transition-all duration-500 tracking-tighter ${sizeFilter === size ? 'bg-rose-gold text-white border-rose-gold shadow-lg scale-110' : 'text-gray-500 border-gray-100 dark:border-white/10 hover:border-rose-gold/40'}`}
+                      >
+                        {size}
+                      </button>
+                  ))}
+                  
+                  {sizeFilter !== 'all' && (
+                    <button 
+                      onClick={() => setSizeFilter('all')}
+                      className="ml-4 flex items-center gap-2 text-rose-gold hover:text-warm-charcoal dark:hover:text-white transition-colors group"
+                      title="Limpiar filtros"
+                    >
+                      <div className="p-2 rounded-full border border-rose-gold/30 group-hover:bg-rose-gold group-hover:text-white transition-all">
+                        <X className="w-3 h-3" />
+                      </div>
+                      <span className="text-[9px] font-bold uppercase tracking-widest hidden sm:inline">Limpiar</span>
+                    </button>
+                  )}
+              </div>
+          </div>
+          <div className="h-px w-8 bg-rose-gold/20 hidden md:block"></div>
+          <span className="text-[9px] text-gray-500 font-bold tracking-[0.3em] uppercase opacity-70 italic">{availableCount} Modelos Disponibles</span>
         </div>
-        <div className="h-px w-8 bg-rose-gold/20 hidden md:block"></div>
-        <span className="text-[9px] text-gray-500 font-bold tracking-[0.3em] uppercase opacity-70 italic">{availableCount} Modelos Disponibles</span>
-      </div>
+      )}
 
       <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
         {currentProducts.map((product) => (
