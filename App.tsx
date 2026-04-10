@@ -110,27 +110,13 @@ function App() {
       <main className="flex-grow">
         <Hero />
         
-        <div id="preventa" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24 md:scroll-mt-32">
-          <div className="text-center mb-16 animate-fade-in px-4">
-            <h2 className="font-serif text-4xl md:text-7xl text-warm-charcoal dark:text-soft-white mb-6 font-light italic leading-tight transition-colors duration-500">Próximos Lanzamientos</h2>
-            <p className="text-[10px] font-bold tracking-[0.4em] uppercase text-rose-gold mb-4">Apartado de Preventa</p>
-            <div className="w-16 h-px bg-rose-gold/20 mx-auto"></div>
-          </div>
-          <ProductGrid 
-            products={products.filter(p => p.tag === 'PREVENTA')}
-            onAddToCart={handleAddToCart}
-            onViewDetails={(product) => setSelectedProduct(product)}
-            hideFilters={true}
-          />
-        </div>
-
         <div id="catalogo" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24 md:scroll-mt-32">
           <div className="text-center mb-16 animate-fade-in px-4">
             <h2 className="font-serif text-4xl md:text-7xl text-warm-charcoal dark:text-soft-white mb-6 font-light italic leading-tight transition-colors duration-500">Nuestra Colección</h2>
             <div className="w-16 h-px bg-rose-gold/20 mx-auto"></div>
           </div>
           <ProductGrid 
-            products={products.filter(p => p.tag !== 'PREVENTA')}
+            products={products}
             onAddToCart={handleAddToCart}
             onViewDetails={(product) => setSelectedProduct(product)}
           />

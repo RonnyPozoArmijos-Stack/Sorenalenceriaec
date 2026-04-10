@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
       if (timeoutId) return;
       
       timeoutId = window.setTimeout(() => {
-        const sections = ['inicio', 'preventa', 'catalogo', 'historia', 'contacto'];
+        const sections = ['inicio', 'catalogo', 'historia', 'contacto'];
         const scrollPosition = window.scrollY + HEADER_OFFSET + 50;
 
         for (const id of sections) {
@@ -84,7 +84,6 @@ const Header: React.FC<HeaderProps> = ({
 
   const navItems = [
     { label: 'Inicio', href: '#inicio' },
-    { label: 'Preventa', href: '#preventa' },
     { label: 'Colección', href: '#catalogo' },
     { label: 'Historia', href: '#historia' },
     { label: 'Contacto', href: '#contacto' },
