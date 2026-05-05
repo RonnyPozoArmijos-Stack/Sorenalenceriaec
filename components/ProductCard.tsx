@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Product, Size } from '../types';
 import { Heart, Check, ShoppingCart } from 'lucide-react';
 
@@ -76,7 +77,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
   const showAgotado = !product.inStock || isOutOfStockInFilter;
 
   return (
-    <div 
+    <motion.div 
+        layout
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ y: -8 }}
         className={`group flex flex-col h-full bg-transparent relative transition-all duration-700 ${showAgotado ? 'opacity-80' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -84,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
       {/* Contenedor de Imagen */}
       <div 
         className={`relative overflow-hidden w-full aspect-[3/4] mb-6 cursor-pointer rounded-[4px] border transition-all duration-700 
-          ${isHovered ? 'shadow-[0_20px_50px_-15px_rgba(212,165,165,0.25)] border-rose-gold/20' : 'shadow-[0_10px_30px_-20px_rgba(0,0,0,0.1)] border-gray-100 dark:border-white/5'}
+          ${isHovered ? 'shadow-[0_40px_80px_-20px_rgba(212,165,165,0.3)] border-rose-gold/20' : 'shadow-[0_10px_30px_-20px_rgba(0,0,0,0.1)] border-gray-100 dark:border-white/5'}
           ${!mainLoaded ? 'shimmer-bg bg-gray-100 dark:bg-luxury-gray' : 'bg-white dark:bg-luxury-gray/40'}`}
         onClick={() => onViewDetails(product)}
       >
@@ -98,14 +105,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         )}
 
         {/* Feedback de acción */}
-        {feedback && (
-          <div className="absolute inset-0 z-40 flex items-center justify-center bg-white/40 dark:bg-rich-black/40 backdrop-blur-sm animate-fade-in pointer-events-none">
-            <div className="bg-rose-gold text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 shadow-2xl scale-110">
-              <Check className="w-3.5 h-3.5" />
-              {feedback}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {feedback && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              className="absolute inset-0 z-40 flex items-center justify-center bg-white/40 dark:bg-rich-black/40 backdrop-blur-sm pointer-events-none"
+            >
+              <div className="bg-rose-gold text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 shadow-2xl">
+                <Check className="w-3.5 h-3.5" />
+                {feedback}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Etiquetas Minimalistas */}
         {(product.tag || hasDiscount) && product.inStock && (
@@ -164,8 +178,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         
         {/* Botón de Añadir (Solo Desktop) */}
         {product.inStock && (
-          <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700 hidden md:block">
-              <div className="bg-white/80 dark:bg-black/60 backdrop-blur-xl p-4 rounded-[4px] border border-white/20 dark:border-white/5 shadow-2xl flex flex-col gap-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            className="absolute inset-x-0 bottom-0 p-4 z-40 hidden md:block"
+          >
+              <div className="bg-white/90 dark:bg-black/80 backdrop-blur-xl p-4 rounded-[4px] border border-white/20 dark:border-white/5 shadow-2xl flex flex-col gap-3">
                    <div className="flex justify-center gap-2">
                       {allSizes.map((size) => {
                           const isSizeOutOfStock = outOfStockSizes.includes(size);
@@ -194,7 +212,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
                       <ShoppingCart className="w-3 h-3" /> Añadir
                   </button>
               </div>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -217,7 +235,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
             </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

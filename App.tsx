@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PRODUCTS } from './constants';
 import { Product, CartItem, Size } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import InfiniteMarquee from './components/Marquee';
 import History from './components/History';
 import ProductGrid from './components/ProductGrid';
 import CartModal from './components/CartModal';
@@ -110,8 +112,17 @@ function App() {
       <main className="flex-grow">
         <Hero />
         
-        <div id="catalogo" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24 md:scroll-mt-32">
-          <div className="text-center mb-16 animate-fade-in px-4">
+        <InfiniteMarquee />
+        
+        <motion.div 
+          id="catalogo" 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24 md:scroll-mt-32"
+        >
+          <div className="text-center mb-16 px-4">
             <h2 className="font-serif text-4xl md:text-7xl text-warm-charcoal dark:text-soft-white mb-6 font-light italic leading-tight transition-colors duration-500">Nuestra Colección</h2>
             <div className="w-16 h-px bg-rose-gold/20 mx-auto"></div>
           </div>
@@ -120,9 +131,16 @@ function App() {
             onAddToCart={handleAddToCart}
             onViewDetails={(product) => setSelectedProduct(product)}
           />
-        </div>
+        </motion.div>
 
-        <History />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5 }}
+        >
+          <History />
+        </motion.div>
       </main>
 
       <Footer />

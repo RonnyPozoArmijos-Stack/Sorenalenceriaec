@@ -105,18 +105,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 303,
-    title: "Ébano",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159211/WhatsApp_Image_2026-04-02_at_1.36.51_PM_1_oj87lo.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159206/WhatsApp_Image_2026-04-02_at_1.36.51_PM_z8ohup.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 302,
     title: "Índigo",
     price: 21.99,
@@ -210,17 +198,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 16,
-    title: "Venna",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554510/WhatsApp_Image_2025-12-11_at_5.52.20_PM_6_efo60k.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554514/WhatsApp_Image_2025-12-11_at_5.52.20_PM_7_ni3qxm.jpg",
-    category: "Conjuntos",
-    availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 18,
     title: "Selene",
     price: 21.99,
@@ -228,17 +205,6 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554371/WhatsApp_Image_2025-12-11_at_5.52.22_PM_1_qooygm.jpg",
     category: "Conjuntos",
     availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 14,
-    title: "Susurro",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554524/WhatsApp_Image_2025-12-11_at_5.52.28_PM_1_ybkwmb.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765554537/WhatsApp_Image_2025-12-11_at_5.52.28_PM_2_c6rrww.jpg",
-    category: "Conjuntos",
-    availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },

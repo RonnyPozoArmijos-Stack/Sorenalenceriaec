@@ -1,13 +1,43 @@
 
 import React from 'react';
+import { motion, useAnimation } from 'motion/react';
 import { WHATSAPP_NUMBER } from '../constants';
 
 const FloatingWhatsApp: React.FC = () => {
+  const controls = useAnimation();
   const message = "Hola, solicito atención personalizada para Sorena Lencería.";
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+  const handleDragEnd = (_: any, info: any) => {
+    const screenWidth = window.innerWidth;
+    const threshold = screenWidth / 2;
+    
+    // If the icon is released on the left half of the screen, snap to left border
+    // Since it's fixed to the right (right-6), x=0 is the original right position.
+    // The target X for left edge is approximately -(screenWidth - margins - iconWidth)
+    if (info.point.x < threshold) {
+      const targetX = -(screenWidth - 80); 
+      controls.start({ x: targetX, transition: { type: 'spring', stiffness: 400, damping: 40 } });
+    } else {
+      controls.start({ x: 0, transition: { type: 'spring', stiffness: 400, damping: 40 } });
+    }
+  };
+
+  const handleTap = () => {
+    window.open(url, '_blank');
+  };
+
   return (
-    <div className="fixed right-6 bottom-6 md:right-8 md:bottom-8 z-[60] group">
+    <motion.div 
+      drag
+      dragMomentum={false}
+      onDragEnd={handleDragEnd}
+      onTap={handleTap}
+      animate={controls}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95, cursor: "grabbing" }}
+      className="fixed right-6 bottom-6 md:right-8 md:bottom-8 z-[60] group cursor-grab touch-none"
+    >
       
       {/* --- EFECTO HALO / AURA --- */}
       
@@ -17,13 +47,8 @@ const FloatingWhatsApp: React.FC = () => {
       {/* 2. Brillo de Fondo (Glow) - Aura suave constante */}
       <div className="absolute inset-0 rounded-full bg-[#25D366]/30 blur-2xl group-hover:bg-[#25D366]/50 transition-all duration-1000 animate-pulse-slow"></div>
 
-      {/* WhatsApp Button */}
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="relative flex items-center bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.4)] transition-all duration-700 ease-out transform hover:-translate-y-2 border border-white/20 group-hover:border-white/50"
-      >
+      {/* WhatsApp Button Visuals */}
+      <div className="relative flex items-center bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.4)] border border-white/20 group-hover:border-white/50 transition-colors">
         {/* Minimalist WhatsApp Icon in White */}
         <svg
           className="w-5 h-5 fill-current text-white transition-all duration-700 group-hover:scale-110"
@@ -39,8 +64,8 @@ const FloatingWhatsApp: React.FC = () => {
             WhatsApp
           </span>
         </span>
-      </a>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 

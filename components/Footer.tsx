@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'motion/react';
 import { Instagram, MapPin, Heart } from 'lucide-react';
 
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -22,16 +23,27 @@ const Footer: React.FC = () => {
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
         
         {/* Header Minimalista */}
-        <div className="text-center mb-20 animate-fade-in">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
             <h2 className="font-serif text-4xl md:text-5xl font-light italic mb-2 tracking-tight text-rich-black dark:text-white">
               Encuéntranos <span className="text-rose-gold">&</span> Conecta
             </h2>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-0 border-y border-gray-100 dark:border-white/5 py-20">
             
             {/* UBICACIÓN CENTRADA */}
-            <div className="flex flex-col items-center text-center space-y-8 md:border-r md:border-gray-100 dark:md:border-white/5 md:px-12">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center text-center space-y-8 md:border-r md:border-gray-100 dark:md:border-white/5 md:px-12"
+            >
                 <div className="flex items-center gap-3 text-rose-gold">
                     <MapPin className="w-4 h-4" />
                     <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Ubicación</span>
@@ -64,10 +76,16 @@ const Footer: React.FC = () => {
                       </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* SÍGUENOS CENTRADO */}
-            <div className="flex flex-col items-center text-center space-y-8 md:px-12">
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center text-center space-y-8 md:px-12"
+            >
                 <div className="flex items-center gap-3 text-rose-gold">
                     <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Síguenos</span>
                     <Heart className="w-3.5 h-3.5" />
@@ -76,31 +94,35 @@ const Footer: React.FC = () => {
                 <div className="flex flex-col items-center gap-10 w-full h-full justify-center">
                     {/* Iconos de Redes Sociales */}
                     <div className="flex gap-10">
-                      <a 
+                      <motion.a 
+                        whileHover={{ y: -5, scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href="https://www.instagram.com/sorenalenceria.ec/" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="group flex flex-col items-center gap-4 transition-transform duration-500 hover:-translate-y-1"
+                        className="group flex flex-col items-center gap-4 transition-transform duration-500"
                       >
                           <div className="w-14 h-14 rounded-full border border-gray-100 dark:border-white/10 flex items-center justify-center group-hover:border-rose-gold group-hover:bg-rose-gold/5 transition-all">
                               <Instagram className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-rose-gold" />
                           </div>
                           <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 dark:text-gray-600 font-bold group-hover:text-rose-gold transition-colors">Instagram</span>
-                      </a>
-                      <a 
+                      </motion.a>
+                      <motion.a 
+                        whileHover={{ y: -5, scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href="https://www.tiktok.com/@sorenalenceria.ec" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="group flex flex-col items-center gap-4 transition-transform duration-500 hover:-translate-y-1"
+                        className="group flex flex-col items-center gap-4 transition-transform duration-500"
                       >
                           <div className="w-14 h-14 rounded-full border border-gray-100 dark:border-white/10 flex items-center justify-center group-hover:border-rose-gold group-hover:bg-rose-gold/5 transition-all">
                               <TikTokIcon className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-rose-gold" />
                           </div>
                           <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 dark:text-gray-600 font-bold group-hover:text-rose-gold transition-colors">TikTok</span>
-                      </a>
+                      </motion.a>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
         </div>
 

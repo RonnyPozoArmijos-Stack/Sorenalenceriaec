@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 const Hero: React.FC = () => {
-  const [offset, setOffset] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setOffset(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0px", "100px"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const handleScrollToCatalog = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -27,21 +27,49 @@ const Hero: React.FC = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    },
+  };
+
   return (
-    <div id="inicio" className="relative overflow-hidden mb-12 min-h-[90vh] flex flex-col justify-center scroll-mt-24 md:scroll-mt-32">
+    <div 
+      id="inicio" 
+      ref={containerRef}
+      className="relative overflow-hidden mb-12 min-h-[90vh] flex flex-col justify-center scroll-mt-24 md:scroll-mt-32"
+    >
       
       {/* Parallax Background Image */}
-      <div 
-        className="absolute inset-0 w-full h-[120%]"
-        style={{
-            backgroundImage: 'url("https://res.cloudinary.com/dyqz0n0to/image/upload/v1765427808/WhatsApp_Image_2025-12-02_at_4.03.29_PM_2_flftmz.jpg")', 
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.85, 
-            filter: 'contrast(1) brightness(1.05)', 
-            transform: `translateY(${offset * 0.3}px)` 
-        }}
-      />
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-x-0 -top-20 h-[120%]"
+      >
+        <div 
+          className="w-full h-full"
+          style={{
+              backgroundImage: 'url("https://res.cloudinary.com/dyqz0n0to/image/upload/v1765427808/WhatsApp_Image_2025-12-02_at_4.03.29_PM_2_flftmz.jpg")', 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.85, 
+              filter: 'contrast(1) brightness(1.05)', 
+          }}
+        />
+      </motion.div>
       
       {/* LUXURY GRADIENT OVERLAYS */}
       <div className="absolute inset-0 bg-gradient-to-b from-ivory-light/30 via-ivory-light/60 dark:via-rich-black/50 to-ivory-light dark:to-rich-black transition-colors duration-500" />
@@ -50,32 +78,60 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,165,165,0.15),transparent_60%)]" />
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto text-center px-4 py-16 sm:py-24 relative z-10 mt-10 animate-fade-in-up">
-        <span className="text-rose-gold uppercase tracking-[0.4em] text-xs font-bold mb-6 block drop-shadow-sm opacity-90">
+      <motion.div 
+        style={{ y: contentY, opacity }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-5xl mx-auto text-center px-4 py-16 sm:py-24 relative z-10 mt-10"
+      >
+        <motion.span 
+          variants={itemVariants}
+          className="text-rose-gold uppercase tracking-[0.4em] text-xs font-bold mb-6 block drop-shadow-sm opacity-90"
+        >
             Exclusividad y Detalle
-        </span>
-        <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl text-warm-charcoal dark:text-soft-white mb-8 leading-tight drop-shadow-sm dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-light italic transition-colors duration-500">
-          Sorena Lencería
-        </h1>
-        <p className="font-serif text-lg sm:text-2xl text-warm-charcoal/80 dark:text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-wide drop-shadow-sm italic transition-colors duration-500">
-          Donde la elegancia se encuentra con tu piel. Descubre una colección diseñada para resaltar tu esencia más auténtica.
-        </p>
+        </motion.span>
         
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <a 
+        <motion.h1 
+          variants={itemVariants}
+          className="font-serif text-6xl sm:text-7xl md:text-8xl text-warm-charcoal dark:text-soft-white mb-8 leading-tight drop-shadow-sm dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-light italic transition-colors duration-500"
+        >
+          Sorena Lencería
+        </motion.h1>
+        
+        <motion.p 
+          variants={itemVariants}
+          className="font-serif text-lg sm:text-2xl text-warm-charcoal/80 dark:text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-wide drop-shadow-sm italic transition-colors duration-500"
+        >
+          Donde la elegancia se encuentra con tu piel. Descubre una colección diseñada para resaltar tu esencia más auténtica.
+        </motion.p>
+        
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <motion.a 
             href="#catalogo"
             onClick={handleScrollToCatalog}
-            className="px-14 py-5 bg-rose-gold text-white border border-rose-gold/10 font-sans font-bold rounded-full hover:bg-rose-gold-dark transition-all transform hover:-translate-y-1 shadow-[0_15px_35px_rgba(212,165,165,0.3)] tracking-[0.3em] text-[10px] uppercase cursor-pointer"
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(212,165,165,0.4)" }}
+            whileTap={{ scale: 0.98 }}
+            className="px-14 py-5 bg-rose-gold text-white border border-rose-gold/10 font-sans font-bold rounded-full transition-all shadow-[0_15px_35px_rgba(212,165,165,0.3)] tracking-[0.3em] text-[10px] uppercase cursor-pointer"
           >
             Explorar Colección
-          </a>
-        </div>
-      </div>
+          </motion.a>
+        </motion.div>
+      </motion.div>
 
       {/* Subtle Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce opacity-40">
-          <div className="w-[1px] h-12 bg-gradient-to-b from-rose-gold to-transparent"></div>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+      >
+          <motion.div 
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="w-[1px] h-12 bg-gradient-to-b from-rose-gold to-transparent"
+          ></motion.div>
+      </motion.div>
     </div>
   );
 };
