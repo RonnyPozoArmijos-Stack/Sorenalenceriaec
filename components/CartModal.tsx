@@ -1,15 +1,16 @@
 
 import React, { useEffect } from 'react';
-import { X, Trash2, MessageCircle, ShoppingBag } from 'lucide-react';
+import { X, Trash2, MessageCircle, ShoppingBag, Plus, Minus } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { CartItem } from '../types';
 import { WHATSAPP_NUMBER } from '../constants';
 
 interface CartModalProps {
   isOpen: boolean;
   onClose: () => void;
-  items: CartItem[]; // Adaptado de 'cart' para compatibilidad con App.tsx
-  onRemove: (id: number, size: string) => void; // Adaptado de 'onRemoveItem'
-  onUpdateQuantity: (id: number, size: string, delta: number) => void; // Adaptado de 'onUpdateQty'
+  items: CartItem[];
+  onRemove: (id: number, size: string) => void;
+  onUpdateQuantity: (id: number, size: string, delta: number) => void;
 }
 
 const CartModal: React.FC<CartModalProps> = ({ 
@@ -20,12 +21,13 @@ const CartModal: React.FC<CartModalProps> = ({
   onUpdateQuantity 
 }) => {
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'unset';
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
     return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
-
-  if (!isOpen) return null;
 
   const total = items.reduce((acc, item) => {
     const price = item.discountPercentage 
@@ -48,94 +50,158 @@ const CartModal: React.FC<CartModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[7000] flex justify-end">
-      {/* Backdrop con desvanecimiento suave */}
-      <div className="absolute inset-0 bg-rich-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[7000] flex justify-end overflow-hidden">
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-warm-charcoal/20 backdrop-blur-sm"
+          />
 
-      {/* Panel con deslizamiento fluido */}
-      <div className="relative w-full max-w-md bg-white dark:bg-luxury-gray shadow-2xl flex flex-col h-full animate-slide-in-right border-l border-rose-gold/10">
-        
-        <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100 dark:border-white/5">
-          <div className="flex items-center gap-3">
-            <ShoppingBag className="w-5 h-5 text-rose-gold" />
-            <h2 className="text-xl font-serif font-bold dark:text-white uppercase tracking-wider">Mi Bolsa</h2>
-          </div>
-          <button 
-            onClick={onClose} 
-            className="p-2 text-gray-400 hover:text-rose-gold transition-all hover:rotate-90 outline-none"
-            aria-label="Cerrar bolsa"
+          {/* Side Drawer */}
+          <motion.div 
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300, mass: 0.8 }}
+            className="relative w-full max-w-md bg-ivory-light dark:bg-luxury-gray shadow-[0_0_50px_rgba(0,0,0,0.2)] flex flex-col h-full border-l border-rose-gold/10"
           >
-            <X className="w-7 h-7" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-          {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
-              <ShoppingBag className="w-12 h-12 mb-4 text-gray-300" />
-              <p className="font-serif italic text-lg dark:text-white">Tu bolsa está vacía</p>
-              <button onClick={onClose} className="mt-4 text-rose-gold text-xs font-bold uppercase tracking-widest hover:underline">Continuar comprando</button>
+            
+            <div className="flex items-center justify-between px-8 py-8 border-b border-rose-gold/5">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <ShoppingBag className="w-6 h-6 text-rose-gold" />
+                  {items.length > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-[8px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                      {items.length}
+                    </span>
+                  )}
+                </div>
+                <h2 className="text-2xl font-serif italic dark:text-white tracking-tight">Mi Bolsa</h2>
+              </div>
+              <button 
+                onClick={onClose} 
+                className="p-2 text-gray-400 hover:text-rose-gold transition-all hover:rotate-90"
+              >
+                <X className="w-6 h-6" />
+              </button>
             </div>
-          ) : (
-            items.map((item) => {
-              const price = item.discountPercentage 
-                ? item.price * (1 - item.discountPercentage / 100)
-                : item.price;
-              return (
-                <div key={`${item.id}-${item.size}`} className="flex gap-4 group animate-fade-in">
-                  <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-50 dark:bg-black/20 border border-gray-100 dark:border-white/5">
-                    <img src={item.img} alt={item.title} className="h-full w-full object-cover" />
+
+            <div className="flex-1 overflow-y-auto px-8 py-8 space-y-8 custom-scrollbar">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {items.length === 0 ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="h-full flex flex-col items-center justify-center text-center py-20"
+                  >
+                    <ShoppingBag className="w-16 h-16 mb-6 text-rose-gold/20" />
+                    <p className="font-serif italic text-xl dark:text-white opacity-60">Tu bolsa está esperando ser llenada</p>
+                    <button 
+                      onClick={onClose} 
+                      className="mt-8 px-8 py-4 bg-rose-gold/10 text-rose-gold text-[10px] font-bold uppercase tracking-[0.3em] rounded-full hover:bg-rose-gold hover:text-white transition-all"
+                    >
+                      Explorar Colección
+                    </button>
+                  </motion.div>
+                ) : (
+                  items.map((item) => {
+                    const price = item.discountPercentage 
+                      ? item.price * (1 - item.discountPercentage / 100)
+                      : item.price;
+                    return (
+                      <motion.div 
+                        key={`${item.id}-${item.size}`} 
+                        layout
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, x: 50 }}
+                        className="flex gap-6 group"
+                      >
+                        <div className="h-28 w-24 flex-shrink-0 overflow-hidden rounded-2xl bg-white dark:bg-black/20 border border-rose-gold/5 shadow-sm group-hover:shadow-md transition-shadow">
+                          <img src={item.img} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        </div>
+                        <div className="flex flex-1 flex-col justify-between py-1">
+                          <div className="space-y-1">
+                            <h3 className="font-serif italic text-lg dark:text-white group-hover:text-rose-gold transition-colors">{item.title}</h3>
+                            <div className="flex items-center gap-2">
+                                <span className="text-[9px] px-2 py-0.5 bg-rose-gold/5 text-rose-gold font-bold uppercase tracking-widest rounded-full">Talla {item.size}</span>
+                                <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">${price.toFixed(2)} ud.</span>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between mt-4">
+                            <div className="flex items-center bg-white dark:bg-black/20 rounded-full border border-rose-gold/5 p-1">
+                              <button 
+                                onClick={() => onUpdateQuantity(item.id, item.size, -1)} 
+                                className="p-1.5 hover:text-rose-gold transition-colors dark:text-gray-400"
+                              >
+                                <Minus className="w-3 h-3" />
+                              </button>
+                              <span className="px-3 text-xs font-bold w-6 text-center dark:text-white">{item.qty}</span>
+                              <button 
+                                onClick={() => onUpdateQuantity(item.id, item.size, 1)} 
+                                className="p-1.5 hover:text-rose-gold transition-colors dark:text-gray-400"
+                              >
+                                <Plus className="w-3 h-3" />
+                              </button>
+                            </div>
+                            <button 
+                              onClick={() => onRemove(item.id, item.size)} 
+                              className="p-2 text-gray-300 hover:text-rose-gold hover:bg-rose-gold/5 rounded-full transition-all"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="text-right py-1">
+                          <p className="font-sans font-medium dark:text-white text-lg tracking-tight">${(price * item.qty).toFixed(2)}</p>
+                        </div>
+                      </motion.div>
+                    );
+                  })
+                )}
+              </AnimatePresence>
+            </div>
+
+            {items.length > 0 && (
+              <div className="p-8 space-y-6 bg-white dark:bg-black/10 border-t border-rose-gold/5">
+                <div className="flex justify-between items-end">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold mb-1">Total del pedido</p>
+                    <p className="text-[8px] text-rose-gold/60 font-bold uppercase tracking-widest">Incluye selección exclusiva</p>
                   </div>
-                  <div className="flex flex-1 flex-col justify-between py-1">
-                    <div>
-                      <h3 className="font-serif italic text-lg dark:text-white">{item.title}</h3>
-                      <p className="text-[10px] uppercase tracking-widest text-gray-400">Talla {item.size}</p>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center border border-gray-200 dark:border-white/10 rounded-full overflow-hidden">
-                        <button onClick={() => onUpdateQuantity(item.id, item.size, -1)} className="px-3 py-1 hover:bg-rose-gold/10 transition-colors dark:text-white">-</button>
-                        <span className="px-3 text-xs font-bold w-8 text-center dark:text-white">{item.qty}</span>
-                        <button onClick={() => onUpdateQuantity(item.id, item.size, 1)} className="px-3 py-1 hover:bg-rose-gold/10 transition-colors dark:text-white">+</button>
-                      </div>
-                      <button onClick={() => onRemove(item.id, item.size)} className="text-gray-400 hover:text-red-500 transition-colors">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="text-right py-1">
-                    <p className="font-sans font-medium dark:text-white">${(price * item.qty).toFixed(2)}</p>
+                  <div className="text-right">
+                    <span className="text-3xl font-serif italic text-warm-charcoal dark:text-white tracking-tighter">${total.toFixed(2)}</span>
                   </div>
                 </div>
-              );
-            })
-          )}
+                
+                <div className="space-y-3">
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleCheckout}
+                    className="w-full bg-rose-gold text-white py-6 rounded-2xl font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-rose-gold-dark shadow-[0_15px_30px_-5px_rgba(183,110,121,0.4)] transition-all flex items-center justify-center gap-3"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Confirmar por WhatsApp
+                  </motion.button>
+                  <button 
+                    onClick={onClose}
+                    className="w-full text-center text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] py-2 hover:text-rose-gold transition-colors"
+                  >
+                    Seguir explorando
+                  </button>
+                </div>
+              </div>
+            )}
+          </motion.div>
         </div>
-
-        {items.length > 0 && (
-          <div className="p-8 border-t border-gray-100 dark:border-white/5 space-y-6 bg-ivory-light dark:bg-black/20">
-            <div className="flex justify-between items-end">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Total Estimado</span>
-              <span className="text-3xl font-serif text-rose-gold">${total.toFixed(2)}</span>
-            </div>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-rose-gold text-white py-5 rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-rose-gold-dark shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Pedir por WhatsApp
-              </button>
-              <button 
-                onClick={onClose}
-                className="w-full text-center text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] py-2 hover:text-warm-charcoal dark:hover:text-white transition-colors"
-              >
-                Cerrar bolsa y seguir viendo
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 

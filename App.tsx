@@ -11,7 +11,7 @@ import CartModal from './components/CartModal';
 import ProductDetailModal from './components/ProductDetailModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ShoppingBag } from 'lucide-react';
 
 function App() {
   const [products] = useState<Product[]>(PRODUCTS);
@@ -158,9 +158,26 @@ function App() {
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}
+        onOpenCart={() => setIsCartOpen(true)}
       />
       
       <FloatingWhatsApp />
+
+      {/* Mobile Floating Cart Button (Thumb-friendly) */}
+      <div className="fixed bottom-24 right-6 z-[4000] md:hidden">
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsCartOpen(true)}
+          className="relative bg-rose-gold text-white p-5 rounded-full shadow-[0_15px_30px_-5px_rgba(183,110,121,0.4)] border border-white/20"
+        >
+          <ShoppingBag className="w-6 h-6" />
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-warm-charcoal dark:bg-soft-white text-white dark:text-rich-black text-[9px] font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-rose-gold transition-all duration-300">
+              {cartCount}
+            </span>
+          )}
+        </motion.button>
+      </div>
     </div>
   );
 }

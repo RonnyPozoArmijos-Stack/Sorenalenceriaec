@@ -16,7 +16,7 @@ const Hero: React.FC = () => {
     e.preventDefault();
     const element = document.getElementById('catalogo');
     if (element) {
-        const headerOffset = 110; 
+        const headerOffset = 90; 
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -83,7 +83,7 @@ const Hero: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-5xl mx-auto text-center px-4 py-16 sm:py-24 relative z-10 mt-10"
+        className="max-w-5xl mx-auto text-center px-4 py-12 sm:py-20 relative z-10 mt-6"
       >
         <motion.span 
           variants={itemVariants}

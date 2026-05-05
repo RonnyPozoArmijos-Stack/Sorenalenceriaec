@@ -10,7 +10,7 @@ interface HeaderProps {
   onNavClick?: () => void;
 }
 
-const HEADER_OFFSET = 110;
+const HEADER_OFFSET = 90; 
 
 const Header: React.FC<HeaderProps> = ({ 
   cartCount, 
@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({
     <>
       <header className="fixed top-0 left-0 right-0 z-[6000] bg-ivory-light/95 dark:bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/10 transition-colors duration-500">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20 md:h-28">
+          <div className="flex justify-between items-center h-16 md:h-24">
             
             <div className="flex-shrink-0 flex items-center z-[6100]">
               <a href="#inicio" onClick={(e) => handleScrollToSection(e, '#inicio')} className="group block">
@@ -171,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </header>
-      <div className="h-20 md:h-28"></div>
+      <div className="h-16 md:h-24"></div>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
