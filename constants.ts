@@ -136,18 +136,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 312,
-    title: "Magnolia",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336421/WhatsApp_Image_2026-05-09_at_9.08.29_AM_1_wskdrx.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336424/WhatsApp_Image_2026-05-09_at_9.08.29_AM_2_buyfod.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 311,
     title: "Malva",
     price: 19.99,
