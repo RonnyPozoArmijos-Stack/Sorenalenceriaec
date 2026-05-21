@@ -132,6 +132,25 @@ const CartModal: React.FC<CartModalProps> = ({
                                 <span className="text-[9px] px-2 py-0.5 bg-rose-gold/5 text-rose-gold font-bold uppercase tracking-widest rounded-full">Talla {item.size}</span>
                                 <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">${price.toFixed(2)} ud.</span>
                             </div>
+
+                            {/* Barcode representation */}
+                            <div className="pt-2 flex flex-col gap-1 select-none pointer-events-none">
+                              <div className="flex gap-[1.5px] items-stretch h-4 opacity-50 dark:opacity-35">
+                                {[...Array(22)].map((_, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="bg-warm-charcoal dark:bg-soft-white"
+                                    style={{
+                                      width: (idx % 4 === 0) ? '3px' : (idx % 3 === 0) ? '1px' : '2px',
+                                      opacity: (idx % 6 === 0) ? 0.2 : 0.9
+                                    }}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-[7px] font-mono tracking-[0.25em] text-gray-400 uppercase">
+                                SR-{(item.title).toUpperCase().slice(0, 3)}-{item.id}0{item.size}
+                              </span>
+                            </div>
                           </div>
                           
                           <div className="flex items-center justify-between mt-4">
