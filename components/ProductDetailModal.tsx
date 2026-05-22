@@ -1,10 +1,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { X, MessageCircle, ChevronLeft, ChevronRight, ShoppingBag, ChevronDown, AlertCircle, Check, Camera, Sparkles } from 'lucide-react';
+import { X, MessageCircle, ChevronLeft, ChevronRight, ShoppingBag, ChevronDown, AlertCircle, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Product, Size } from '../types';
 import { PHONE_NUMBER } from '../constants';
-import ThreeProductBox from './ThreeProductBox';
 
 interface ProductDetailModalProps {
   isOpen: boolean;
@@ -25,7 +24,6 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImgLoading, setIsImgLoading] = useState(true);
   const [addedFeedback, setAddedFeedback] = useState(false);
-  const [activeMode, setActiveMode] = useState<'photos' | 'three3D'>('photos');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       setSelectedSize(null);
       setIsImgLoading(true);
       setAddedFeedback(false);
-      setActiveMode('photos');
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -138,90 +135,51 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
             {/* Gallery Section */}
             <div className="w-full md:w-3/5 h-[60vh] md:h-full bg-gray-50 dark:bg-black/20 relative group flex flex-col justify-center">
-              
-              {/* Floating Tab Switcher */}
-              <div className="absolute top-6 left-6 z-[60] flex bg-black/60 backdrop-blur-md p-1 rounded-full border border-white/10 shadow-md">
-                <button
-                  onClick={() => setActiveMode('photos')}
-                  className={`px-3 py-1.5 rounded-full text-[9px] font-bold tracking-widest uppercase flex items-center gap-1.5 transition-all duration-300 ${
-                    activeMode === 'photos' 
-                      ? 'bg-white text-black font-extrabold shadow-md' 
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Camera className="w-2.5 h-2.5" /> FOTOS
-                </button>
-                <button
-                  onClick={() => setActiveMode('three3D')}
-                  className={`px-3 py-1.5 rounded-full text-[9px] font-bold tracking-widest uppercase flex items-center gap-1.5 transition-all duration-300 ${
-                    activeMode === 'three3D' 
-                      ? 'bg-rose-gold text-white font-extrabold shadow-md' 
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Sparkles className="w-2.5 h-2.5 text-[#EADA7A]" /> BOX 3D
-                </button>
+              <div 
+                ref={scrollContainerRef}
+                onScroll={handleScrollImage}
+                className="w-full h-full flex overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
+              >
+                {images.map((img, idx) => (
+                  <div key={idx} className="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 md:p-6">
+                    <img 
+                      src={img} 
+                      className="max-w-full max-h-full object-contain select-none transition-opacity duration-500" 
+                      alt={product.title} 
+                    />
+                  </div>
+                ))}
               </div>
-
-              {activeMode === 'photos' ? (
+              
+              {/* Gallery Controls */}
+              {images.length > 1 && (
                 <>
-                  <div 
-                    ref={scrollContainerRef}
-                    onScroll={handleScrollImage}
-                    className="w-full h-full flex overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
-                  >
-                    {images.map((img, idx) => (
-                      <div key={idx} className="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 md:p-6">
-                        <img 
-                          src={img} 
-                          className="max-w-full max-h-full object-contain select-none transition-opacity duration-500" 
-                          alt={product.title} 
-                        />
-                      </div>
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+                    {images.map((_, i) => (
+                      <button 
+                        key={i} 
+                        onClick={() => scrollToImage(i)}
+                        className={`h-1 rounded-full transition-all duration-500 ${currentImageIndex === i ? 'w-10 bg-rose-gold' : 'w-2 bg-gray-300 dark:bg-gray-700'}`}
+                      />
                     ))}
                   </div>
                   
-                  {/* Gallery Controls */}
-                  {images.length > 1 && (
-                    <>
-                      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-                        {images.map((_, i) => (
-                          <button 
-                            key={i} 
-                            onClick={() => scrollToImage(i)}
-                            className={`h-1 rounded-full transition-all duration-500 ${currentImageIndex === i ? 'w-10 bg-rose-gold' : 'w-2 bg-gray-300 dark:bg-gray-700'}`}
-                          />
-                        ))}
-                      </div>
-                      
-                      {/* Prev Button */}
-                      <button 
-                        onClick={goToPrev}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-full text-warm-charcoal dark:text-white hover:bg-rose-gold hover:text-white transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-                      >
-                        <ChevronLeft className="w-5 h-5" />
-                      </button>
+                  {/* Prev Button */}
+                  <button 
+                    onClick={goToPrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-full text-warm-charcoal dark:text-white hover:bg-rose-gold hover:text-white transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
 
-                      {/* Next Button */}
-                      <button 
-                        onClick={goToNext}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-full text-warm-charcoal dark:text-white hover:bg-rose-gold hover:text-white transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-                      >
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
-                    </>
-                  )}
+                  {/* Next Button */}
+                  <button 
+                    onClick={goToNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-full text-warm-charcoal dark:text-white hover:bg-rose-gold hover:text-white transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
                 </>
-              ) : (
-                <div className="w-full h-full flex flex-col p-4 justify-center bg-zinc-950 text-white rounded-b-none md:rounded-l-[2rem] pt-16">
-                  <div className="w-full h-full max-h-[500px]">
-                    <ThreeProductBox 
-                      product={product} 
-                      isDark={true}
-                      height={400}
-                    />
-                  </div>
-                </div>
               )}
             </div>
 

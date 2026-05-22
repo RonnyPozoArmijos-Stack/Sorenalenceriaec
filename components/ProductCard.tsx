@@ -22,6 +22,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
   
   const mainImgRef = useRef<HTMLImageElement>(null);
   const secondaryImgRef = useRef<HTMLImageElement>(null);
+  const cardContainerRef = useRef<HTMLDivElement>(null);
+
+  // States for interactive 3D Tilt & Glare
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [glareX, setGlareX] = useState(50);
+  const [glareY, setGlareY] = useState(50);
+  const [glareOpacity, setGlareOpacity] = useState(0);
 
   useEffect(() => {
     if (mainImgRef.current?.complete) setMainLoaded(true);
@@ -57,14 +65,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
     
     if(!selectedSize) {
          if (availableSizes.length === 1) {
-             onAddToCart(product, availableSizes[0]);
-             triggerFeedback("Añadido");
+              onAddToCart(product, availableSizes[0]);
+              triggerFeedback("Añadido");
          } else {
-             onViewDetails(product);
+              onViewDetails(product);
          }
     } else {
-        onAddToCart(product, selectedSize);
-        triggerFeedback("Añadido");
+         onAddToCart(product, selectedSize);
+         triggerFeedback("Añadido");
     }
   }
 
@@ -76,6 +84,50 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
   
   const showAgotado = !product.inStock || isOutOfStockInFilter;
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardContainerRef.current) return;
+    const card = cardContainerRef.current;
+    const rect = card.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    // Position of cursor relative to element
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Normalize coordinates around absolute center (range: -0.5 to 0.5)
+    const xc = width / 2;
+    const yc = height / 2;
+    const dx = x - xc;
+    const dy = y - yc;
+    
+    // Degrees of maximum rotation
+    const rotX = -(dy / yc) * 11; 
+    const rotY = (dx / xc) * 11;
+    
+    setRotateX(rotX);
+    setRotateY(rotY);
+    
+    // Set gradient percentage highlights
+    const gX = (x / width) * 100;
+    const gY = (y / height) * 100;
+    setGlareX(gX);
+    setGlareY(gY);
+    setGlareOpacity(0.45);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    // Reset rotations smoothly
+    setRotateX(0);
+    setRotateY(0);
+    setGlareOpacity(0);
+  };
+
   return (
     <motion.div 
         layout
@@ -85,16 +137,35 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         transition={{ duration: 0.5 }}
         whileHover={{ y: -8 }}
         className={`group flex flex-col h-full bg-transparent relative transition-all duration-700 ${showAgotado ? 'opacity-80' : ''}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
     >
       {/* Contenedor de Imagen */}
       <div 
-        className={`relative overflow-hidden w-full aspect-[3/4] mb-6 cursor-pointer rounded-[4px] border transition-all duration-700 
-          ${isHovered ? 'shadow-[0_40px_80px_-20px_rgba(212,165,165,0.3)] border-rose-gold/20' : 'shadow-[0_10px_30px_-20px_rgba(0,0,0,0.1)] border-gray-100 dark:border-white/5'}
+        ref={cardContainerRef}
+        onMouseMove={handleMouseMove}
+        className={`relative overflow-hidden w-full aspect-[3/4] mb-6 cursor-pointer rounded-[4px] border transition-all duration-[400ms] ease-out 
+          ${isHovered ? 'shadow-[0_45px_90px_-20px_rgba(212,165,165,0.4)] border-rose-gold/20' : 'shadow-[0_10px_30px_-20px_rgba(0,0,0,0.1)] border-gray-100 dark:border-white/5'}
           ${!mainLoaded ? 'shimmer-bg bg-gray-100 dark:bg-luxury-gray' : 'bg-white dark:bg-luxury-gray/40'}`}
         onClick={() => onViewDetails(product)}
+        style={{
+          perspective: '1000px',
+          transformStyle: 'preserve-3d',
+          transform: isHovered 
+            ? `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)` 
+            : 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+          transition: isHovered ? 'none' : 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1)'
+        }}
       >
+        {/* Capa de Brillo Holográfico 3D Dinámico */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-20 mix-blend-color-dodge transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.3) 0%, rgba(212,165,165,0.15) 50%, transparent 80%)`,
+            opacity: glareOpacity,
+          }}
+        />
+
         {/* Filtro Agotado */}
         {showAgotado && (
           <div className="absolute inset-0 z-30 bg-rich-black/40 backdrop-grayscale-[0.5] flex items-center justify-center pointer-events-none">
@@ -160,6 +231,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
             ${mainLoaded ? '' : 'opacity-0'}
             ${!product.inStock ? 'grayscale-[0.4]' : ''}
           `}
+          style={{
+            transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)',
+            transition: 'transform 0.4s ease-out'
+          }}
         />
 
         {hasSecondaryImg && (
@@ -173,6 +248,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
                 ${secondaryLoaded ? '' : 'opacity-0'}
                 ${!product.inStock ? 'grayscale-[0.4]' : ''}
               `}
+              style={{
+                transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)',
+                transition: 'transform 0.4s ease-out'
+              }}
             />
         )}
         
