@@ -174,19 +174,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 308,
-    title: "Esmeralda",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159337/WhatsApp_Image_2026-04-02_at_1.40.37_PM_2_ojzlri.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159335/WhatsApp_Image_2026-04-02_at_1.40.37_PM_1_wx01o4.jpg",
-    tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775161338/WhatsApp_Image_2026-04-02_at_1.40.37_PM_ijbydk.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 307,
     title: "Sol",
     price: 19.99,
