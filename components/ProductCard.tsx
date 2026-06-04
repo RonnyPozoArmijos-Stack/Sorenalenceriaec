@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Product, Size } from '../types';
-import { Heart, Check, ShoppingCart, Ruler, X } from 'lucide-react';
+import { Heart, Check, ShoppingCart } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +16,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
-  const [showSizeGuide, setShowSizeGuide] = useState(false);
   
   const [mainLoaded, setMainLoaded] = useState(false);
   const [secondaryLoaded, setSecondaryLoaded] = useState(false);
@@ -304,76 +303,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         >
             {product.title}
         </h3>
-        <div className="flex justify-center items-center gap-2 flex-wrap sm:flex-nowrap">
-            <div className="flex items-center gap-1.5 md:gap-3">
-                {hasDiscount && (
-                    <span className="text-gray-400 dark:text-gray-600 font-light text-[9px] md:text-[11px] line-through opacity-40 italic tracking-tighter">
-                        ${product.price.toFixed(0)}
-                    </span>
-                )}
-                <span className={`text-[11px] md:text-base tracking-[0.1em] font-sans font-light transition-colors duration-500 ${hasDiscount ? 'text-rose-gold' : 'text-warm-charcoal dark:text-gray-400'}`}>
-                    ${finalPrice.toFixed(2)}
+        <div className="flex justify-center items-center gap-3">
+            {hasDiscount && (
+                <span className="text-gray-400 dark:text-gray-600 font-light text-[9px] md:text-[11px] line-through opacity-40 italic tracking-tighter">
+                    ${product.price.toFixed(0)}
                 </span>
-            </div>
-            
-            {/* Botón Guía de Tallas a un costado del precio */}
-            <button
-              onClick={(e) => { e.stopPropagation(); setShowSizeGuide(true); }}
-              className="flex items-center gap-1 px-3 py-1 rounded-full bg-rose-gold/5 hover:bg-rose-gold/10 border border-rose-gold/15 hover:border-rose-gold/30 text-rose-gold text-[8px] md:text-[9.5px] font-bold uppercase tracking-[0.15em] transition-all duration-300 transform hover:scale-105"
-              title="Ver Guía de Tallas"
-            >
-              <Ruler className="w-2.5 h-2.5" />
-              <span>Tallas</span>
-            </button>
+            )}
+            <span className={`text-[11px] md:text-base tracking-[0.1em] font-sans font-light transition-colors duration-500 ${hasDiscount ? 'text-rose-gold' : 'text-warm-charcoal dark:text-gray-400'}`}>
+                ${finalPrice.toFixed(2)}
+            </span>
         </div>
       </div>
-      
-      {/* Lightbox Modal de Guía de Tallas */}
-      <AnimatePresence>
-        {showSizeGuide && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={(e) => { e.stopPropagation(); setShowSizeGuide(false); }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-w-lg w-full bg-white dark:bg-luxury-gray rounded-2xl overflow-hidden border border-gray-150 dark:border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.5)] p-6"
-            >
-              <div className="flex justify-between items-center mb-5 pb-2.5 border-b border-gray-100 dark:border-white/5">
-                <div>
-                  <h4 className="font-serif italic text-xl text-warm-charcoal dark:text-soft-white font-medium">Guía de Tallas Sorena</h4>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-mono">Encuentra tu talle y ajuste perfecto</p>
-                </div>
-                <button
-                  onClick={() => setShowSizeGuide(false)}
-                  className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-white/5 text-gray-500 hover:text-rose-gold transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              
-              <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-white dark:bg-black/20 flex items-center justify-center border border-gray-100 dark:border-white/5 shadow-inner p-2">
-                <img
-                  src="https://res.cloudinary.com/dyqz0n0to/image/upload/v1780535886/WhatsApp_Image_2026-06-03_at_7.04.25_PM_pmkxff.jpg"
-                  alt="Guía de Tallas Sorena Lencería"
-                  className="max-w-full max-h-full object-contain pointer-events-auto select-all rounded-lg"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              
-              <p className="text-[10px] text-center text-gray-500 dark:text-gray-400 italic mt-4 font-serif">
-                Si tienes dudas adicionales, puedes consultarnos directamente vía WhatsApp.
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 };
