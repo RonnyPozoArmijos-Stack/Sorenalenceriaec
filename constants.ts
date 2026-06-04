@@ -259,17 +259,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 104,
-    title: "Dulce Atadura",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1768961561/WhatsApp_Image_2026-01-20_at_9.00.59_PM_sde2or.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1768961544/WhatsApp_Image_2026-01-20_at_9.00.59_PM_3_qrlxqq.jpg",
-    category: "Conjuntos",
-    availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 12,
     title: "Noa",
     price: 24.99,
