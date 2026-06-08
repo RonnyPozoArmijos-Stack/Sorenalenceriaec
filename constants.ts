@@ -64,18 +64,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 318,
-    title: "Seducción",
-    price: 21.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336296/WhatsApp_Image_2026-05-09_at_9.08.28_AM_4_opldx6.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336300/WhatsApp_Image_2026-05-09_at_9.08.28_AM_5_vvwmjl.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XS'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 317,
     title: "Elegancia",
     price: 21.99,
