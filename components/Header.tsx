@@ -145,17 +145,11 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[6000] bg-ivory-light/95 dark:bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/10 transition-colors duration-500">
-        {/* Banner de Lujo con los Colores de Ecuador */}
-        <div className="relative w-full overflow-hidden text-center py-1 bg-white/70 dark:bg-black/60 border-b border-rose-gold/10 flex justify-center items-center h-8 md:h-9 select-none">
-          {/* Thick tricolor line of Ecuador */}
-          <div className="absolute bottom-0 left-0 right-0 h-[4px] flex">
-            <div className="w-1/3 h-full bg-[#FFD100]"></div>
-            <div className="w-1/3 h-full bg-[#003087]"></div>
-            <div className="w-1/3 h-full bg-[#C8102E]"></div>
-          </div>
-          <span className="text-[8px] md:text-[9.5px] tracking-[0.25em] font-sans font-semibold uppercase text-warm-charcoal/90 dark:text-gray-250 flex items-center gap-1.5 justify-center mb-[2px]">
-            NUEVA COLECCIÓN DE SEDA Y ENCAJE PREMIUM &bull; DISEÑO DE AUTOR 🇪🇨
-          </span>
+        {/* Franja Tricolor de Ecuador */}
+        <div className="relative w-full select-none h-[6px] flex">
+          <div className="w-1/3 h-full bg-[#FFD100]"></div>
+          <div className="w-1/3 h-full bg-[#003087]"></div>
+          <div className="w-1/3 h-full bg-[#C8102E]"></div>
         </div>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-24">

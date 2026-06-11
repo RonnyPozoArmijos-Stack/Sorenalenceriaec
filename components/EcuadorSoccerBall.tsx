@@ -5,14 +5,12 @@ import confetti from 'canvas-confetti';
 interface EcuadorSoccerBallProps {}
 
 /**
- * WorldCupSoccerBallSVG:
- * 3D-effect modern soccer ball matching the exact visual provided in the image:
- * - Beautiful white leather panel base.
- * - Dynamic, sweeping, curvy ribbons in intense red, green, and blue.
- * - Intricate textured internal lines (flame lines inside red, leaf/vein strokes inside green).
- * - Immersive 3D realistic spherical shading & glossy highlights overlay.
+ * ClassicSoccerBallSVG:
+ * High-fidelity 3D vector illustration of a classic, nostalgic black-and-white 32-panel soccer ball. 
+ * Features perfect pentagonal geometry, rich radial volume shading, and specular reflections 
+ * for an premium, photorealistic look.
  */
-export const WorldCupSoccerBallSVG: React.FC<{ className?: string; onClick?: (e: React.MouseEvent) => void }> = ({ className = "w-full h-full", onClick }) => {
+export const ClassicSoccerBallSVG: React.FC<{ className?: string; onClick?: (e: React.MouseEvent) => void }> = ({ className = "w-full h-full", onClick }) => {
   return (
     <svg 
       viewBox="0 0 100 100" 
@@ -20,143 +18,106 @@ export const WorldCupSoccerBallSVG: React.FC<{ className?: string; onClick?: (e:
       onClick={onClick}
     >
       <defs>
-        {/* Soft spherical gradient model for premium photorealism */}
-        <radialGradient id="ball3DLight" cx="30%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
-          <stop offset="50%" stopColor="#000000" stopOpacity="0" />
+        {/* Soft spherical gradient model for rich 3D realistic volume */}
+        <radialGradient id="classicBall3D" cx="30%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+          <stop offset="45%" stopColor="#000000" stopOpacity="0" />
           <stop offset="85%" stopColor="#000000" stopOpacity="0.45" />
           <stop offset="100%" stopColor="#000000" stopOpacity="0.8" />
         </radialGradient>
 
-        <linearGradient id="sphericalGloss" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.3" />
+        {/* Glossy highlight flare overlay */}
+        <linearGradient id="classicGloss" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.35" />
           <stop offset="25%" stopColor="#FFFFFF" stopOpacity="0.05" />
           <stop offset="100%" stopColor="#000000" stopOpacity="0" />
         </linearGradient>
 
-        {/* Precise gradients mimicking the image */}
-        <linearGradient id="imageRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E53E3E" />
-          <stop offset="60%" stopColor="#C53030" />
-          <stop offset="100%" stopColor="#7B1D1D" />
-        </linearGradient>
-
-        <linearGradient id="imageGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#38A169" />
-          <stop offset="50%" stopColor="#2F855A" />
-          <stop offset="100%" stopColor="#22543D" />
-        </linearGradient>
-
-        <linearGradient id="imageBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3182CE" />
-          <stop offset="70%" stopColor="#2B6CB0" />
-          <stop offset="100%" stopColor="#1A365D" />
-        </linearGradient>
-
-        <linearGradient id="imageYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ECC94B" />
-          <stop offset="100%" stopColor="#D69E2E" />
-        </linearGradient>
+        {/* Panel depth radial shader for dark panels */}
+        <radialGradient id="charcoalPanel" cx="40%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#2D3748" />
+          <stop offset="70%" stopColor="#1A202C" />
+          <stop offset="100%" stopColor="#0D1117" />
+        </radialGradient>
       </defs>
 
-      {/* 1. Base White Sphere Panel */}
-      <circle cx="50" cy="50" r="48" fill="#FBFBFD" stroke="#1A202C" strokeWidth="1.2" />
+      {/* 1. Base Ball Sphere (White leather material) */}
+      <circle cx="50" cy="50" r="48" fill="#F8FAFC" stroke="#0F172A" strokeWidth="1.5" />
 
-      {/* 2. Elegant soccer panels panel-lines matching the image curved structure */}
-      <path d="M 15 35 C 25 40, 35 40, 50 2" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-      <path d="M 50 2 C 65 40, 75 40, 85 35" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-      <path d="M 85 35 C 80 50, 80 60, 85 65" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-      <path d="M 85 65 C 75 75, 60 85, 50 98" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-      <path d="M 50 98 C 40 85, 25 75, 15 65" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-      <path d="M 15 65 C 20 60, 20 50, 15 35" fill="none" stroke="#E2E8F0" strokeWidth="1" />
+      {/* 2. Center Pentagon (Classic dark leather panel) */}
+      <polygon 
+        points="50,35 64,45 59,62 41,62 36,45" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
 
-      {/* 3. UPPER LEFT RED FLAME LOOP RIBBON (Matches Brazil/Brazuca graphics) */}
-      <g>
-        {/* Soft yellow-orange glow underlay */}
-        <path 
-          d="M 22 25 C 27 12, 45 10, 55 20 C 59 26, 57 35, 45 42 C 34 46, 22 41, 20 31 Z" 
-          fill="url(#imageYellowGrad)" 
-          opacity="0.9" 
-        />
-        {/* Main deep red swirl ribbon */}
-        <path 
-          d="M 24 26 C 28 15, 43 13, 53 22 C 56 26, 54 33, 43 39 C 33 43, 23 38, 21 30 Z" 
-          fill="url(#imageRedGrad)" 
-          stroke="#1A202C" 
-          strokeWidth="0.8" 
-        />
-        {/* Intricate flame-like gold and white internal stroke engravings */}
-        <path d="M 28 26 C 30 18, 41 17, 47 23 C 49 26, 47 30, 38 34" fill="none" stroke="#FFA3B1" strokeWidth="0.8" />
-        <path d="M 31 27 C 32 21, 38 20, 42 24 C 43 26, 41 29, 35 31" fill="none" stroke="#FFD100" strokeWidth="0.8" />
-        <path d="M 34 27 C 35 24, 38 23, 40 26" fill="none" stroke="#FFFFFF" strokeWidth="0.6" strokeLinecap="round" />
-      </g>
+      {/* 3. Outward Seam Radials bounding the inner hexagons */}
+      <line x1="50" y1="35" x2="50" y2="18" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="64" y1="45" x2="78" y2="41" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="59" y1="62" x2="68" y2="79" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="41" y1="62" x2="32" y2="79" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="36" y1="45" x2="22" y2="41" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
 
-      {/* 4. UPPER RIGHT GREEN SWIPE RIBBON */}
-      <g>
-        {/* Yellow-gold backing border ribbon */}
-        <path 
-          d="M 52 20 C 56 12, 73 10, 79 24 C 82 32, 77 43, 67 47 C 56 51, 46 41, 49 31 C 49 27, 50 23, 52 20 Z" 
-          fill="url(#imageYellowGrad)" 
-          opacity="0.9" 
-        />
-        {/* Bright green core ribbon */}
-        <path 
-          d="M 51 22 C 54 15, 71 13, 77 25 C 79 31, 75 41, 66 45 C 55 49, 46 40, 49 31 Z" 
-          fill="url(#imageGreenGrad)" 
-          stroke="#1A202C" 
-          strokeWidth="0.8" 
-        />
-        {/* Wavy/feather/leaf stroke textures matching the image */}
-        <path d="M 54 23 Q 64 19 71 26 T 60 39" fill="none" stroke="#A7F3D0" strokeWidth="0.75" />
-        <path d="M 56 25 Q 62 22 66 27 T 59 36" fill="none" stroke="#68D391" strokeWidth="0.7" />
-        <path d="M 58 27 Q 61 25 63 28 T 59 33" fill="none" stroke="#FFFFFF" strokeWidth="0.6" strokeLinecap="round" />
-      </g>
+      {/* 4. Surrounding Pentagons situated at the circular edge */}
+      {/* Top Pentagon */}
+      <polygon 
+        points="50,2 41,10 50,18 59,10" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
 
-      {/* 5. BOTTOM SWEEP GREEN RIBBON */}
-      <g>
-        {/* Yellow edge styling */}
-        <path 
-          d="M 45 70 C 53 68, 67 81, 61 90 C 56 96, 43 94, 37 87 C 34 82, 37 74, 45 70 Z" 
-          fill="url(#imageYellowGrad)" 
-          opacity="0.8"
-        />
-        {/* Dynamic bright green core */}
-        <path 
-          d="M 45 71 C 52 69, 65 81, 60 89 C 55 94, 43 93, 38 86 C 35 81, 38 74, 45 71 Z" 
-          fill="url(#imageGreenGrad)" 
-          stroke="#1A202C" 
-          strokeWidth="0.8" 
-        />
-        {/* Fine dark green wavy lines inside bottom loop */}
-        <path d="M 45 74 C 50 72, 59 81, 55 86" fill="none" stroke="#1C5335" strokeWidth="0.7" />
-        <path d="M 42 77 C 46 76, 53 84, 50 87" fill="none" stroke="#34D399" strokeWidth="0.7" />
-      </g>
+      {/* Upper-Left Pentagon */}
+      <polygon 
+        points="18,20 28,26 22,41 9,41 7,27" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
 
-      {/* 6. BOTTOM-LEFT AQUATIC BLUE SWIRL */}
-      <g>
-        {/* Red accent backer border */}
-        <path 
-          d="M 23 48 C 33 50, 43 63, 39 76 C 36 86, 22 88, 16 76 M 16 76" 
-          fill="#E53E3E" 
-          opacity="0.5" 
-        />
-        {/* Main Blue Swath */}
-        <path 
-          d="M 24 50 C 32 52, 41 63, 37 74 C 34 83, 22 85, 17 74" 
-          fill="url(#imageBlueGrad)" 
-          stroke="#1A202C" 
-          strokeWidth="0.8" 
-        />
-        {/* Precise internal curvy wave line textures */}
-        <path d="M 26 54 C 31 56, 36 64, 33 71" fill="none" stroke="#90CDF4" strokeWidth="0.7" />
-        <path d="M 27 58 C 30 60, 33 65, 31 69" fill="none" stroke="#FEB2B2" strokeWidth="0.7" />
-      </g>
+      {/* Upper-Right Pentagon */}
+      <polygon 
+        points="82,20 72,26 78,41 91,41 93,27" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
 
-      {/* 7. Realistic 3D Shading Overlay Layers */}
-      {/* Radial shade simulating spherical relief contour */}
-      <circle cx="50" cy="50" r="48" fill="url(#ball3DLight)" pointerEvents="none" />
-      {/* Specular premium white spotlight shine on top-left of the sphere */}
-      <circle cx="50" cy="50" r="48" fill="url(#sphericalGloss)" pointerEvents="none" />
+      {/* Bottom-Right Pentagon */}
+      <polygon 
+        points="78,75 68,79 72,94 85,90 91,78" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
+
+      {/* Bottom-Left Pentagon */}
+      <polygon 
+        points="22,75 32,79 28,94 15,90 9,78" 
+        fill="url(#charcoalPanel)" 
+        stroke="#0F172A" 
+        strokeWidth="1.5" 
+        strokeLinejoin="round" 
+      />
+
+      {/* 5. Edge Connector Seams to complete additional hexagons */}
+      <line x1="41" y1="10" x2="28" y2="26" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="59" y1="10" x2="72" y2="26" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="91" y1="41" x2="91" y2="78" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="9" y1="41" x2="9" y2="78" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="68" y1="79" x2="50" y2="84" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="32" y1="79" x2="50" y2="84" stroke="#0F172A" strokeWidth="1.5" />
+      <line x1="50" y1="84" x2="50" y2="98" stroke="#0F172A" strokeWidth="1.5" />
+
+      {/* 6. Professional 3D lighting overlays */}
+      <circle cx="50" cy="50" r="48" fill="url(#classicBall3D)" pointerEvents="none" />
+      <circle cx="50" cy="50" r="48" fill="url(#classicGloss)" pointerEvents="none" />
     </svg>
   );
 };
@@ -166,12 +127,11 @@ export const EcuadorSoccerBall: React.FC<EcuadorSoccerBallProps> = () => {
   const [hasFinishedPass, setHasFinishedPass] = useState(false);
 
   useEffect(() => {
-    // A single, slow roll pass across page load
-    // The ball starts offscreen-left (-150px) and transits slowly over 14 seconds to offscreen-right (100vw + 150px)
-    // After 14.5 seconds, we clear it out so it never renders again in this session, leaving the brand elements pristine!
+    // Staggered roll: ball 1 starts at 0s, ball 2 starts at 3s and crosses in 15s.
+    // Total crossing timeline is 18 seconds. At 18.5 seconds we remove elements to keep DOM clean.
     const timer = setTimeout(() => {
       setHasFinishedPass(true);
-    }, 14500);
+    }, 18500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -187,23 +147,23 @@ export const EcuadorSoccerBall: React.FC<EcuadorSoccerBallProps> = () => {
     try {
       // Yellow, Blue, Red and pure white stars
       confetti({
-        particleCount: 65,
-        spread: 65,
+        particleCount: 75,
+        spread: 70,
         colors: ['#FFD100', '#003087', '#C8102E', '#FFFFFF'],
         origin: { 
           x: x / window.innerWidth, 
           y: y / window.innerHeight 
         },
-        gravity: 0.9,
-        scalar: 0.9,
+        gravity: 0.85,
+        scalar: 0.95,
         ticks: 200
       });
 
       // Quick delayed second golden sparks burst for extra satisfaction
       setTimeout(() => {
         confetti({
-          particleCount: 35,
-          spread: 85,
+          particleCount: 40,
+          spread: 90,
           colors: ['#FFD700', '#F4C430', '#FFFFFF'],
           origin: { 
             x: x / window.innerWidth, 
@@ -224,7 +184,7 @@ export const EcuadorSoccerBall: React.FC<EcuadorSoccerBallProps> = () => {
     }, 2500);
   };
 
-  // If the slow start-up transition is already finished, completely unmount it from the DOM
+  // If the slow start-up transition has finished, unmount the controller
   if (hasFinishedPass) {
     return null;
   }
@@ -232,11 +192,13 @@ export const EcuadorSoccerBall: React.FC<EcuadorSoccerBallProps> = () => {
   return (
     <>
       {/* 
-        Slow Start-up Roll Transition (Option B refined):
-        Appears at bottom 25% of the viewport (safe zone for both mobile and desktop), 
-        rolls from offscreen-left to offscreen-right slowly over 14 seconds with multiple rotations.
+        Slow Start-up Roll Transition:
+        Renders TWO distinct balls crossing sequentially at the bottom-percent of the screen 
+        for an incredibly engaging startup experience that showcases the premium black and white design!
       */}
-      <div className="fixed bottom-[20%] left-0 right-0 h-28 pointer-events-none z-[8000] select-none overflow-visible">
+      
+      {/* FIRST SOCCER BALL: Crosses from 0s to 15s */}
+      <div className="fixed bottom-[22%] left-0 right-0 h-24 pointer-events-none z-[8000] select-none overflow-visible">
         <motion.div
           initial={{ 
             x: '-140px',
@@ -246,23 +208,52 @@ export const EcuadorSoccerBall: React.FC<EcuadorSoccerBallProps> = () => {
             x: 'calc(100vw + 140px)'
           }}
           transition={{ 
-            duration: 14, 
-            ease: "easeInOut" 
+            duration: 15, 
+            ease: "easeInOut",
+            delay: 0
           }}
           className="w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto"
         >
-          {/* Continuous rotation to look very physical & roll-like */}
+          {/* Continuous rolling rotation */}
           <motion.div
             animate={{ rotate: 1080 }}
-            transition={{ duration: 14, ease: "easeInOut" }}
+            transition={{ duration: 15, ease: "easeInOut" }}
             className="w-full h-full"
           >
-            <WorldCupSoccerBallSVG onClick={handleBallClick} />
+            <ClassicSoccerBallSVG onClick={handleBallClick} />
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Celebration floating label precise coordination feedback */}
+      {/* SECOND SOCCER BALL: Crosses slightly offset (starts at 3s, rolls slightly lower) */}
+      <div className="fixed bottom-[18%] left-0 right-0 h-24 pointer-events-none z-[8000] select-none overflow-visible">
+        <motion.div
+          initial={{ 
+            x: '-140px',
+            opacity: 0.95
+          }}
+          animate={{ 
+            x: 'calc(100vw + 140px)'
+          }}
+          transition={{ 
+            duration: 15, 
+            ease: "easeInOut",
+            delay: 3.2
+          }}
+          className="w-14 h-14 sm:w-18 sm:h-18 pointer-events-auto"
+        >
+          {/* Continuous rolling rotation */}
+          <motion.div
+            animate={{ rotate: 1080 }}
+            transition={{ duration: 15, ease: "easeInOut", delay: 3.2 }}
+            className="w-full h-full"
+          >
+            <ClassicSoccerBallSVG onClick={handleBallClick} />
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Floating high-contrast notification bubble */}
       <AnimatePresence>
         {clickMessage && (
           <motion.div
