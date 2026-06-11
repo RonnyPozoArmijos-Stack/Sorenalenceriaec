@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Menu, X, Sun, Moon, Sparkles, Heart, FileText, MapPin } from 'lucide-react';
+import { ShoppingBag, Menu, X, Sun, Moon, Home, Sparkles, Heart, FileText, MapPin } from 'lucide-react';
 import { ExpandableTabs } from './ui/expandable-tabs';
 
 interface HeaderProps {
@@ -47,6 +47,12 @@ const Header: React.FC<HeaderProps> = ({
       if (timeoutId) return;
       
       timeoutId = window.setTimeout(() => {
+        if (window.scrollY < 150) {
+          setActiveSection('inicio');
+          timeoutId = 0;
+          return;
+        }
+
         const sections = ['catalogo', 'historia', 'politicas', 'contacto'];
         const scrollPosition = window.scrollY + HEADER_OFFSET + 120;
 
@@ -78,13 +84,14 @@ const Header: React.FC<HeaderProps> = ({
     
     if (element) {
       setTimeout(() => {
-        const offsetPosition = element.offsetTop - (window.innerWidth < 768 ? 80 : HEADER_OFFSET);
+        const offsetPosition = targetId === 'inicio' ? 0 : element.offsetTop - (window.innerWidth < 768 ? 80 : HEADER_OFFSET);
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       }, 50);
     }
   };
 
   const navTabs = [
+    { title: 'Inicio', icon: Home },
     { title: 'Colección', icon: Sparkles },
     { title: 'Historia', icon: Heart },
     { title: 'Políticas', icon: FileText },
@@ -98,18 +105,25 @@ const Header: React.FC<HeaderProps> = ({
 
   const getSelectedIndex = () => {
     switch (activeSection) {
-      case 'catalogo': return 0;
-      case 'historia': return 1;
-      case 'politicas': return 2;
-      case 'contacto': return 3;
+      case 'inicio': return 0;
+      case 'catalogo': return 1;
+      case 'historia': return 2;
+      case 'politicas': return 3;
+      case 'contacto': return 4;
       default: return null;
     }
   };
 
   const handleTabChange = (index: number | null) => {
     if (index === null) return;
-    const targetMap = ['catalogo', 'historia', 'politicas', 'contacto'];
+    const targetMap = ['inicio', 'catalogo', 'historia', 'politicas', 'contacto'];
     const targetId = targetMap[index];
+    if (targetId === 'inicio') {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+      return;
+    }
     const element = document.getElementById(targetId);
     if (element) {
       setTimeout(() => {
@@ -131,6 +145,18 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[6000] bg-ivory-light/95 dark:bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/10 transition-colors duration-500">
+        {/* Banner de Lujo con los Colores de Ecuador */}
+        <div className="relative w-full overflow-hidden text-center py-1 bg-white/70 dark:bg-black/60 border-b border-rose-gold/10 flex justify-center items-center h-8 md:h-9 select-none">
+          {/* Thick tricolor line of Ecuador */}
+          <div className="absolute bottom-0 left-0 right-0 h-[4px] flex">
+            <div className="w-1/3 h-full bg-[#FFD100]"></div>
+            <div className="w-1/3 h-full bg-[#003087]"></div>
+            <div className="w-1/3 h-full bg-[#C8102E]"></div>
+          </div>
+          <span className="text-[8px] md:text-[9.5px] tracking-[0.25em] font-sans font-semibold uppercase text-warm-charcoal/90 dark:text-gray-250 flex items-center gap-1.5 justify-center mb-[2px]">
+            NUEVA COLECCIÓN DE SEDA Y ENCAJE PREMIUM &bull; DISEÑO DE AUTOR 🇪🇨
+          </span>
+        </div>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-24">
             
@@ -138,7 +164,7 @@ const Header: React.FC<HeaderProps> = ({
               <a href="#inicio" onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-              }} className="group block">
+              }} className="group flex items-center">
                   <motion.img 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -146,6 +172,13 @@ const Header: React.FC<HeaderProps> = ({
                       alt="Sorena" 
                       className="h-16 md:h-24 w-auto object-contain dark:invert-0 invert opacity-90 transition-opacity"
                   />
+                  <motion.span 
+                    animate={{ opacity: [0.5, 1, 0.5], y: [-1, 1, -1] }} 
+                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                    className="text-lg md:text-xl relative -left-1 select-none pointer-events-none filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]"
+                  >
+                    🇪🇨
+                  </motion.span>
               </a>
             </div>
 
@@ -214,7 +247,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </header>
-      <div className="h-16 md:h-24"></div>
+      <div className="h-[92px] md:h-[128px]"></div>
 
       {/* Mobile Drawer Menu featuring full-fledged ExpandableTabs */}
       <AnimatePresence>

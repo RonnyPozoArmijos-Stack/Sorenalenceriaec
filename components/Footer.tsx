@@ -128,8 +128,8 @@ const Footer: React.FC = () => {
 
         {/* Footer info secundaria */}
         <div className="mt-16 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
-            <p className="text-[9px] uppercase tracking-[0.5em] text-gray-400 dark:text-gray-500">
-              &copy; {new Date().getFullYear()} Sorena Lencería &bull; Ecuador
+            <p className="text-[9px] uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500 text-center md:text-left leading-relaxed">
+              &copy; {new Date().getFullYear()} Sorena Lencería &bull; Ecuador &bull; Diseño Ecuatoriano
             </p>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-rose-gold/40"></div>

@@ -25,6 +25,7 @@ export const PRODUCTS: Product[] = [
     tag: "NUEVO",
     availableSizes: ['L'],
     inStock: true,
+    copaEdition: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
@@ -37,6 +38,7 @@ export const PRODUCTS: Product[] = [
     tag: "NUEVO",
     availableSizes: ['M'],
     inStock: true,
+    copaEdition: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
@@ -61,6 +63,7 @@ export const PRODUCTS: Product[] = [
     tag: "NUEVO",
     availableSizes: ['S'],
     inStock: true,
+    copaEdition: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {

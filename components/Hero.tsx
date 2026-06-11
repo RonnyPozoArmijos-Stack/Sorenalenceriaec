@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { EcuadorSoccerBall } from './EcuadorSoccerBall';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,7 @@ const Hero: React.FC = () => {
       ref={containerRef}
       className="relative overflow-hidden mb-12 min-h-[90vh] flex flex-col justify-center scroll-mt-24 md:scroll-mt-32"
     >
+
       
       {/* Parallax Background Image */}
       <motion.div 

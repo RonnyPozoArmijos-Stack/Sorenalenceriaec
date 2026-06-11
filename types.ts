@@ -15,6 +15,7 @@ export interface Product {
   outOfStockSizes?: Size[];
   inStock: boolean;
   featured?: boolean;
+  copaEdition?: boolean;
 }
 
 export interface CartItem extends Product {

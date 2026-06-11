@@ -226,11 +226,11 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     </button>
                   </div>
                   <div className="flex gap-3 flex-wrap">
-                    {allSizes.map((size) => {
+                    {allSizes.map((size, index) => {
                       const isOutOfStock = outOfStockSizes.includes(size);
                       return (
                         <button
-                          key={size}
+                          key={`${size}-${index}`}
                           disabled={isOutOfStock}
                           onClick={() => setSelectedSize(size === selectedSize ? null : size)}
                           className={`w-14 h-14 rounded-full border text-[11px] font-bold transition-all ${

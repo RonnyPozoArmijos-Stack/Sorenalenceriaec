@@ -93,6 +93,39 @@
         --muted-foreground: #a3a3a3;
         --border: rgba(255, 255, 255, 0.1);
       }
+      
+      /* Dark mode gold overrides for decorative elements & borders */
+      .dark .scroll-progress-bar {
+        background: linear-gradient(to right, #F4C430, #D4AF37, #FFFDD0) !important;
+      }
+      .dark .bg-rose-gold\/20,
+      .dark .bg-rose-gold\/40,
+      .dark .bg-rose-gold\/50 {
+        background-color: rgba(244, 196, 48, 0.25) !important;
+      }
+      .dark .bg-rose-gold\/5 {
+        background-color: rgba(244, 196, 48, 0.05) !important;
+      }
+      .dark .border-rose-gold\/10,
+      .dark .border-rose-gold\/15,
+      .dark .border-rose-gold\/20,
+      .dark .border-[#F4C430]\/30,
+      .dark .border-[#F4C430]\/40,
+      .dark .border-rose-gold\/25,
+      .dark .border-rose-gold\/30,
+      .dark .border-rose-gold\/5 {
+        border-color: rgba(244, 196, 48, 0.25) !important;
+      }
+      .dark .via-rose-gold\/20 {
+        --tw-gradient-via: rgba(244, 196, 48, 0.25) !important;
+        --tw-gradient-stops: var(--tw-gradient-from), rgba(244, 196, 48, 0.25), var(--tw-gradient-to) !important;
+      }
+      .dark .text-rose-gold {
+        color: #F4C430 !important;
+      }
+      .dark .text-rose-gold-dark {
+        color: #D4AF37 !important;
+      }
       html {
         scroll-behavior: smooth;
       }

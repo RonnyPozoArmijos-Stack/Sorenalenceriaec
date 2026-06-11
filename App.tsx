@@ -10,6 +10,7 @@ import ProductGrid from './components/ProductGrid';
 import CartModal from './components/CartModal';
 import ProductDetailModal from './components/ProductDetailModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import { EcuadorSoccerBall } from './components/EcuadorSoccerBall';
 import Footer from './components/Footer';
 import { CheckCircle, ShoppingBag } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -163,13 +164,13 @@ function App() {
       return [...prev, { ...product, size, qty: 1 }];
     });
     
-    // Luxury, subtle rose-gold, gold and white confetti burst
+    // Tricolor Copa 2026 Confetti (Ecuador colors: yellow, blue, red)
     try {
       confetti({
-        particleCount: 75,
-        spread: 60,
+        particleCount: 85,
+        spread: 65,
         origin: { y: 0.75 },
-        colors: ['#D4A5A5', '#B58585', '#FFFFFF', '#FDFBF7', '#E5C453'],
+        colors: ['#FFD700', '#003893', '#CE1126', '#F4C430'],
         gravity: 1.1,
         scalar: 0.9,
       });
@@ -285,6 +286,7 @@ function App() {
       />
       
       <FloatingWhatsApp />
+      <EcuadorSoccerBall />
 
       {/* Mobile Floating Cart Button (Thumb-friendly) */}
       <div className="fixed bottom-24 right-6 z-[4000] md:hidden">

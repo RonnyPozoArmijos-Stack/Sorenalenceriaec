@@ -109,13 +109,13 @@ const CartModal: React.FC<CartModalProps> = ({
                     </button>
                   </motion.div>
                 ) : (
-                  items.map((item) => {
+                  items.map((item, index) => {
                     const price = item.discountPercentage 
                       ? item.price * (1 - item.discountPercentage / 100)
                       : item.price;
                     return (
                       <motion.div 
-                        key={`${item.id}-${item.size}`} 
+                        key={`${item.id}-${item.size}-${index}`} 
                         layout
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}

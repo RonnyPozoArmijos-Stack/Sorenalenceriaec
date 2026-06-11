@@ -94,9 +94,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
                     >
                       TODAS
                     </button>
-                    {sizes.map(size => (
+                    {sizes.map((size, index) => (
                       <button 
-                        key={size} 
+                        key={`${size}-${index}`} 
                         onClick={() => setSizeFilter(size)} 
                         className={`w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-full text-[9px] font-bold border transition-all duration-500 tracking-tighter ${sizeFilter === size ? 'bg-rose-gold text-white border-rose-gold shadow-lg scale-110' : 'text-gray-500 border-gray-100 dark:border-white/10 hover:border-rose-gold/40'}`}
                       >
@@ -128,16 +128,41 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
       <div 
         className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
       >
-        {currentProducts.map((product) => (
-          <div key={`${product.id}-${currentPage}`} className="w-full h-full animate-fade-in">
-            <ProductCard 
-              product={product} 
-              onAddToCart={onAddToCart} 
-              onViewDetails={onViewDetails} 
-              activeSizeFilter={sizeFilter}
-            />
-          </div>
-        ))}
+        {currentProducts.map((product, idx) => {
+          const isLeft = idx % 2 === 0;
+          return (
+            <motion.div 
+              key={`${product.id}-${currentPage}-${idx}`}
+              initial={{ 
+                opacity: 0, 
+                x: isLeft ? -60 : 60, 
+                rotateY: isLeft ? -12 : 12,
+                scale: 0.94
+              }}
+              whileInView={{ 
+                opacity: 1, 
+                x: 0, 
+                rotateY: 0,
+                scale: 1
+              }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ 
+                duration: 0.8, 
+                ease: [0.16, 1, 0.3, 1],
+                delay: isMobile ? 0 : (idx % (isMobile ? 2 : window.innerWidth < 1024 ? 3 : 4)) * 0.05
+              }}
+              style={{ perspective: 1200 }}
+              className="w-full h-full"
+            >
+              <ProductCard 
+                product={product} 
+                onAddToCart={onAddToCart} 
+                onViewDetails={onViewDetails} 
+                activeSizeFilter={sizeFilter}
+              />
+            </motion.div>
+          );
+        })}
       </div>
 
       {totalPages > 1 && (

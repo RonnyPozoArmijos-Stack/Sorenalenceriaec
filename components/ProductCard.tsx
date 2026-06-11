@@ -367,6 +367,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
               </div>
           )}
 
+
+
           {/* Botón Favoritos */}
           <button 
               onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
@@ -432,11 +434,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
             >
                 <div className="bg-white/90 dark:bg-black/80 backdrop-blur-xl p-4 rounded-[4px] border border-white/20 dark:border-white/5 shadow-2xl flex flex-col gap-3">
                      <div className="flex justify-center gap-2">
-                        {allSizes.map((size) => {
+                        {allSizes.map((size, index) => {
                             const isSizeOutOfStock = outOfStockSizes.includes(size);
                             return (
                                 <button
-                                    key={size}
+                                    key={`${size}-${index}`}
                                     disabled={isSizeOutOfStock}
                                     onClick={(e) => { e.stopPropagation(); setSelectedSize(size); }}
                                     className={`w-8 h-8 flex items-center justify-center text-[9px] font-bold rounded-full border transition-all duration-500 ${
