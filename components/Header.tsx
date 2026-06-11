@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Menu, X, Sun, Moon } from 'lucide-react';
+import { ShoppingBag, Menu, X, Sun, Moon, Sparkles, Heart, FileText, MapPin } from 'lucide-react';
+import { ExpandableTabs } from './ui/expandable-tabs';
 
 interface HeaderProps {
   cartCount: number;
@@ -46,8 +47,8 @@ const Header: React.FC<HeaderProps> = ({
       if (timeoutId) return;
       
       timeoutId = window.setTimeout(() => {
-        const sections = ['inicio', 'catalogo', 'historia', 'contacto'];
-        const scrollPosition = window.scrollY + HEADER_OFFSET + 50;
+        const sections = ['catalogo', 'historia', 'politicas', 'contacto'];
+        const scrollPosition = window.scrollY + HEADER_OFFSET + 120;
 
         for (const id of sections) {
           const element = document.getElementById(id);
@@ -83,12 +84,49 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
 
-  const navItems = [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Colección', href: '#catalogo' },
-    { label: 'Historia', href: '#historia' },
-    { label: 'Contacto', href: '#contacto' },
+  const navTabs = [
+    { title: 'Colección', icon: Sparkles },
+    { title: 'Historia', icon: Heart },
+    { title: 'Políticas', icon: FileText },
+    { title: 'Encuéntranos', icon: MapPin },
   ];
+
+  const controlTabs = [
+    { title: isDarkMode ? 'Modo Claro' : 'Modo Oscuro', icon: isDarkMode ? Sun : Moon },
+    { title: `Carrito${cartCount > 0 ? ` (${cartCount})` : ''}`, icon: ShoppingBag }
+  ];
+
+  const getSelectedIndex = () => {
+    switch (activeSection) {
+      case 'catalogo': return 0;
+      case 'historia': return 1;
+      case 'politicas': return 2;
+      case 'contacto': return 3;
+      default: return null;
+    }
+  };
+
+  const handleTabChange = (index: number | null) => {
+    if (index === null) return;
+    const targetMap = ['catalogo', 'historia', 'politicas', 'contacto'];
+    const targetId = targetMap[index];
+    const element = document.getElementById(targetId);
+    if (element) {
+      setTimeout(() => {
+        const offsetPosition = element.offsetTop - (window.innerWidth < 768 ? 80 : HEADER_OFFSET);
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }, 50);
+    }
+  };
+
+  const handleControlTabChange = (index: number | null) => {
+    if (index === null) return;
+    if (index === 0) {
+      onToggleTheme();
+    } else if (index === 1) {
+      onOpenCart();
+    }
+  };
 
   return (
     <>
@@ -97,7 +135,10 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex justify-between items-center h-16 md:h-24">
             
             <div className="flex-shrink-0 flex items-center z-[6100]">
-              <a href="#inicio" onClick={(e) => handleScrollToSection(e, '#inicio')} className="group block">
+              <a href="#inicio" onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} className="group block">
                   <motion.img 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -108,27 +149,31 @@ const Header: React.FC<HeaderProps> = ({
               </a>
             </div>
 
-            <nav className="hidden lg:flex space-x-10 text-[10px] font-bold tracking-[0.4em] uppercase">
-              {navItems.map((item) => (
-                <a 
-                  key={item.label}
-                  href={item.href} 
-                  onClick={(e) => handleScrollToSection(e, item.href)}
-                  className={`relative py-2 transition-colors ${activeSection === item.href.substring(1) ? 'text-rose-gold' : 'text-gray-500 dark:text-gray-400 hover:text-rose-gold'}`}
-                >
-                  {item.label}
-                  {activeSection === item.href.substring(1) && (
-                    <motion.span 
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 w-full h-[1px] bg-rose-gold"
-                    />
-                  )}
-                </a>
-              ))}
+            {/* Desktop Expandable Navigation Tabs */}
+            <nav className="hidden lg:flex items-center">
+              <ExpandableTabs 
+                tabs={navTabs} 
+                selectedIndex={getSelectedIndex()} 
+                onChange={handleTabChange}
+                activeColor="text-rose-gold"
+                className="bg-transparent border-rose-gold/10 dark:border-white/10"
+              />
             </nav>
 
+            {/* Desktop Control Tabs (Theme & Cart) / Mobile default actions */}
             <div className="flex items-center space-x-2 sm:space-x-4 z-[6100]">
-              <div className="relative group flex flex-col items-center">
+              <div className="hidden lg:flex">
+                <ExpandableTabs 
+                  tabs={controlTabs} 
+                  selectedIndex={null} 
+                  onChange={handleControlTabChange}
+                  activeColor="text-rose-gold"
+                  className="bg-transparent border-rose-gold/10 dark:border-white/10"
+                />
+              </div>
+
+              {/* Mobile quick actions (always accessible) */}
+              <div className="flex lg:hidden items-center space-x-2">
                 <motion.button 
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -137,9 +182,7 @@ const Header: React.FC<HeaderProps> = ({
                 >
                   {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </motion.button>
-              </div>
 
-              <div className="relative group flex flex-col items-center">
                 <motion.button 
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -173,6 +216,7 @@ const Header: React.FC<HeaderProps> = ({
       </header>
       <div className="h-16 md:h-24"></div>
 
+      {/* Mobile Drawer Menu featuring full-fledged ExpandableTabs */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
@@ -180,22 +224,54 @@ const Header: React.FC<HeaderProps> = ({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[5900] bg-ivory-light dark:bg-rich-black flex flex-col justify-center items-center md:hidden"
+            className="fixed inset-0 z-[5900] bg-ivory-light/95 dark:bg-rich-black/95 flex flex-col justify-center items-center lg:hidden"
           >
-            <div className="flex flex-col space-y-10 w-full max-w-xs text-center">
-              {navItems.map((item, index) => (
-                <motion.a 
-                  key={item.label}
-                  href={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3 }}
-                  onClick={(e) => handleScrollToSection(e, item.href)}
-                  className="text-3xl font-serif italic text-warm-charcoal dark:text-white hover:text-rose-gold transition-colors"
-                >
-                  {item.label}
-                </motion.a>
-              ))}
+            <div className="flex flex-col items-center justify-center space-y-10 w-full max-w-sm px-6 text-center">
+              <div className="space-y-2">
+                <h3 className="font-serif italic text-3xl text-rose-gold font-light">Sorena Lencería</h3>
+                <p className="text-[10px] tracking-[0.3em] font-mono text-gray-400 dark:text-gray-500 uppercase">Menú Interactivo</p>
+              </div>
+
+              <div className="w-full flex-col space-y-6 flex items-center justify-center">
+                <div className="flex flex-col items-center space-y-2 w-full">
+                  <p className="text-[10.5px] uppercase tracking-wider text-rose-gold font-bold font-mono">Navegación</p>
+                  <ExpandableTabs 
+                    tabs={navTabs} 
+                    selectedIndex={getSelectedIndex()} 
+                    onChange={(idx) => {
+                      handleTabChange(idx);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    activeColor="text-rose-gold"
+                    className="border-rose-gold/25 dark:border-white/10 shadow-xl p-2.5 bg-white/40 dark:bg-black/40 backdrop-blur-md"
+                  />
+                </div>
+
+                <div className="flex flex-col items-center space-y-2 w-full">
+                  <p className="text-[10.5px] uppercase tracking-wider text-rose-gold font-bold font-mono">Controles</p>
+                  <ExpandableTabs 
+                    tabs={controlTabs} 
+                    selectedIndex={null} 
+                    onChange={(idx) => {
+                      handleControlTabChange(idx);
+                      if (idx === 1) {
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
+                    activeColor="text-rose-gold"
+                    className="border-rose-gold/25 dark:border-white/10 shadow-xl p-2.5 bg-white/40 dark:bg-black/40 backdrop-blur-md"
+                  />
+                </div>
+              </div>
+
+              <div className="w-16 h-px bg-rose-gold/20"></div>
+
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-[10px] tracking-[0.4em] uppercase text-gray-400 hover:text-rose-gold transition-colors font-bold"
+              >
+                Cerrar Menú
+              </button>
             </div>
           </motion.div>
         )}

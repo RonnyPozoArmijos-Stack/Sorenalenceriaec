@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Product, Size } from '../types';
 import ProductCard from './ProductCard';
 import { ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface ProductGridProps {
   products: Product[];
@@ -16,6 +17,17 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
   const [sizeFilter, setSizeFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Detect mobile screens dynamically
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -113,9 +125,11 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
         </div>
       )}
 
-      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+      <div 
+        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
+      >
         {currentProducts.map((product) => (
-          <div key={product.id} className="animate-fade-in">
+          <div key={`${product.id}-${currentPage}`} className="w-full h-full animate-fade-in">
             <ProductCard 
               product={product} 
               onAddToCart={onAddToCart} 

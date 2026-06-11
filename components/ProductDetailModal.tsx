@@ -48,7 +48,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
   const availableSizes: Size[] = product.availableSizes || [];
   const outOfStockSizes: Size[] = product.outOfStockSizes || [];
-  const allSizes: Size[] = [...availableSizes, ...outOfStockSizes].sort((a, b) => {
+  const allSizes: Size[] = Array.from(new Set([...availableSizes, ...outOfStockSizes])).sort((a, b) => {
     const order: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'Única'];
     return order.indexOf(a) - order.indexOf(b);
   });
@@ -218,6 +218,12 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400">Seleccionar Talla</span>
+                    <button 
+                      onClick={() => setShowSizeGuide(true)}
+                      className="text-[10px] uppercase tracking-[0.2em] text-rose-gold hover:text-rose-gold-dark font-extrabold hover:underline transition-all duration-300"
+                    >
+                      ¿No sabes tu talla? Consultar Talla
+                    </button>
                   </div>
                   <div className="flex gap-3 flex-wrap">
                     {allSizes.map((size) => {

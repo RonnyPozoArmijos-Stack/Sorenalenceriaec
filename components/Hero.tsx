@@ -87,21 +87,21 @@ const Hero: React.FC = () => {
       >
         <motion.span 
           variants={itemVariants}
-          className="text-rose-gold uppercase tracking-[0.4em] text-xs font-bold mb-6 block drop-shadow-sm opacity-90"
+          className="text-rose-gold uppercase tracking-[0.4em] text-xs font-bold mb-6 block drop-shadow-sm opacity-90 hero-tag"
         >
             Exclusividad y Detalle
         </motion.span>
         
         <motion.h1 
           variants={itemVariants}
-          className="font-serif text-6xl sm:text-7xl md:text-8xl text-warm-charcoal dark:text-soft-white mb-8 leading-tight drop-shadow-sm dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-light italic transition-colors duration-500"
+          className="font-serif text-6xl sm:text-7xl md:text-8xl text-warm-charcoal dark:text-soft-white mb-8 leading-tight drop-shadow-sm dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-light italic transition-colors duration-500 hero-title"
         >
           Sorena Lencería
         </motion.h1>
         
         <motion.p 
           variants={itemVariants}
-          className="font-serif text-lg sm:text-2xl text-warm-charcoal/80 dark:text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-wide drop-shadow-sm italic transition-colors duration-500"
+          className="font-serif text-lg sm:text-2xl text-warm-charcoal/80 dark:text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-wide drop-shadow-sm italic transition-colors duration-500 hero-desc"
         >
           Donde la elegancia se encuentra con tu piel. Descubre una colección diseñada para resaltar tu esencia más auténtica.
         </motion.p>
@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
             onClick={handleScrollToCatalog}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(212,165,165,0.4)" }}
             whileTap={{ scale: 0.98 }}
-            className="px-14 py-5 bg-rose-gold text-white border border-rose-gold/10 font-sans font-bold rounded-full transition-all shadow-[0_15px_35px_rgba(212,165,165,0.3)] tracking-[0.3em] text-[10px] uppercase cursor-pointer"
+            className="px-14 py-5 bg-rose-gold text-white border border-rose-gold/10 font-sans font-bold rounded-full transition-all shadow-[0_15px_35px_rgba(212,165,165,0.3)] tracking-[0.3em] text-[10px] uppercase cursor-pointer hero-btn"
           >
             Explorar Colección
           </motion.a>

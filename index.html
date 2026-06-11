@@ -33,6 +33,11 @@
               'champagne-dust': '#F2ECE8',
               'warm-charcoal': '#2D2A28',
               'text-muted': '#8E8A86',
+              // Dynamic mapping for shadcn variables in display-cards
+              'background': 'var(--background)',
+              'muted': 'var(--muted)',
+              'muted-foreground': 'var(--muted-foreground)',
+              'border': 'var(--border)',
             },
             fontFamily: {
               serif: ['"Playfair Display"', 'serif'],
@@ -76,6 +81,18 @@
       };
     </script>
     <style>
+      :root {
+        --background: #FCFAF8;
+        --muted: #F2ECE8;
+        --muted-foreground: #8E8A86;
+        --border: rgba(212, 165, 165, 0.2);
+      }
+      .dark {
+        --background: #121214;
+        --muted: #1C1C1E;
+        --muted-foreground: #a3a3a3;
+        --border: rgba(255, 255, 255, 0.1);
+      }
       html {
         scroll-behavior: smooth;
       }
