@@ -315,6 +315,14 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             onClick={() => setShowSizeGuide(false)}
             className="fixed inset-0 z-[9000] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
           >
+            {/* Desktop Close */}
+            <button 
+              onClick={() => setShowSizeGuide(false)}
+              className="absolute top-8 right-8 hidden md:block text-gray-300 hover:text-rose-gold transition-all hover:rotate-90 z-[9010]"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
