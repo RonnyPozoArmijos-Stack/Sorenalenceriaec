@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { EcuadorSoccerBall } from './EcuadorSoccerBall';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);

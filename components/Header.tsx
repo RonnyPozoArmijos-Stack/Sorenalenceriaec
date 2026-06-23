@@ -145,12 +145,6 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[6000] bg-ivory-light/95 dark:bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/10 transition-colors duration-500">
-        {/* Franja Tricolor de Ecuador */}
-        <div className="relative w-full select-none h-[6px] flex">
-          <div className="w-1/3 h-full bg-[#FFD100]"></div>
-          <div className="w-1/3 h-full bg-[#003087]"></div>
-          <div className="w-1/3 h-full bg-[#C8102E]"></div>
-        </div>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-24">
             
