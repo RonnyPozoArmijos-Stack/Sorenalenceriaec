@@ -76,18 +76,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 404,
-    title: "Oasis",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655651/WhatsApp_Image_2026-06-16_at_7.13.40_PM_1_k5a87c.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655654/WhatsApp_Image_2026-06-16_at_7.13.40_PM_2_xvinjx.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XL'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 403,
     title: "Flavia",
     price: 19.99,
