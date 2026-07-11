@@ -40,18 +40,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 407,
-    title: "Chocolate",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655727/WhatsApp_Image_2026-06-16_at_7.13.41_PM_g3e77s.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655740/WhatsApp_Image_2026-06-16_at_7.13.41_PM_1_yq9ofz.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XL'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 406,
     title: "Paloma",
     price: 24.99,
@@ -122,18 +110,6 @@ export const PRODUCTS: Product[] = [
     availableSizes: ['L'],
     inStock: true,
     copaEdition: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 320,
-    title: "Zafiro",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336260/WhatsApp_Image_2026-05-09_at_9.08.28_AM_2_k2gdyk.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336267/WhatsApp_Image_2026-05-09_at_9.08.28_AM_3_vjgnvs.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['L'],
-    inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
@@ -248,19 +224,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 306,
-    title: "Hechizo",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159332/WhatsApp_Image_2026-04-02_at_1.39.15_PM_qphxxv.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159327/WhatsApp_Image_2026-04-02_at_1.39.14_PM_rm7idn.jpg",
-    tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159330/WhatsApp_Image_2026-04-02_at_1.39.14_PM_1_is6fcc.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XL'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 305,
     title: "Luz",
     price: 19.99,
@@ -327,7 +290,7 @@ export const PRODUCTS: Product[] = [
     img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765594359/WhatsApp_Image_2025-12-12_at_9.51.43_PM_uyq2dj.jpg",
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765594360/WhatsApp_Image_2025-12-12_at_9.51.43_PM_1_xiv4fe.jpg",
     category: "Conjuntos",
-    availableSizes: ['S', 'M'],
+    availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
@@ -371,17 +334,6 @@ export const PRODUCTS: Product[] = [
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555273/WhatsApp_Image_2025-12-11_at_5.52.33_PM_1_l8kr5e.jpg",
     category: "Conjuntos",
     availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 22,
-    title: "Talia",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765553927/WhatsApp_Image_2025-12-11_at_5.52.36_PM_1_l2urd0.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765553922/WhatsApp_Image_2025-12-11_at_5.52.36_PM_qvnm1d.jpg",
-    category: "Conjuntos",
-    availableSizes: ['S'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
