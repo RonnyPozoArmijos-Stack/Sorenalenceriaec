@@ -237,17 +237,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 302,
-    title: "Índigo",
-    price: 21.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159187/WhatsApp_Image_2026-04-02_at_1.36.15_PM_nymskr.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 301,
     title: "Dahlia",
     price: 19.99,
