@@ -174,18 +174,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 313,
-    title: "Dulce",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336412/WhatsApp_Image_2026-05-09_at_9.08.28_AM_krjws8.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336416/WhatsApp_Image_2026-05-09_at_9.08.28_AM_1_qbudy5.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 311,
     title: "Malva",
     price: 19.99,
@@ -220,19 +208,6 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "NUEVO",
     availableSizes: ['L'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 305,
-    title: "Luz",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159317/WhatsApp_Image_2026-04-02_at_1.37.50_PM_2_yczyae.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159238/WhatsApp_Image_2026-04-02_at_1.37.50_PM_1_yk4yhl.jpg",
-    tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159231/WhatsApp_Image_2026-04-02_at_1.37.50_PM_ucorsy.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['S'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
