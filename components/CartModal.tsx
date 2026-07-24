@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import { X, Trash2, MessageCircle, ShoppingBag, Plus, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CartItem } from '../types';
-import { WHATSAPP_NUMBER } from '../constants';
+import { generateWhatsAppCheckoutLink } from '../lib/whatsapp';
+import { getOptimizedImageUrl } from '../lib/cloudinary';
 
 interface CartModalProps {
   isOpen: boolean;
@@ -38,15 +39,8 @@ const CartModal: React.FC<CartModalProps> = ({
 
   const handleCheckout = () => {
     if (items.length === 0) return;
-    let message = "Hola, quiero realizar mi pedido en Sorena Lencería:\n\n";
-    items.forEach(item => {
-      const price = item.discountPercentage 
-        ? item.price * (1 - item.discountPercentage / 100)
-        : item.price;
-      message += `*${item.title}*\n- Talla: ${item.size}\n- Cantidad: x${item.qty}\n- Subtotal: $${(price * item.qty).toFixed(2)}\n\n`;
-    });
-    message += `*TOTAL A PAGAR: $${total.toFixed(2)}*`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+    const checkoutUrl = generateWhatsAppCheckoutLink(items);
+    window.open(checkoutUrl, "_blank");
   };
 
   return (
@@ -123,7 +117,13 @@ const CartModal: React.FC<CartModalProps> = ({
                         className="flex gap-6 group"
                       >
                         <div className="h-28 w-24 flex-shrink-0 overflow-hidden rounded-2xl bg-white dark:bg-black/20 border border-rose-gold/5 shadow-sm group-hover:shadow-md transition-shadow">
-                          <img src={item.img} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <img 
+                            src={getOptimizedImageUrl(item.img, { width: 200 })} 
+                            alt={item.title} 
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                          />
                         </div>
                         <div className="flex flex-1 flex-col justify-between py-1">
                           <div className="space-y-1">

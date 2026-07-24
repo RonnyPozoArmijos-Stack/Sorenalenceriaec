@@ -4,6 +4,7 @@ import { X, MessageCircle, ChevronLeft, ChevronRight, ShoppingBag, ChevronDown, 
 import { motion, AnimatePresence } from 'motion/react';
 import { Product, Size } from '../types';
 import { PHONE_NUMBER } from '../constants';
+import { getOptimizedImageUrl } from '../lib/cloudinary';
 
 interface ProductDetailModalProps {
   isOpen: boolean;
@@ -145,9 +146,11 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 {images.map((img, idx) => (
                   <div key={idx} className="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 md:p-6">
                     <img 
-                      src={img} 
+                      src={getOptimizedImageUrl(img, { width: 800 })} 
                       className="max-w-full max-h-full object-contain select-none transition-opacity duration-500" 
                       alt={product.title} 
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}

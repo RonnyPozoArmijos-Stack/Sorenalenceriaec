@@ -36,7 +36,7 @@ const FloatingWhatsApp: React.FC = () => {
       animate={controls}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95, cursor: "grabbing" }}
-      className="fixed right-6 bottom-6 md:right-8 md:bottom-8 z-[60] group cursor-grab touch-none"
+      className="fixed right-6 bottom-20 md:right-8 md:bottom-8 z-[60] group cursor-grab touch-none"
     >
       
       {/* --- EFECTO HALO / AURA --- */}

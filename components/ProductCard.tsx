@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Product, Size } from '../types';
 import { Heart, Check, ShoppingCart } from 'lucide-react';
+import { getOptimizedImageUrl } from '../lib/cloudinary';
 
 interface ProductCardProps {
   product: Product;
@@ -385,8 +386,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
           {/* Imágenes con posicionamiento 3D interactivo real (Parallax flotante) */}
           <motion.img 
             ref={mainImgRef}
-            src={product.img} 
+            src={getOptimizedImageUrl(product.img, { width: 600 })} 
             alt={product.title} 
+            loading="lazy"
+            decoding="async"
             onLoad={() => setMainLoaded(true)}
             className={`w-full h-full object-cover transition-opacity duration-[800ms] absolute top-0 left-0 
               ${isHovered ? 'opacity-0' : 'opacity-100'} 
@@ -406,8 +409,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
           {hasSecondaryImg && (
               <motion.img 
                 ref={secondaryImgRef}
-                src={product.secondaryImg} 
+                src={getOptimizedImageUrl(product.secondaryImg, { width: 600 })} 
                 alt={`${product.title} view 2`} 
+                loading="lazy"
+                decoding="async"
                 onLoad={() => setSecondaryLoaded(true)}
                 className={`w-full h-full object-cover transition-opacity duration-[800ms] absolute top-0 left-0
                   ${isHovered ? 'opacity-100' : 'opacity-0'}
@@ -484,6 +489,42 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
                 ${finalPrice.toFixed(2)}
             </span>
         </div>
+
+        {/* Selección Rápida Móvil */}
+        {product.inStock && (
+          <div className="md:hidden flex flex-col items-center gap-2 pt-1.5 w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-center gap-1.5 flex-wrap">
+              {allSizes.map((size, index) => {
+                const isSizeOutOfStock = outOfStockSizes.includes(size);
+                return (
+                  <button
+                    key={`mob-size-${size}-${index}`}
+                    disabled={isSizeOutOfStock}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedSize(size);
+                    }}
+                    className={`w-7 h-7 flex items-center justify-center text-[9px] font-bold rounded-full border transition-all ${
+                      isSizeOutOfStock
+                        ? 'opacity-30 border-gray-200 text-gray-300 cursor-not-allowed'
+                        : selectedSize === size
+                          ? 'bg-rose-gold text-white border-rose-gold shadow-sm'
+                          : 'bg-white/80 dark:bg-black/20 text-warm-charcoal dark:text-soft-white border-gray-200 dark:border-white/10'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              onClick={handleAddToCartClick}
+              className="w-full bg-warm-charcoal dark:bg-soft-white text-white dark:text-rich-black text-[8px] font-bold uppercase tracking-[0.25em] py-2.5 rounded-full hover:bg-rose-gold hover:text-white transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95"
+            >
+              <ShoppingCart className="w-3 h-3" /> Añadir
+            </button>
+          </div>
+        )}
       </div>
     </motion.div>
   );

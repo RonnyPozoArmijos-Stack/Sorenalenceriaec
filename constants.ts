@@ -150,18 +150,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 315,
-    title: "Rubí",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336363/WhatsApp_Image_2026-05-09_at_9.08.27_AM_4_c3nz55.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1778336368/WhatsApp_Image_2026-05-09_at_9.08.27_AM_3_nszgh1.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XS'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 314,
     title: "Rocío",
     price: 19.99,
@@ -248,17 +236,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 15,
-    title: "Viviana",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765594359/WhatsApp_Image_2025-12-12_at_9.51.43_PM_uyq2dj.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765594360/WhatsApp_Image_2025-12-12_at_9.51.43_PM_1_xiv4fe.jpg",
-    category: "Conjuntos",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 18,
     title: "Selene",
     price: 21.99,
@@ -274,17 +251,6 @@ export const PRODUCTS: Product[] = [
     title: "Lunaria",
     price: 14.99,
     img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555820/WhatsApp_Image_2025-12-11_at_5.52.40_PM_2_lons26.jpg",
-    category: "Conjuntos",
-    availableSizes: ['L'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 5,
-    title: "Luz de medianoche",
-    price: 14.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555394/WhatsApp_Image_2025-12-11_at_5.52.29_PM_2_iychgn.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555454/WhatsApp_Image_2025-12-11_at_5.52.29_PM_3_vzrjgr.jpg",
     category: "Conjuntos",
     availableSizes: ['L'],
     inStock: true,
