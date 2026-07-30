@@ -15,6 +15,14 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 );
 
 const Footer: React.FC = () => {
+  const scrollToPolicies = () => {
+    const el = document.getElementById('politicas');
+    if (el) {
+      const offsetPosition = el.offsetTop - (window.innerWidth < 768 ? 80 : 90);
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer id="contacto" className="bg-white dark:bg-rich-black text-luxury-gray dark:text-soft-white pt-24 pb-12 relative overflow-hidden scroll-mt-32 transition-colors duration-500">
       {/* Línea decorativa superior */}
@@ -127,11 +135,17 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Footer info secundaria */}
-        <div className="mt-16 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
+        <div className="mt-16 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[9px] uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500 text-center md:text-left leading-relaxed">
               &copy; {new Date().getFullYear()} Sorena Lencería &bull; Ecuador &bull; Diseño Ecuatoriano
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={scrollToPolicies}
+                className="text-[9px] uppercase tracking-[0.4em] text-rose-gold hover:underline font-bold transition-colors"
+              >
+                Políticas de Venta
+              </button>
               <div className="w-1.5 h-1.5 rounded-full bg-rose-gold/40"></div>
               <p className="text-[9px] uppercase tracking-[0.5em] text-gray-400 dark:text-gray-500">
                 Lujo y Elegancia

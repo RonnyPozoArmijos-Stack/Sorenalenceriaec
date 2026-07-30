@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Sparkles, ShoppingBag, MessageCircle } from 'lucide-react';
+import { Home, Sparkles, FileText, ShoppingBag, MessageCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 
 interface MobileBottomNavProps {
@@ -24,32 +24,48 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     }
   };
 
+  const scrollToPolicies = () => {
+    const el = document.getElementById('politicas');
+    if (el) {
+      const offsetPosition = el.offsetTop - (window.innerWidth < 768 ? 80 : 90);
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
   const openWhatsApp = () => {
     const msg = "Hola, quisiera consultar sobre los productos disponibles en Sorena Lencería. 🌸";
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-[5000] md:hidden bg-white/95 dark:bg-luxury-gray/95 backdrop-blur-xl border-t border-rose-gold/15 px-3 py-2 shadow-[0_-8px_25px_rgba(0,0,0,0.08)] flex items-center justify-around">
+    <nav className="fixed bottom-0 inset-x-0 z-[5000] md:hidden bg-white/95 dark:bg-luxury-gray/95 backdrop-blur-xl border-t border-rose-gold/15 px-2 py-2 shadow-[0_-8px_25px_rgba(0,0,0,0.08)] flex items-center justify-around">
       <button
         onClick={scrollToTop}
-        className="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-3"
+        className="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-1.5"
       >
         <Home className="w-5 h-5" />
-        <span className="text-[9px] font-bold uppercase tracking-wider">Inicio</span>
+        <span className="text-[8.5px] font-bold uppercase tracking-wider">Inicio</span>
       </button>
 
       <button
         onClick={scrollToCatalog}
-        className="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-3"
+        className="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-1.5"
       >
         <Sparkles className="w-5 h-5 text-rose-gold" />
-        <span className="text-[9px] font-bold uppercase tracking-wider">Catálogo</span>
+        <span className="text-[8.5px] font-bold uppercase tracking-wider">Catálogo</span>
+      </button>
+
+      <button
+        onClick={scrollToPolicies}
+        className="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-1.5"
+      >
+        <FileText className="w-5 h-5 text-rose-gold" />
+        <span className="text-[8.5px] font-bold uppercase tracking-wider">Políticas</span>
       </button>
 
       <button
         onClick={onOpenCart}
-        className="relative flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-3"
+        className="relative flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400 hover:text-rose-gold dark:hover:text-rose-gold transition-colors py-1 px-1.5"
       >
         <div className="relative">
           <ShoppingBag className="w-5 h-5 text-rose-gold" />
@@ -59,15 +75,15 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             </span>
           )}
         </div>
-        <span className="text-[9px] font-bold uppercase tracking-wider">Bolsa</span>
+        <span className="text-[8.5px] font-bold uppercase tracking-wider">Bolsa</span>
       </button>
 
       <button
         onClick={openWhatsApp}
-        className="flex flex-col items-center justify-center gap-1 text-[#25D366] hover:opacity-80 transition-opacity py-1 px-3"
+        className="flex flex-col items-center justify-center gap-1 text-[#25D366] hover:opacity-80 transition-opacity py-1 px-1.5"
       >
         <MessageCircle className="w-5 h-5" />
-        <span className="text-[9px] font-bold uppercase tracking-wider">WhatsApp</span>
+        <span className="text-[8.5px] font-bold uppercase tracking-wider">WhatsApp</span>
       </button>
     </nav>
   );

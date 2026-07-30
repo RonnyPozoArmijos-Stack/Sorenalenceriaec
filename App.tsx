@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import InfiniteMarquee from './components/Marquee';
 import History from './components/History';
+import Policies from './components/Policies';
 import ProductGrid from './components/ProductGrid';
 import CartModal from './components/CartModal';
 import ProductDetailModal from './components/ProductDetailModal';
@@ -265,6 +266,8 @@ function App() {
         >
           <History />
         </motion.div>
+
+        <Policies />
       </main>
 
       <Footer />
