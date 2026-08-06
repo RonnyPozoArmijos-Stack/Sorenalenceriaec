@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Package, ShieldAlert, Clock, Tag, CreditCard, Truck } from 'lucide-react';
 
 const History: React.FC = () => {
   return (
@@ -77,6 +78,77 @@ const History: React.FC = () => {
                   </p>
                 </motion.div>
               </div>
+
+              {/* Políticas de Venta Section */}
+              <motion.div 
+                id="politicas"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="mt-14 scroll-mt-24 md:scroll-mt-32 p-6 sm:p-10 rounded-2xl bg-ivory-light/30 dark:bg-black/25 border border-rose-gold/10 text-left transition-all duration-500 shadow-[0_10px_35px_rgba(0,0,0,0.01)]"
+              >
+                <div className="flex items-center gap-3 mb-8 justify-center sm:justify-start">
+                  <div className="w-1.5 h-6 bg-rose-gold rounded-full"></div>
+                  <h4 className="font-serif text-2xl text-warm-charcoal dark:text-soft-white italic font-medium">Políticas de Venta</h4>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[13px] sm:text-[14px] policies-container">
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <Package className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      Los productos se entregan según disponibilidad de stock.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <ShieldAlert className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      No se realizan cambios ni devoluciones por prendas íntimas por razones de higiene.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <Clock className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      Se aceptan cambios únicamente por defectos de fábrica dentro de las 24 horas posteriores a la entrega.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <Tag className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      Los productos deben conservar etiquetas y estar sin uso.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <CreditCard className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      Los pedidos se procesan una vez confirmado el pago.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 policy-item">
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <Truck className="w-4 h-4" />
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300 font-serif leading-relaxed">
+                      Los envíos tienen un tiempo estimado previamente informado al cliente.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
               
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}

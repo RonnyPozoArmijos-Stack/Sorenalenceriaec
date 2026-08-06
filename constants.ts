@@ -150,7 +150,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 512,
     title: "Marian",
-    price: 19.99,
+    price: 24.99,
     img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429724/WhatsApp_Image_2026-07-30_at_11.27.57_AM_3_r2kaoe.jpg",
     secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429727/WhatsApp_Image_2026-07-30_at_11.27.57_AM_4_w7r2fu.jpg",
     category: "Conjuntos",
