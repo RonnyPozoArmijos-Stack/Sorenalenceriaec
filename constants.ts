@@ -88,18 +88,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 507,
-    title: "Camila",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429351/WhatsApp_Image_2026-07-30_at_11.27.53_AM_2_fb9iw0.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429363/WhatsApp_Image_2026-07-30_at_11.27.53_AM_3_ptodlj.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 508,
     title: "Julieta",
     price: 21.99,
@@ -180,30 +168,6 @@ export const PRODUCTS: Product[] = [
     category: "Conjuntos",
     tag: "NUEVO",
     availableSizes: ['S'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 406,
-    title: "Paloma",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655699/WhatsApp_Image_2026-06-16_at_7.13.40_PM_5_wklrfo.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655702/WhatsApp_Image_2026-06-16_at_7.13.40_PM_6_qwjxpv.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 405,
-    title: "Noa",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655675/WhatsApp_Image_2026-06-16_at_7.13.40_PM_3_xdmnco.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1781655678/WhatsApp_Image_2026-06-16_at_7.13.40_PM_4_rmhnmz.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
@@ -318,19 +282,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 310,
-    title: "Coffe",
-    price: 19.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159359/WhatsApp_Image_2026-04-02_at_1.42.50_PM_zzulwp.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159364/WhatsApp_Image_2026-04-02_at_1.42.50_PM_2_eowhgj.jpg",
-    tertiaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/q_auto/f_auto/v1775159361/WhatsApp_Image_2026-04-02_at_1.42.50_PM_1_vtkkxp.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['M'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 309,
     title: "Gala",
     price: 24.99,
@@ -368,18 +319,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 12,
-    title: "Noa",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765427808/WhatsApp_Image_2025-12-02_at_4.03.29_PM_2_flftmz.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765427789/WhatsApp_Image_2025-12-02_at_4.03.29_PM_3_rjfenn.jpg",
-    category: "Conjuntos",
-    tag: "MAS VENDIDO",
-    availableSizes: ['S'],
-    inStock: false,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 18,
     title: "Selene",
     price: 21.99,
@@ -397,17 +336,6 @@ export const PRODUCTS: Product[] = [
     img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555820/WhatsApp_Image_2025-12-11_at_5.52.40_PM_2_lons26.jpg",
     category: "Conjuntos",
     availableSizes: ['L'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
-    id: 9,
-    title: "Rossetta",
-    price: 17.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555111/WhatsApp_Image_2025-12-11_at_5.52.32_PM_j1vswr.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1765555273/WhatsApp_Image_2025-12-11_at_5.52.33_PM_1_l8kr5e.jpg",
-    category: "Conjuntos",
-    availableSizes: ['M'],
     inStock: true,
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
