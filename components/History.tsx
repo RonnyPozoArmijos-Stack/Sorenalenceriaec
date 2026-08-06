@@ -50,10 +50,12 @@ const History: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4, duration: 0.8 }}
-                  className="p-6 sm:p-8 rounded-2xl bg-ivory-light/50 dark:bg-black/35 border border-rose-gold/10 hover:border-rose-gold/30 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-all duration-500 history-card"
+                  className="p-6 sm:p-8 rounded-2xl bg-white/40 dark:bg-white/5 border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 hover:shadow-md history-card"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-1.5 h-6 bg-rose-gold rounded-full"></div>
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <div className="w-1.5 h-5 bg-rose-gold rounded-full"></div>
+                    </div>
                     <h4 className="font-serif text-xl sm:text-2xl text-warm-charcoal dark:text-soft-white italic font-medium">Misión</h4>
                   </div>
                   <p className="text-[13px] sm:text-[14.5px] text-gray-500 dark:text-gray-300 font-serif leading-relaxed italic">
@@ -67,10 +69,12 @@ const History: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, duration: 0.8 }}
-                  className="p-6 sm:p-8 rounded-2xl bg-ivory-light/50 dark:bg-black/35 border border-rose-gold/10 hover:border-rose-gold/30 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-all duration-500 history-card"
+                  className="p-6 sm:p-8 rounded-2xl bg-white/40 dark:bg-white/5 border border-gray-100/30 dark:border-white/5 shadow-sm transition-all duration-300 hover:border-rose-gold/25 hover:shadow-md history-card"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-1.5 h-6 bg-rose-gold rounded-full"></div>
+                    <div className="text-rose-gold p-2 bg-rose-gold/5 rounded-lg shrink-0">
+                      <div className="w-1.5 h-5 bg-rose-gold rounded-full"></div>
+                    </div>
                     <h4 className="font-serif text-xl sm:text-2xl text-warm-charcoal dark:text-soft-white italic font-medium">Visión</h4>
                   </div>
                   <p className="text-[13px] sm:text-[14.5px] text-gray-500 dark:text-gray-300 font-serif leading-relaxed italic">

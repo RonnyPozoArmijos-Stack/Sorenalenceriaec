@@ -86,25 +86,75 @@
         --muted: #F2ECE8;
         --muted-foreground: #8E8A86;
         --border: rgba(212, 165, 165, 0.2);
+        --card-gradient-1: linear-gradient(-45deg, #E8A5B8 0%, #D4A5A5 50%, #C0788A 100%);
+        --card-gradient-2: linear-gradient(-45deg, #F4C2C2 0%, #B58585 100%);
+        --card-glow-opacity: 0.6;
       }
       .dark {
         --background: #121214;
         --muted: #1C1C1E;
         --muted-foreground: #a3a3a3;
         --border: rgba(255, 255, 255, 0.1);
+        --card-gradient-1: linear-gradient(-45deg, #E8B4B8 0%, #C0788A 50%, #E8A5B8 100%);
+        --card-gradient-2: linear-gradient(-45deg, #D4A5A5 0%, #9E5B6D 100%);
+        --card-glow-opacity: 0.55;
+      }
+
+      /* Card Effect from Uiverse.io adapted with Sorena brand luxury colors */
+      .uiverse-card {
+        position: relative;
+        z-index: 1;
+      }
+
+      .uiverse-card::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        margin: auto;
+        border-radius: 10px;
+        background: var(--card-gradient-1);
+        z-index: -10;
+        pointer-events: none;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .uiverse-card::after {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        background: var(--card-gradient-2);
+        transform: translate3d(0, 0, 0) scale(0.95);
+        filter: blur(20px);
+        pointer-events: none;
+        opacity: var(--card-glow-opacity);
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .uiverse-card:hover::after,
+      .group:hover .uiverse-card::after {
+        filter: blur(32px);
+        opacity: 0.95;
+        transform: translate3d(0, 0, 0) scale(1.02);
+      }
+
+      .uiverse-card:hover::before,
+      .group:hover .uiverse-card::before {
+        transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
       }
       
-      /* Dark mode gold overrides for decorative elements & borders */
+      /* Dark mode Rose Gold overrides for decorative elements & borders */
       .dark .scroll-progress-bar {
-        background: linear-gradient(to right, #F4C430, #D4AF37, #FFFDD0) !important;
+        background: linear-gradient(to right, #E8A5B8, #D4A5A5, #C0788A) !important;
       }
       .dark .bg-rose-gold\/20,
       .dark .bg-rose-gold\/40,
       .dark .bg-rose-gold\/50 {
-        background-color: rgba(244, 196, 48, 0.25) !important;
+        background-color: rgba(232, 165, 184, 0.25) !important;
       }
       .dark .bg-rose-gold\/5 {
-        background-color: rgba(244, 196, 48, 0.05) !important;
+        background-color: rgba(232, 165, 184, 0.05) !important;
       }
       .dark .border-rose-gold\/10,
       .dark .border-rose-gold\/15,
@@ -114,17 +164,17 @@
       .dark .border-rose-gold\/25,
       .dark .border-rose-gold\/30,
       .dark .border-rose-gold\/5 {
-        border-color: rgba(244, 196, 48, 0.25) !important;
+        border-color: rgba(232, 165, 184, 0.25) !important;
       }
       .dark .via-rose-gold\/20 {
-        --tw-gradient-via: rgba(244, 196, 48, 0.25) !important;
-        --tw-gradient-stops: var(--tw-gradient-from), rgba(244, 196, 48, 0.25), var(--tw-gradient-to) !important;
+        --tw-gradient-via: rgba(232, 165, 184, 0.25) !important;
+        --tw-gradient-stops: var(--tw-gradient-from), rgba(232, 165, 184, 0.25), var(--tw-gradient-to) !important;
       }
       .dark .text-rose-gold {
-        color: #F4C430 !important;
+        color: #E8A5B8 !important;
       }
       .dark .text-rose-gold-dark {
-        color: #D4AF37 !important;
+        color: #C0788A !important;
       }
       html {
         scroll-behavior: smooth;

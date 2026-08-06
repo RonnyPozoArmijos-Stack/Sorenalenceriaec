@@ -251,7 +251,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
         style={{ touchAction: 'pan-y' }}
     >
       {/* 3D Perspective Nesting Environment Wrapper (Higher perspective on mobile for flatter, safer projection) */}
-      <div className="relative w-full aspect-[3/4] mb-6 cursor-pointer" style={{ perspective: isMobile ? '1600px' : '1000px' }}>
+      <div className="relative w-full aspect-[3/4] mb-6 cursor-pointer uiverse-card" style={{ perspective: isMobile ? '1600px' : '1000px' }}>
         {/* Capa de borde decorativo absoluto (Parallax de fondo) posicionado detrás */}
         <motion.div
           style={{
