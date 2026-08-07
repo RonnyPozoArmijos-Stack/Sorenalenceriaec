@@ -20,13 +20,60 @@ async function startServer() {
     }
   });
 
+  // Helper function for intelligent size calculation fallback
+  function getSmartSizeReply(userText: string): string {
+    const text = userText.toLowerCase().trim();
+
+    if (text.includes('gracias') || text.includes('chao') || text.includes('adiós') || text.includes('adios') || text.includes('hasta luego') || text.includes('finalizar') || text.includes('listo')) {
+      return "¡Muchas gracias a ti bella! 💖 Fue un placer ayudarte a encontrar tu calce perfecto. Si necesitas cualquier otra cosa, siempre estaré aquí para ti. ¡Que tengas un día radiante y maravilloso! ✨";
+    }
+
+    if (text.includes('unica') || text.includes('única') || text.includes('ajustable')) {
+      return "✨ La Talla Única Sorena es super versátil: abarca de la S a la L (busto 84-98 cm) gracias a sus correas y espaldas elásticas totalmente regulables. 💖";
+    }
+
+    if (text.includes('medir') || text.includes('medida') || text.includes('cómo') || text.includes('como')) {
+      return "📏 Para medir tu busto, pasa la cinta sin apretar por la parte más prominente. Para la cadera, mide la parte más ancha de los glúteos. ¡Dime tus cm y te aconsejo tu talla al instante! ✨";
+    }
+
+    if (/\b(30a|32a|30b)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XS. 💖";
+    if (/\b(32b|34a|32c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es S. 💖";
+    if (/\b(34b|36a|34c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es M. 💖";
+    if (/\b(36b|38a|36c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es L. 💖";
+    if (/\b(38b|40b|38c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XL. 💖";
+
+    const numbers = text.match(/\d+/g)?.map(Number) || [];
+    if (numbers.length > 0) {
+      const num = numbers[0];
+      if (num >= 70 && num <= 83) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es XS. 💖`;
+      if (num >= 84 && num <= 89) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es S. 💖`;
+      if (num >= 90 && num <= 95) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es M. 💖`;
+      if (num >= 96 && num <= 102) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es L. 💖`;
+      if (num >= 103 && num <= 115) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es XL. 💖`;
+    }
+
+    return "¡Hola bella! ✨ Dime tus medidas de busto/cadera en cm o la talla de brasier que usas habitualmente (ej. 34B) y te aconsejaré tu talla perfecta de inmediato. 💖";
+  }
+
   // API Route for AI Size Advisor
   app.post("/api/size-agent", async (req, res) => {
+    let lastUserMessage = "";
     try {
       const { messages } = req.body;
 
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: "Mensajes no válidos" });
+      }
+
+      const userMsgs = messages.filter((m: { role: string }) => m.role === 'user');
+      if (userMsgs.length > 0) {
+        lastUserMessage = userMsgs[userMsgs.length - 1].content || "";
+      }
+
+      // If API key is not present, use smart fallback directly
+      if (!apiKey) {
+        const reply = getSmartSizeReply(lastUserMessage);
+        return res.json({ reply });
       }
 
       const systemInstruction = `
@@ -73,14 +120,12 @@ REGLAS DE CONDUCTA Y AMABILIDAD:
         }
       });
 
-      const reply = response.text || "Hola bella, para recomendarte tu talla ideal por favor dime tu medida de busto, cadera o la talla de brasier que usas habitualmente (ej. 34B). ✨";
+      const reply = response.text || getSmartSizeReply(lastUserMessage);
       return res.json({ reply });
     } catch (error: any) {
-      console.error("Gemini Size Agent Error:", error);
-      return res.status(500).json({ 
-        error: "Error procesando la consulta", 
-        reply: "Hola bella, ocurrió un pequeño inconveniente al consultar la IA. Puedes revisar la tabla de medidas o escribirnos directamente a WhatsApp. ✨"
-      });
+      console.warn("Gemini Size Agent using smart fallback:", error?.message || error);
+      const reply = getSmartSizeReply(lastUserMessage);
+      return res.json({ reply });
     }
   });
 

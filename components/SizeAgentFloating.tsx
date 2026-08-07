@@ -59,6 +59,40 @@ const SizeAgentFloating: React.FC = () => {
     setIsEnded(true);
   };
 
+  const getSmartFallbackReply = (userText: string): string => {
+    const text = userText.toLowerCase().trim();
+
+    if (text.includes('gracias') || text.includes('chao') || text.includes('adiós') || text.includes('adios') || text.includes('hasta luego') || text.includes('finalizar') || text.includes('listo')) {
+      return "¡Muchas gracias a ti bella! 💖 Fue un placer ayudarte a encontrar tu calce perfecto. Si necesitas cualquier otra cosa, siempre estaré aquí para ti. ¡Que tengas un día radiante y maravilloso! ✨";
+    }
+
+    if (text.includes('unica') || text.includes('única') || text.includes('ajustable')) {
+      return "✨ La Talla Única Sorena es super versátil: abarca de la S a la L (busto 84-98 cm) gracias a sus correas y espaldas elásticas totalmente regulables. 💖";
+    }
+
+    if (text.includes('medir') || text.includes('medida') || text.includes('cómo') || text.includes('como')) {
+      return "📏 Para medir tu busto, pasa la cinta sin apretar por la parte más prominente. Para la cadera, mide la parte más ancha de los glúteos. ¡Dime tus cm y te aconsejo tu talla al instante! ✨";
+    }
+
+    if (/\b(30a|32a|30b)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XS. 💖";
+    if (/\b(32b|34a|32c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es S. 💖";
+    if (/\b(34b|36a|34c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es M. 💖";
+    if (/\b(36b|38a|36c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es L. 💖";
+    if (/\b(38b|40b|38c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XL. 💖";
+
+    const numbers = text.match(/\d+/g)?.map(Number) || [];
+    if (numbers.length > 0) {
+      const num = numbers[0];
+      if (num >= 70 && num <= 83) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es XS. 💖`;
+      if (num >= 84 && num <= 89) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es S. 💖`;
+      if (num >= 90 && num <= 95) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es M. 💖`;
+      if (num >= 96 && num <= 102) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es L. 💖`;
+      if (num >= 103 && num <= 115) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es XL. 💖`;
+    }
+
+    return "¡Hola bella! ✨ Dime tus medidas de busto/cadera en cm o la talla de brasier que usas habitualmente (ej. 34B) y te aconsejaré tu talla perfecta de inmediato. 💖";
+  };
+
   const handleSend = async (customText?: string) => {
     const textToSend = customText || input;
     if (!textToSend.trim() || isLoading) return;
@@ -92,7 +126,7 @@ const SizeAgentFloating: React.FC = () => {
       });
 
       const data = await res.json();
-      const replyText = data.reply || "Hola bella, ocurrió un pequeño problema al procesar tu consulta. Puedes revisar la tabla de medidas o escribirnos a WhatsApp. ✨";
+      const replyText = data?.reply || getSmartFallbackReply(textToSend);
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
@@ -103,11 +137,12 @@ const SizeAgentFloating: React.FC = () => {
 
       setMessages(prev => [...prev, botMsg]);
     } catch (err) {
-      console.error("Error connecting to AI size agent:", err);
+      console.warn("Error connecting to AI size agent, using local fallback:", err);
+      const fallbackReply = getSmartFallbackReply(textToSend);
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: "Hola bella, ocurrió un detalle de conexión. Puedes revisar la pestaña 'Tabla de Medidas' o escribirnos por WhatsApp con gusto. ✨",
+        content: fallbackReply,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, errorMsg]);
@@ -169,19 +204,19 @@ const SizeAgentFloating: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ type: "spring", stiffness: 350, damping: 28 }}
-              className="fixed inset-x-3 top-10 bottom-20 md:top-auto md:bottom-24 md:left-8 md:right-auto z-[9999] w-auto md:w-[420px] h-[calc(100vh-130px)] md:h-[530px] max-h-[600px] bg-white dark:bg-luxury-gray rounded-2xl border border-rose-gold/30 shadow-[0_25px_60px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+              className="fixed inset-x-2 top-8 bottom-16 sm:inset-x-3 sm:top-12 sm:bottom-20 md:top-auto md:bottom-24 md:left-8 md:right-auto z-[9999] w-auto md:w-[420px] max-h-[85vh] md:h-[530px] bg-white dark:bg-luxury-gray rounded-2xl border border-rose-gold/30 shadow-[0_25px_60px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-rich-black via-warm-charcoal to-rich-black text-white px-4 py-3.5 flex items-center justify-between border-b border-rose-gold/20 shrink-0">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-rose-gold to-white/20 flex items-center justify-center p-0.5 shadow-md shrink-0">
+              <div className="bg-gradient-to-r from-rich-black via-warm-charcoal to-rich-black text-white px-3.5 py-3 sm:px-4 sm:py-3.5 flex items-center justify-between border-b border-rose-gold/20 shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-rose-gold to-white/20 flex items-center justify-center p-0.5 shadow-md shrink-0">
                     <div className="w-full h-full bg-rich-black rounded-full flex items-center justify-center">
                       <Sparkles className="w-4 h-4 text-rose-gold animate-pulse" />
                     </div>
-                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-rich-black" />
+                    <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-400 rounded-full border border-rich-black" />
                   </div>
                   <div>
-                    <h3 className="font-serif italic text-base text-white font-medium flex items-center gap-1.5 leading-tight">
+                    <h3 className="font-serif italic text-sm sm:text-base text-white font-medium flex items-center gap-1.5 leading-tight">
                       Asesora de Tallas Sorena
                     </h3>
                     <p className="text-[9px] text-rose-gold uppercase tracking-[0.2em] font-semibold">
@@ -195,7 +230,7 @@ const SizeAgentFloating: React.FC = () => {
                   <button
                     onClick={() => setIsOpen(false)}
                     title="Cerrar asistente"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-gold hover:bg-rose-gold-dark text-white text-[11px] font-bold uppercase tracking-wider shadow-lg active:scale-95 transition-all border border-white/30 cursor-pointer"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-rose-gold hover:bg-rose-gold-dark text-white text-[11px] font-bold uppercase tracking-wider shadow-lg active:scale-95 transition-all border border-white/40 cursor-pointer shrink-0"
                     aria-label="Cerrar asistente virtual"
                   >
                     <span>Cerrar</span>
