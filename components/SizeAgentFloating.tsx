@@ -81,24 +81,103 @@ const SizeAgentFloating: React.FC = () => {
       "💖 ¿Te gustaría ver alguno de estos modelos en el catálogo?",
       "🌸 ¿Tienes alguna duda adicional sobre tus medidas o el calce?",
       "✨ Si deseas hacer tu pedido directo, ¡puedes agregarlo al carrito o escribirme a WhatsApp!",
-      "💖 ¿Prefieres un estilo en encaje romántico o algo más audaz?"
+      "💖 ¿Prefieres un estilo en encaje romántico o algo más audaz?",
+      "✨ ¿Te puedo sugerir algún conjunto especial según la ocasión?"
     ];
 
-    // 1. Saludos / Despedidas
+    // 1. Saludos y Agradecimientos / Despedidas
     if (text.includes('gracias') || text.includes('chao') || text.includes('adiós') || text.includes('adios') || text.includes('listo') || text.includes('finalizar')) {
       return pickVaried([
         "¡Muchísimas gracias a ti hermosa! 💖 Fue un placer enorme aconsejarte. ¡Que tengas un día maravilloso e iluminado! ✨",
         "¡A ti bella! 🌸 Recuerda que siempre estaré aquí para ayudarte con tus tallas y conjuntos de Sorena Lencería. ¡Un abrazo enorme! 💖",
-        "¡Gracias por escribirnos reina! ✨ Si necesitas cualquier otra recomendación, aquí me tendrás lista. ¡Disfruta mucho tu día! 💖"
+        "¡Gracias por escribirnos reina! ✨ Si necesitas cualquier otra recomendación, aquí me tendrás lista. ¡Disfruta mucho tu día! 💖",
+        "¡Un encanto atenderte! 🌹 Si requieres asistencia con tu pedido o dudas de calce, escríbeme cuando quieras. ✨"
       ]);
     }
 
-    // 2. Envíos / Compras / WhatsApp / Ubicación
-    if (text.includes('envío') || text.includes('envios') || text.includes('comprar') || text.includes('pago') || text.includes('whatsapp') || text.includes('tienda') || text.includes('donde') || text.includes('dónde') || text.includes('ecuador')) {
-      return `${pickVaried(greetings)} Hacemos envíos 100% seguros a todo el Ecuador 🇪🇨. Puedes realizar tu pedido desde esta web o escribirnos directo a nuestro WhatsApp +593 96 900 1613. ${pickVaried(closings)}`;
+    if (text === 'hola' || text === 'buenas' || text === 'buenos dias' || text === 'buenas tardes' || text === 'buenas noches' || text === 'hola!') {
+      return pickVaried([
+        "✨ ¡Hola bella! Bienvenida a Sorena Lencería. Soy tu asesora virtual. ¿En qué puedo aconsejarte hoy? (tallas, modelos, envíos, o recomendaciones). 💖",
+        "🌸 ¡Hola hermosa! Qué lindo tenerte aquí. Dime tus medidas, talla habitual o tu duda y te guiaré a encontrar tu conjunto soñado. ✨",
+        "✨ ¡Hola reina! ¿Buscando la talla o modelo perfecto para ti? Dime tus consultas o medidas y te atenderé al instante. 💖"
+      ]);
     }
 
-    // 3. Consultas por Tallas específicas (XL, L, M, S, XS, Única)
+    // 2. Materiales, telas y calidad de prendas
+    if (text.includes('material') || text.includes('tela') || text.includes('encaje') || text.includes('calidad') || text.includes('algodon') || text.includes('algodón') || text.includes('saten') || text.includes('satén') || text.includes('pica')) {
+      return pickVaried([
+        `${pickVaried(greetings)} Nuestras prendas están confeccionadas con encajes ultra suaves de alta densidad, blondas elastizadas de tacto sedoso y forro íntimo 100% algodón hipoalergénico para tu total comodidad. 💖 ${pickVaried(closings)}`,
+        `🌸 En Sorena Lencería priorizamos el confort supremo: el encaje es extremadamente suave y flexible, no pica ni causa irritación, e incluye forro de algodón puro en la parte íntima. ✨ ${pickVaried(closings)}`,
+        `✨ Trabajamos con materiales de categoría premium: encajes delicados, tirantes ajustables súper suaves y accesorios metálicos antioxidantes. ¡Sentirás una suavidad incomparable! 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 3. Cuidado y lavado de las prendas
+    if (text.includes('lavar') || text.includes('lavado') || text.includes('cuidado') || text.includes('mantenimiento') || text.includes('secadora')) {
+      return pickVaried([
+        `📏 Para conservar la textura y el color radiante de tu lencería: lávala a mano con agua fría y jabón neutro suave. No retuerzas la prenda ni uses secadora; déjala secar a la sombra. ✨ ${pickVaried(closings)}`,
+        `✨ Cuidar tus conjuntos Sorena es muy sencillo: recomendamos lavado a mano con agua fría. Evita blanqueadores y la secadora automática para preservar la elasticidad del encaje. 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 4. Envíos, tiempos, costo y envío gratis
+    if (text.includes('envío') || text.includes('envios') || text.includes('costo de envio') || text.includes('gratis') || text.includes('tiempo') || text.includes('demora') || text.includes('cuanto tarda') || text.includes('cuanto demora') || text.includes('provincia')) {
+      return pickVaried([
+        `${pickVaried(greetings)} Realizamos envíos 100% seguros a todas las ciudades del Ecuador 🇪🇨 (vía Servientrega o Tramaco). El tiempo de entrega es de 24 a 48 horas laborables. El envío estándar es de $4.50 e ¡incluye ENVÍO GRATIS en compras desde $60! 💖 ${pickVaried(closings)}`,
+        `✨ ¡Llegamos a todo el Ecuador! 🇪🇨 Tu pedido te llega directo a tu domicilio o agencia Servientrega en 1 a 2 días hábiles. ¡Recuerda que por compras superiores a $60 el envío es totalmente GRATIS! 🌸 ${pickVaried(closings)}`,
+        `🌸 Despachamos tus conjuntos con embalaje súper seguro a cualquier provincia de Ecuador. La entrega toma de 24 a 48 horas. ¡Aprovecha el envío gratis al llevar $60 o más! ✨ ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 5. Métodos de pago y proceso de compra
+    if (text.includes('pago') || text.includes('transferencia') || text.includes('tarjeta') || text.includes('pichincha') || text.includes('guayaquil') || text.includes('deuna') || text.includes('comprar') || text.includes('como pido')) {
+      return pickVaried([
+        `${pickVaried(greetings)} Aceptamos transferencias bancarias (Pichincha, Guayaquil, Produbanco), Deuna!, tarjetas de crédito/débito y pagos online seguros. Puedes realizar tu pedido desde el carrito de la tienda o directo a nuestro WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
+        `✨ Tienes varias opciones muy cómodas: transferencia directa, Deuna! o tarjeta de crédito/débito. Al confirmar tu carrito te daremos los datos exactos o podemos coordinar todo vía WhatsApp. 🌸 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 6. Empaque discreto y opciones de regalo
+    if (text.includes('empaque') || text.includes('discreto') || text.includes('regalo') || text.includes('caja') || text.includes('envoltura') || text.includes('anonimo') || text.includes('anónimo')) {
+      return pickVaried([
+        `🎁 ¡Tu privacidad y elegancia son prioridad! Todos nuestros pedidos se envían en un empaque hermoso y 100% DISCRETO, sin sellos ni palabras explícitas por fuera. Si es un regalo, ¡podemos incluir una tarjeta con dedicatoria personalizada sin costo adicional! ✨ ${pickVaried(closings)}`,
+        `✨ Despachamos tu compra en un sobre o caja de presentación de lujo totalmente discreto. Nadie sabrá el contenido desde el exterior. Además, agregamos tarjetas dedicatorias gratuitas para regalos especiales. 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 7. Cambios, devoluciones y garantía de talla
+    if (text.includes('cambio') || text.includes('devolucion') || text.includes('devolución') || text.includes('garantia') || text.includes('garantía') || text.includes('si no me queda')) {
+      return pickVaried([
+        `🌸 ¡Queremos que te sientas perfecta! Ofrecemos cambios de talla dentro de los primeros 3 días posteriores a la entrega, siempre que la prenda esté sin usar, impecable y conserve todas sus etiquetas e higiene intactas. ✨ ${pickVaried(closings)}`,
+        `✨ Si por alguna razón la talla no te queda como esperabas, te gestionamos el cambio de manera rápida dentro de los 3 días de recibido el pedido. ¡Por eso también te ayudo a elegir la talla idónea antes de comprar! 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 8. Ubicación o tienda física
+    if (text.includes('ubicacion') || text.includes('ubicación') || text.includes('tienda fisica') || text.includes('tienda física') || text.includes('local') || text.includes('donde estan') || text.includes('dónde están') || text.includes('direccion') || text.includes('dirección')) {
+      return pickVaried([
+        `✨ Somos una boutique de lencería 100% online con sede de despachos centrales en Ecuador. Despachamos pedidos diarios a todo el país con atención ultra personalizada a través de la web y WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
+        `🌸 Operamos de forma 100% digital con envíos express a todas las ciudades de Ecuador. Así aseguramos la máxima frescura de stock, promociones exclusivas y atención personalizada directa a tu celular. ✨ ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 9. Recomendación para ocasión especial / noche de bodas / cita
+    if (text.includes('especial') || text.includes('boda') || text.includes('novia') || text.includes('aniversario') || text.includes('cita') || text.includes('sexy') || text.includes('rojo') || text.includes('negro')) {
+      return pickVaried([
+        `🌹 ¡Para una ocasión inolvidable te recomiendo nuestros modelos de línea seducción! El conjunto Victoria ($29.99 en encaje negro sofisticado) o Amore ($29.99 en un rojo apasionante) son opciones fabulosas. ✨ ${pickVaried(closings)}`,
+        `✨ Si buscas deslumbrar en una noche especial, los modelos Victoria ($29.99), Valentina ($24.99) o Amore ($29.99) tienen ligueros y detalles de encaje que lucen increíbles. 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 10. Talla intermedia o dudas de medida
+    if (text.includes('entre dos') || text.includes('intermedia') || text.includes('duda de talla') || text.includes('no se mi talla') || text.includes('no sé mi talla')) {
+      return pickVaried([
+        `📏 Si estás entre dos tallas, te aconsejamos elegir la talla mayor o un modelo con tirantes y espalda regulable (como la Talla Única o nuestros conjuntos con ajustes). ¡Dime tus medidas de busto/cadera y lo evaluamos juntas! ✨ ${pickVaried(closings)}`,
+        `✨ Para siluetas entre dos tallas, la recomendación ideal es guiarse por la medida del busto y optar por tirantes graduables. Si me compartes tus cm te diré la mejor alternativa. 💖 ${pickVaried(closings)}`
+      ]);
+    }
+
+    // 11. Consultas por Tallas específicas (XL, L, M, S, XS, Única)
     if (/\b(xl|extra large|extra grande)\b/.test(text) || text.includes('talla xl') || text.includes('para xl') || text.includes('medidas xl')) {
       const xlResponses = [
         `✨ Para la Talla XL (Busto 103-110 cm | Cadera 109-115 cm | Brasier 38B/40B), te super recomiendo nuestros hermosos modelos: Amore ($29.99), Sofia ($24.99) y Marian ($24.99). ${pickVaried(closings)}`,
@@ -144,7 +223,7 @@ const SizeAgentFloating: React.FC = () => {
       return `✨ La Talla Única Sorena es super versátil: abarca de S a L (busto 84-98 cm, cadera 91-108 cm) gracias a sus correas y espalda regulables. ${pickVaried(closings)}`;
     }
 
-    // 4. Búsqueda de producto específico por su nombre
+    // 12. Búsqueda de producto específico por nombre
     const products = [
       { name: 'isavelle', price: '$21.99', size: 'XS' },
       { name: 'lore', price: '$24.99', size: 'S' },
@@ -182,14 +261,14 @@ const SizeAgentFloating: React.FC = () => {
       return `${pickVaried(greetings)} El hermoso conjunto ${prodNameCap} tiene un precio de ${matchedProd.price} y viene disponible en Talla ${matchedProd.size}. ${pickVaried(closings)}`;
     }
 
-    // 5. Talla de brasier habitual
+    // 13. Talla de brasier habitual
     if (/\b(30a|32a|30b)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es XS. Te sugiero los modelos Isavelle ($21.99) y Ámbar ($19.99). ${pickVaried(closings)}`;
     if (/\b(32b|34a|32c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es S. Te sugiero los modelos Lore ($24.99), Catalina ($24.99) y Oliva ($24.99). ${pickVaried(closings)}`;
     if (/\b(34b|36a|34c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es M. Te sugiero los modelos Victoria ($29.99), Valentina ($24.99) y Julieta ($21.99). ${pickVaried(closings)}`;
     if (/\b(36b|38a|36c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es L. Te sugiero los modelos Gabriela ($24.99), Selva ($24.99) y Gala ($24.99). ${pickVaried(closings)}`;
     if (/\b(38b|40b|38c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es XL. Te sugiero los modelos Amore ($29.99), Sofia ($24.99) y Marian ($24.99). ${pickVaried(closings)}`;
 
-    // 6. Medidas numéricas en cm
+    // 14. Medidas numéricas en cm
     const numbers = text.match(/\d+/g)?.map(Number) || [];
     if (numbers.length > 0) {
       const num = numbers[0];
@@ -200,16 +279,16 @@ const SizeAgentFloating: React.FC = () => {
       if (num >= 103 && num <= 115) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es XL. Te recomiendo Amore ($29.99) y Sofia ($24.99). ${pickVaried(closings)}`;
     }
 
-    // 7. Cómo medir
+    // 15. Cómo medir
     if (text.includes('cómo medir') || text.includes('como medir') || text.includes('dónde medir') || text.includes('donde medir') || text.includes('medida')) {
       return `${pickVaried(greetings)} 📏 Para medir tu busto, pasa la cinta sin apretar sobre la parte más prominente. Para la cadera, mide la zona más ancha. Dime tus cm o tu talla de brasier habitual y te recomendaré tu talla exacta con modelos disponibles. ${pickVaried(closings)}`;
     }
 
-    // 8. Default respuesta variada
+    // 16. Default respuesta variada para cualquier otra consulta
     const defaults = [
-      "¡Hola bella! ✨ Dime tu medida en cm, tu talla de brasier habitual (ej. 34B, 38B) o la talla que deseas buscar (XS, S, M, L, XL) y te aconsejaré tu calce perfecto con nuestros modelos y precios. 💖",
-      "¡Con todo el gusto te asesoro, reina! 🌸 Escríbeme qué talla sueles usar o qué modelo te gusta de Sorena Lencería y te diré las medidas y precios exactos. ✨",
-      "✨ ¡Bienvenida a Sorena Lencería! Dime si buscas una talla en particular (XS a XL) o si deseas que calculemos tu calce ideal con tus medidas de busto o cadera. 💖"
+      "¡Hola bella! ✨ Dime tus medidas en cm, tu talla de brasier habitual o la consulta que tengas sobre modelos, envíos o pagos y te ayudaré encantada. 💖",
+      "¡Con todo el gusto te asesoro, reina! 🌸 Escríbeme qué talla o modelo buscas en Sorena Lencería y te daré detalles de calce, disponibilidad y precios. ✨",
+      "✨ ¡Bienvenida a Sorena Lencería! Estoy lista para responder cualquier duda sobre nuestras prendas, cuidados, envíos a todo Ecuador o recomendaciones de tallas. 💖"
     ];
     return pickVaried(defaults);
   };
