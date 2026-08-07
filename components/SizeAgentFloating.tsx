@@ -62,24 +62,44 @@ const SizeAgentFloating: React.FC = () => {
   const getSmartFallbackReply = (userText: string): string => {
     const text = userText.toLowerCase().trim();
 
+    // 1. Despedidas o finalización
     if (text.includes('gracias') || text.includes('chao') || text.includes('adiós') || text.includes('adios') || text.includes('hasta luego') || text.includes('finalizar') || text.includes('listo')) {
       return "¡Muchas gracias a ti bella! 💖 Fue un placer ayudarte a encontrar tu calce perfecto. Si necesitas cualquier otra cosa, siempre estaré aquí para ti. ¡Que tengas un día radiante y maravilloso! ✨";
     }
 
+    // 2. Consultas directas por Tallas específicas (XL, L, M, S, XS, Única)
+    if (/\b(xl|extra large|extra grande)\b/.test(text) || text.includes('talla xl') || text.includes('para xl') || text.includes('medidas xl')) {
+      return "✨ Para Talla XL: Busto 103-110 cm (Brasier 38B/40B/38C) y Cadera 109-115 cm (Pantalón 42). 💖";
+    }
+
+    if (text.includes('talla l') || text.includes('para l') || text.includes('medidas l') || /\b(talla l|soy l|medida l)\b/.test(text)) {
+      return "✨ Para Talla L: Busto 96-102 cm (Brasier 36B/38A/36C) y Cadera 103-108 cm (Pantalón 40). 💖";
+    }
+
+    if (text.includes('talla m') || text.includes('para m') || text.includes('medidas m') || /\b(talla m|soy m|medida m)\b/.test(text)) {
+      return "✨ Para Talla M: Busto 90-95 cm (Brasier 34B/36A/34C) y Cadera 97-102 cm (Pantalón 38). 💖";
+    }
+
+    if (text.includes('talla s') || text.includes('para s') || text.includes('medidas s') || /\b(talla s|soy s|medida s)\b/.test(text)) {
+      return "✨ Para Talla S: Busto 84-89 cm (Brasier 32B/34A/32C) y Cadera 91-96 cm (Pantalón 36). 💖";
+    }
+
+    if (text.includes('talla xs') || text.includes('para xs') || text.includes('medidas xs') || /\b(talla xs|soy xs|medida xs)\b/.test(text)) {
+      return "✨ Para Talla XS: Busto 78-83 cm (Brasier 30A/32A/30B) y Cadera 85-90 cm (Pantalón 34). 💖";
+    }
+
     if (text.includes('unica') || text.includes('única') || text.includes('ajustable')) {
-      return "✨ La Talla Única Sorena es super versátil: abarca de la S a la L (busto 84-98 cm) gracias a sus correas y espaldas elásticas totalmente regulables. 💖";
+      return "✨ La Talla Única Sorena es super versátil: abarca de S a L (busto 84-98 cm, cadera 91-108 cm) gracias a sus correas regulables. 💖";
     }
 
-    if (text.includes('medir') || text.includes('medida') || text.includes('cómo') || text.includes('como')) {
-      return "📏 Para medir tu busto, pasa la cinta sin apretar por la parte más prominente. Para la cadera, mide la parte más ancha de los glúteos. ¡Dime tus cm y te aconsejo tu talla al instante! ✨";
-    }
-
+    // 3. Talla de brasier habitual
     if (/\b(30a|32a|30b)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XS. 💖";
     if (/\b(32b|34a|32c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es S. 💖";
     if (/\b(34b|36a|34c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es M. 💖";
     if (/\b(36b|38a|36c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es L. 💖";
     if (/\b(38b|40b|38c)\b/.test(text)) return "✨ Según tu brasier habitual, tu talla ideal en Sorena Lencería es XL. 💖";
 
+    // 4. Medidas en cm expresadas en números
     const numbers = text.match(/\d+/g)?.map(Number) || [];
     if (numbers.length > 0) {
       const num = numbers[0];
@@ -90,7 +110,13 @@ const SizeAgentFloating: React.FC = () => {
       if (num >= 103 && num <= 115) return `✨ Para tu medida de ${num} cm, tu talla ideal en Sorena Lencería es XL. 💖`;
     }
 
-    return "¡Hola bella! ✨ Dime tus medidas de busto/cadera en cm o la talla de brasier que usas habitualmente (ej. 34B) y te aconsejaré tu talla perfecta de inmediato. 💖";
+    // 5. Instrucciones de cómo tomar medidas
+    if (text.includes('cómo medir') || text.includes('como medir') || text.includes('dónde medir') || text.includes('donde medir')) {
+      return "📏 Para medir tu busto, pasa la cinta sin apretar por la parte más prominente. Para la cadera, mide la parte más ancha. ¡Dime tus cm y te aconsejo tu talla al instante! ✨";
+    }
+
+    // 6. Mensaje por defecto
+    return "¡Hola bella! ✨ Dime tus medidas de busto/cadera en cm, tu talla de brasier habitual (ej. 34B) o la talla que deseas consultar (XS, S, M, L, XL) y te diré las medidas exactas. 💖";
   };
 
   const handleSend = async (customText?: string) => {
