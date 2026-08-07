@@ -1,5 +1,8 @@
 {
   "name": "Sorena Lencería",
-  "description": "A luxury lingerie catalog featuring a product grid, shopping cart, and WhatsApp integration for purchases.",
-  "requestFramePermissions": []
+  "description": "A luxury lingerie catalog featuring a product grid, shopping cart, AI size assistant, and WhatsApp integration for purchases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

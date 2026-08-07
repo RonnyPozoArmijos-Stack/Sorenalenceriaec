@@ -10,6 +10,7 @@ import ProductGrid from './components/ProductGrid';
 import CartModal from './components/CartModal';
 import ProductDetailModal from './components/ProductDetailModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import SizeAgentFloating from './components/SizeAgentFloating';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
 import { CheckCircle, ShoppingBag } from 'lucide-react';
@@ -248,6 +249,7 @@ function App() {
       />
       
       <FloatingWhatsApp />
+      <SizeAgentFloating />
 
       {/* Mobile Bottom Navigation Bar */}
       <MobileBottomNav 
