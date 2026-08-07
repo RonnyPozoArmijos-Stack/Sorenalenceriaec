@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { getOptimizedImageUrl } from '../lib/cloudinary';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,7 +64,7 @@ const Hero: React.FC = () => {
         <div 
           className="w-full h-full"
           style={{
-              backgroundImage: 'url("https://res.cloudinary.com/dyqz0n0to/image/upload/v1785444160/ChatGPT_Image_30_jul_2026_03_41_34_p.m._b2vpa2.png")', 
+              backgroundImage: `url("${getOptimizedImageUrl('https://res.cloudinary.com/dyqz0n0to/image/upload/v1785444160/ChatGPT_Image_30_jul_2026_03_41_34_p.m._b2vpa2.png', { width: 1600, quality: 'auto', format: 'auto' })}")`, 
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               opacity: 0.85, 

@@ -60,44 +60,6 @@ function App() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Antigravity drift 1 (Left top)
-    gsap.to('.antigravity-orb-1', {
-      y: '160px',
-      x: '60px',
-      rotate: 35,
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.2,
-      }
-    });
-
-    // Antigravity drift 2 (Right middle)
-    gsap.to('.antigravity-orb-2', {
-      y: '-220px',
-      x: '-90px',
-      rotate: -45,
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.6,
-      }
-    });
-
-    // Antigravity drift 3 (Left bottom)
-    gsap.to('.antigravity-orb-3', {
-      y: '-130px',
-      x: '120px',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.9,
-      }
-    });
-
     gsap.fromTo('.collection-title', 
       { opacity: 0, y: 30, scale: 0.98 },
       { 

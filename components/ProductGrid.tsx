@@ -129,29 +129,23 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, onView
         className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-16 max-w-7xl mx-auto px-4 transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
       >
         {currentProducts.map((product, idx) => {
-          const isLeft = idx % 2 === 0;
           return (
             <motion.div 
               key={`${product.id}-${currentPage}-${idx}`}
               initial={{ 
                 opacity: 0, 
-                x: isLeft ? -60 : 60, 
-                rotateY: isLeft ? -12 : 12,
-                scale: 0.94
+                y: 20
               }}
               whileInView={{ 
                 opacity: 1, 
-                x: 0, 
-                rotateY: 0,
-                scale: 1
+                y: 0
               }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{ 
-                duration: 0.8, 
-                ease: [0.16, 1, 0.3, 1],
-                delay: isMobile ? 0 : (idx % (isMobile ? 2 : window.innerWidth < 1024 ? 3 : 4)) * 0.05
+                duration: 0.4, 
+                ease: "easeOut",
+                delay: isMobile ? 0 : (idx % 4) * 0.04
               }}
-              style={{ perspective: 1200 }}
               className="w-full h-full"
             >
               <ProductCard 

@@ -15,19 +15,22 @@
 .uiverse-card {
   position: relative;
   z-index: 1;
+  contain: layout paint style;
 }
 
 /* Fondo giratorio decorativo (Efecto Uiverse.io adaptado al tema) */
 .uiverse-card::before {
   content: '';
   position: absolute;
-  inset: -5px;
+  inset: -3px;
   margin: auto;
   border-radius: 10px;
   background: var(--card-gradient-1);
   z-index: -10;
   pointer-events: none;
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform;
+  transform: translateZ(0);
+  transition: transform 0.4s ease;
 }
 
 /* Sombra y destello resplandeciente glow */
@@ -39,20 +42,49 @@
   border-radius: 10px;
   background: var(--card-gradient-2);
   transform: translate3d(0, 0, 0) scale(0.95);
-  filter: blur(20px);
+  filter: blur(8px);
   pointer-events: none;
   opacity: var(--card-glow-opacity);
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform, opacity;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 .uiverse-card:hover::after,
 .group:hover .uiverse-card::after {
-  filter: blur(32px);
-  opacity: 0.95;
+  filter: blur(12px);
+  opacity: 0.85;
   transform: translate3d(0, 0, 0) scale(1.02);
 }
 
 .uiverse-card:hover::before,
 .group:hover .uiverse-card::before {
-  transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+  transform: rotate(-90deg) scaleX(1.15) scaleY(0.85);
+}
+
+/* Hardware-accelerated background ambient floating orbs */
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(25px, -30px, 0) rotate(12deg);
+  }
+}
+
+.antigravity-orb-1,
+.antigravity-orb-2,
+.antigravity-orb-3 {
+  will-change: transform;
+  transform: translateZ(0);
+  animation: floatOrb 16s ease-in-out infinite;
+}
+
+.antigravity-orb-2 {
+  animation-duration: 22s;
+  animation-delay: -5s;
+}
+
+.antigravity-orb-3 {
+  animation-duration: 18s;
+  animation-delay: -10s;
 }

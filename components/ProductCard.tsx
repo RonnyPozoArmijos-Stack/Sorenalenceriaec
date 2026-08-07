@@ -66,40 +66,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onViewD
   const [glareY, setGlareY] = useState(50);
   const [glareOpacity, setGlareOpacity] = useState(0);
 
-  // Gyroscope / Accelerometer tilting for ultimate mobile 3D interaction!
+  // Gyroscope / Accelerometer tilting disabled for performance optimization on mobile
   useEffect(() => {
-    if (!isMobile) return;
-
-    let initialBeta: number | null = null;
-    let initialGamma: number | null = null;
-
-    const handleOrientation = (e: DeviceOrientationEvent) => {
-      if (e.beta === null || e.gamma === null) return;
-
-      if (initialBeta === null) initialBeta = e.beta;
-      if (initialGamma === null) initialGamma = e.gamma;
-
-      const deltaBeta = e.beta - initialBeta;
-      const deltaGamma = e.gamma - initialGamma;
-
-      const maxTilt = 12;
-      const clamp = (val: number, max: number) => Math.max(-max, Math.min(max, val));
-
-      const normalizedX = (clamp(deltaGamma, maxTilt) / maxTilt) * 0.5;
-      const normalizedY = (clamp(deltaBeta, maxTilt) / maxTilt) * 0.5;
-
-      mouseX.set(normalizedX);
-      mouseY.set(normalizedY);
-
-      const gX = 50 + (normalizedX * 100);
-      const gY = 50 + (normalizedY * 100);
-      setGlareX(gX);
-      setGlareY(gY);
-      setGlareOpacity(0.35);
-    };
-
-    window.addEventListener('deviceorientation', handleOrientation);
-    return () => window.removeEventListener('deviceorientation', handleOrientation);
+    // Mobile uses lightweight touch-based interactions for instant performance
   }, [isMobile]);
 
   useEffect(() => {
