@@ -7,7 +7,8 @@ export interface CheckoutOptions {
 }
 
 /**
- * Genera una plantilla de checkout enriquecida y formateada para WhatsApp
+ * Genera una plantilla de checkout clara, elegante y profesional para WhatsApp
+ * con codificación completa de emojis para móvil y web.
  */
 export function generateWhatsAppCheckoutLink(
   items: CartItem[],
@@ -15,7 +16,9 @@ export function generateWhatsAppCheckoutLink(
 ): string {
   if (!items || items.length === 0) return '#';
 
-  const number = options.whatsappNumber || WHATSAPP_NUMBER;
+  const rawNumber = options.whatsappNumber || WHATSAPP_NUMBER;
+  const cleanNumber = rawNumber.replace(/\D/g, '');
+  
   const total = items.reduce((acc, item) => {
     const price = item.discountPercentage 
       ? item.price * (1 - item.discountPercentage / 100)
@@ -23,32 +26,27 @@ export function generateWhatsAppCheckoutLink(
     return acc + (price * item.qty);
   }, 0);
 
-  let message = `✨ *NUEVO PEDIDO - SORENA LENCERÍA* ✨\n`;
-  message += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-  message += `🛍️ *PRODUCTOS SELECCIONADOS:*\n\n`;
+  let message = `✨ ¡Gracias por tu compra en Sorena Lencería! ✨\n\n`;
 
-  items.forEach((item, index) => {
-    const unitPrice = item.discountPercentage 
-      ? item.price * (1 - item.discountPercentage / 100)
-      : item.price;
-    const subtotal = unitPrice * item.qty;
-
-    message += `${index + 1}. *${item.title}*\n`;
-    message += `   • Talla: *${item.size}*\n`;
-    message += `   • Cantidad: *x${item.qty}*\n`;
-    message += `   • Precio unitario: $${unitPrice.toFixed(2)}\n`;
-    message += `   • Subtotal: *$${subtotal.toFixed(2)}*\n\n`;
+  items.forEach((item) => {
+    message += `🛍️ ${item.title} — Talla ${item.size} (x${item.qty})\n`;
   });
 
-  message += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  message += `💳 *TOTAL ESTIMADO: $${total.toFixed(2)} USD*\n`;
-  message += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-  message += `📍 *Coordinación de Entrega y Pago*\n`;
-  message += `Hola, deseo confirmar mi pedido. Quedo atenta a las instrucciones de pago (Transferencia / Depósito / Efectivo) y detalles del envío. 🌸`;
+  message += `💳 Total: $${total.toFixed(2)} USD\n\n`;
+
+  message += `🏦 Pago por transferencia/depósito:\n\n`;
+  message += `Pichincha: 2206629655\n`;
+  message += `Guayaquil: 0056863359\n`;
+  message += `Titular: Wendy Jaritza López De La O\n`;
+  message += `C.I.: 2400044059\n\n`;
+
+  message += `📸 Envíanos la foto del comprobante el mismo día para coordinar tu envío. ¡Gracias por tu compra! 🌸`;
 
   if (options.customerNote) {
-    message += `\n\n📝 *Nota:* ${options.customerNote}`;
+    message += `\n\n📝 Nota: ${options.customerNote}`;
   }
 
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  // Se utiliza el endpoint directo de la API oficial de WhatsApp para evitar que redirecciones intermedias (como wa.me) corrompan los emojis UTF-8 en móviles
+  const encodedText = encodeURIComponent(message);
+  return `https://api.whatsapp.com/send?phone=${cleanNumber}&text=${encodedText}`;
 }

@@ -40,7 +40,17 @@ const CartModal: React.FC<CartModalProps> = ({
   const handleCheckout = () => {
     if (items.length === 0) return;
     const checkoutUrl = generateWhatsAppCheckoutLink(items);
-    window.open(checkoutUrl, "_blank");
+    const link = document.createElement('a');
+    link.href = checkoutUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
+    }, 150);
   };
 
   return (

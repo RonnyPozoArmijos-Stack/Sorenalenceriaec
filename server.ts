@@ -95,10 +95,10 @@ async function startServer() {
     }
 
     // 5. Métodos de pago y proceso de compra
-    if (text.includes('pago') || text.includes('transferencia') || text.includes('tarjeta') || text.includes('pichincha') || text.includes('guayaquil') || text.includes('deuna') || text.includes('comprar') || text.includes('como pido')) {
+    if (text.includes('pago') || text.includes('transferencia') || text.includes('tarjeta') || text.includes('pichincha') || text.includes('guayaquil') || text.includes('cuenta') || text.includes('comprar') || text.includes('como pido')) {
       return pickVaried([
-        `${pickVaried(greetings)} Aceptamos transferencias bancarias (Pichincha, Guayaquil, Produbanco), Deuna!, tarjetas de crédito/débito y pagos online seguros. Puedes realizar tu pedido desde el carrito de la tienda o directo a nuestro WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
-        `✨ Tienes varias opciones muy cómodas: transferencia directa, Deuna! o tarjeta de crédito/débito. Al confirmar tu carrito te daremos los datos exactos o podemos coordinar todo vía WhatsApp. 🌸 ${pickVaried(closings)}`
+        `🏦 Aceptamos transferencia o depósito directo a Banco Pichincha (2206629655) o Banco Guayaquil (0056863359) a nombre de Wendy Jaritza López (CI: 2400044059). ¡Al confirmar tu bolsa se genera el mensaje listo para WhatsApp! 💖 ${pickVaried(closings)}`,
+        `✨ Puedes pagar por transferencia o depósito a Banco Pichincha o Guayaquil, enviando tu comprobante el mismo día del depósito a nuestro WhatsApp +593 96 900 1613. 🌸 ${pickVaried(closings)}`
       ]);
     }
 
@@ -299,8 +299,12 @@ BASE DE CONOCIMIENTO SOBRE SORENA LENCERÍA:
 3. ENVÍOS Y PAGOS EN ECUADOR:
    - Envíos a todo el Ecuador 🇪🇨 vía Servientrega o Tramaco (24-48h).
    - Costo de envío estándar: $4.50. ¡ENVÍO GRATIS en compras desde $60!
-   - Pagos: Transferencia bancaria (Pichincha, Guayaquil, Produbanco), Deuna!, Tarjetas de Crédito/Débito.
+   - Cuentas Bancarias para transferencias/depósitos:
+     • Banco Pichincha: 2206629655 (Wendy Jaritza López De La O, CI: 2400044059, wendyjaritza11@gmail.com)
+     • Banco Guayaquil: 0056863359 (Wendy Jaritza López De La O)
+     • Nota: Enviar foto del comprobante el mismo día del depósito.
    - WhatsApp oficial de pedidos: +593 96 900 1613.
+   - Tienda física multimarca: JOBMAR en La Libertad, Santa Elena.
 
 4. MATERIALES Y CUIDADOS:
    - Encajes finos ultra suaves, blondas elásticas, forro 100% algodón íntimo hipoalergénico.

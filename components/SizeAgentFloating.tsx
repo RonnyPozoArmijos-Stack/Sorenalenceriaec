@@ -130,10 +130,10 @@ const SizeAgentFloating: React.FC = () => {
     }
 
     // 5. Métodos de pago y proceso de compra
-    if (text.includes('pago') || text.includes('transferencia') || text.includes('tarjeta') || text.includes('pichincha') || text.includes('guayaquil') || text.includes('deuna') || text.includes('comprar') || text.includes('como pido')) {
+    if (text.includes('pago') || text.includes('transferencia') || text.includes('tarjeta') || text.includes('pichincha') || text.includes('guayaquil') || text.includes('cuenta') || text.includes('comprar') || text.includes('como pido')) {
       return pickVaried([
-        `${pickVaried(greetings)} Aceptamos transferencias bancarias (Pichincha, Guayaquil, Produbanco), Deuna!, tarjetas de crédito/débito y pagos online seguros. Puedes realizar tu pedido desde el carrito de la tienda o directo a nuestro WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
-        `✨ Tienes varias opciones muy cómodas: transferencia directa, Deuna! o tarjeta de crédito/débito. Al confirmar tu carrito te daremos los datos exactos o podemos coordinar todo vía WhatsApp. 🌸 ${pickVaried(closings)}`
+        `🏦 Aceptamos transferencia o depósito directo a Banco Pichincha (2206629655) o Banco Guayaquil (0056863359) a nombre de Wendy Jaritza López (CI: 2400044059). ¡Al pedir en la bolsa se genera el mensaje listo para WhatsApp! 💖 ${pickVaried(closings)}`,
+        `✨ Puedes pagar por transferencia/depósito a Banco Pichincha o Guayaquil, o coordinar por WhatsApp +593 96 900 1613 enviando tu comprobante el mismo día del depósito. 🌸 ${pickVaried(closings)}`
       ]);
     }
 
