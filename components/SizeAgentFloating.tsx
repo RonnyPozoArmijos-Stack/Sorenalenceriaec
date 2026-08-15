@@ -156,8 +156,8 @@ const SizeAgentFloating: React.FC = () => {
     // 8. Ubicación o tienda física
     if (text.includes('ubicacion') || text.includes('ubicación') || text.includes('tienda fisica') || text.includes('tienda física') || text.includes('local') || text.includes('donde estan') || text.includes('dónde están') || text.includes('direccion') || text.includes('dirección')) {
       return pickVaried([
-        `✨ Somos una boutique de lencería 100% online con sede de despachos centrales en Ecuador. Despachamos pedidos diarios a todo el país con atención ultra personalizada a través de la web y WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
-        `🌸 Operamos de forma 100% digital con envíos express a todas las ciudades de Ecuador. Así aseguramos la máxima frescura de stock, promociones exclusivas y atención personalizada directa a tu celular. ✨ ${pickVaried(closings)}`
+        `✨ ¡Puedes visitarnos en nuestra tienda física en La Libertad, Santa Elena, dentro de TIENDA MULTIMARCA JOBMAR! Además realizamos envíos seguros a todo el Ecuador con atención personalizada por WhatsApp +593 96 900 1613. 💖 ${pickVaried(closings)}`,
+        `🌸 Contamos con punto físico multimarca JOBMAR en La Libertad (Santa Elena) y envíos express a todas las ciudades del país vía Servientrega o Tramaco. ✨ ${pickVaried(closings)}`
       ]);
     }
 

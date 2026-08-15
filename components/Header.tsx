@@ -98,10 +98,6 @@ const Header: React.FC<HeaderProps> = ({
     { title: 'Encuéntranos', icon: MapPin },
   ];
 
-  const cartTabs = [
-    { title: `Carrito${cartCount > 0 ? ` (${cartCount})` : ''}`, icon: ShoppingBag }
-  ];
-
   const getSelectedIndex = () => {
     switch (activeSection) {
       case 'inicio': return 0;
@@ -156,16 +152,32 @@ const Header: React.FC<HeaderProps> = ({
               />
             </nav>
 
-            {/* Desktop Control Tabs (Bolsa de compras) / Mobile default actions */}
+            {/* Desktop Cart Action Button */}
             <div className="flex items-center space-x-2 sm:space-x-4 z-[6100]">
               <div className="hidden lg:flex">
-                <ExpandableTabs 
-                  tabs={cartTabs} 
-                  selectedIndex={null} 
-                  onChange={() => onOpenCart()}
-                  activeColor="text-rose-gold"
-                  className="bg-transparent border-white/10"
-                />
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={onOpenCart}
+                  className={`relative flex items-center gap-2.5 px-4 py-2.5 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-soft-white hover:text-rose-gold transition-all duration-300 shadow-sm ${isCartAnimating ? 'border-rose-gold/60 bg-rose-gold/10' : ''}`}
+                  aria-label="Abrir carrito"
+                >
+                  <div className="relative">
+                    <ShoppingBag className="w-5 h-5 text-rose-gold" />
+                    {cartCount > 0 && (
+                      <motion.span 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -top-2 -right-2 bg-rose-gold text-white text-[9px] font-bold h-4 w-4 flex items-center justify-center rounded-full shadow-lg"
+                      >
+                        {cartCount}
+                      </motion.span>
+                    )}
+                  </div>
+                  <span className="text-xs uppercase tracking-widest font-semibold font-sans">
+                    Bolsa {cartCount > 0 ? `(${cartCount})` : ''}
+                  </span>
+                </motion.button>
               </div>
 
               {/* Mobile quick action: Shopping Bag button only */}

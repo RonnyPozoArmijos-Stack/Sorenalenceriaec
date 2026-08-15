@@ -38,9 +38,14 @@ const Hero: React.FC = () => {
     },
   };
 
-  const heroImageUrl = getOptimizedImageUrl(
+  const desktopHeroImageUrl = getOptimizedImageUrl(
     'https://res.cloudinary.com/dyqz0n0to/image/upload/v1785444160/ChatGPT_Image_30_jul_2026_03_41_34_p.m._b2vpa2.png', 
     { width: 1400, quality: 'auto', format: 'auto' }
+  );
+
+  const mobileHeroImageUrl = getOptimizedImageUrl(
+    'https://res.cloudinary.com/dyqz0n0to/image/upload/v1786813307/ChatGPT_Image_15_ago_2026_11_57_43_hl8i7s.png',
+    { width: 900, quality: 'auto', format: 'auto' }
   );
 
   return (
@@ -50,10 +55,20 @@ const Hero: React.FC = () => {
     >
       {/* Background Image Container with Hardware Acceleration */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        {/* Mobile Cover Image */}
         <div 
-          className="w-full h-full bg-cover bg-[center_top_15%] sm:bg-center transition-all duration-500"
+          className="block md:hidden w-full h-full bg-cover bg-center transition-all duration-500"
           style={{
-            backgroundImage: `url("${heroImageUrl}")`, 
+            backgroundImage: `url("${mobileHeroImageUrl}")`, 
+            opacity: 0.95, 
+            filter: 'contrast(1.02) brightness(1.02)', 
+          }}
+        />
+        {/* Desktop Cover Image */}
+        <div 
+          className="hidden md:block w-full h-full bg-cover bg-[center_top_15%] sm:bg-center transition-all duration-500"
+          style={{
+            backgroundImage: `url("${desktopHeroImageUrl}")`, 
             opacity: 0.95, 
             filter: 'contrast(1.02) brightness(1.02)', 
           }}

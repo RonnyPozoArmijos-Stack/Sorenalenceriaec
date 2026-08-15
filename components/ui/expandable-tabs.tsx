@@ -62,7 +62,6 @@ export function ExpandableTabs({
     if (selectedIndex === undefined) {
       setLocalSelected(null);
     }
-    onChange?.(null);
   });
 
   const handleSelect = (index: number) => {
