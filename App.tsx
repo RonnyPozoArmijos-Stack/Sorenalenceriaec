@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { PRODUCTS } from './constants';
 import { Product, CartItem, Size } from './types';
 import Header from './components/Header';
@@ -13,7 +13,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import SizeAgentFloating from './components/SizeAgentFloating';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
-import { CheckCircle, ShoppingBag } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import confetti from 'canvas-confetti';
@@ -27,23 +27,13 @@ function App() {
     restDelta: 0.001
   });
 
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem('sorena_theme');
-    return saved ? saved === 'dark' : false;
-  });
-
+  // Permanently locked to Dark Mode
   useEffect(() => {
     const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-      root.classList.remove('light');
-      localStorage.setItem('sorena_theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      localStorage.setItem('sorena_theme', 'light');
-    }
-  }, [isDarkMode]);
+    root.classList.add('dark');
+    root.classList.remove('light');
+    localStorage.setItem('sorena_theme', 'dark');
+  }, []);
 
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
@@ -169,15 +159,15 @@ function App() {
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-ivory-light dark:bg-rich-black text-warm-charcoal dark:text-soft-white font-sans selection:bg-rose-gold selection:text-white transition-colors duration-500 overflow-x-hidden relative">
+    <div className="min-h-screen flex flex-col bg-rich-black text-soft-white font-sans selection:bg-rose-gold selection:text-white transition-colors duration-500 overflow-x-hidden relative">
       {/* Scroll-Scrub Progress Bar */}
       <motion.div style={{ scaleX }} className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-rose-gold via-rose-gold-dark to-yellow-110 z-[9500] origin-left w-full scroll-progress-bar shadow-[0_2px_12px_rgba(212,165,165,0.6)]" />
 
       {/* Floating Antigravity Luxury Orbs in Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[22%] left-[-15%] w-[45vw] h-[45vw] max-w-[500px] rounded-full bg-gradient-to-tr from-rose-gold/10 to-transparent blur-[90px] dark:from-rose-gold/5 antigravity-orb-1"></div>
-        <div className="absolute top-[58%] right-[-15%] w-[40vw] h-[40vw] max-w-[450px] rounded-full bg-gradient-to-bl from-rose-gold/8 to-transparent blur-[110px] dark:from-rose-gold/3 antigravity-orb-2"></div>
-        <div className="absolute bottom-[8%] left-[8%] w-[35vw] h-[35vw] max-w-[400px] rounded-full bg-gradient-to-br from-yellow-200/5 to-transparent blur-[95px] dark:from-rose-gold/4 antigravity-orb-3"></div>
+        <div className="absolute top-[22%] left-[-15%] w-[45vw] h-[45vw] max-w-[500px] rounded-full bg-gradient-to-tr from-rose-gold/5 to-transparent blur-[90px] antigravity-orb-1"></div>
+        <div className="absolute top-[58%] right-[-15%] w-[40vw] h-[40vw] max-w-[450px] rounded-full bg-gradient-to-bl from-rose-gold/3 to-transparent blur-[110px] antigravity-orb-2"></div>
+        <div className="absolute bottom-[8%] left-[8%] w-[35vw] h-[35vw] max-w-[400px] rounded-full bg-gradient-to-br from-yellow-200/5 to-transparent blur-[95px] antigravity-orb-3"></div>
       </div>
 
       {/* Toast Notification */}
@@ -191,8 +181,6 @@ function App() {
       <Header 
         cartCount={cartCount} 
         onOpenCart={() => setIsCartOpen(true)}
-        isDarkMode={isDarkMode}
-        onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         onNavClick={closeAllModals}
       />
       
@@ -210,8 +198,8 @@ function App() {
           className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-24 md:scroll-mt-32"
         >
           <div className="text-center mb-16 px-4">
-            <h2 className="font-serif text-4xl md:text-7xl text-warm-charcoal dark:text-soft-white mb-6 font-light italic leading-tight transition-colors duration-500 collection-title">Nuestra Colección</h2>
-            <div className="w-16 h-px bg-rose-gold/20 mx-auto"></div>
+            <h2 className="font-serif text-4xl md:text-7xl text-soft-white mb-6 font-light italic leading-tight collection-title">Nuestra Colección</h2>
+            <div className="w-16 h-px bg-rose-gold/30 mx-auto"></div>
           </div>
           <ProductGrid 
             products={products}

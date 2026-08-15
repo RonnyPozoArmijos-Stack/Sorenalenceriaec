@@ -196,22 +196,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <h2 className="text-4xl md:text-5xl font-serif text-warm-charcoal dark:text-soft-white italic">{product.title}</h2>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 flex-wrap pb-2.5 border-b border-gray-100 dark:border-white/5">
+                <div className="flex items-center justify-between gap-4 flex-wrap pb-2.5 border-b border-white/10">
                   <div className="flex items-baseline gap-4">
-                    <span className="text-3xl md:text-4xl font-sans font-light">${finalPrice.toFixed(2)}</span>
+                    <span className="text-3xl md:text-4xl font-sans font-light text-soft-white">${finalPrice.toFixed(2)}</span>
                     {product.discountPercentage && (
                       <span className="text-base text-gray-400 line-through">${product.price.toFixed(2)}</span>
                     )}
                   </div>
-
-                  {/* Botón Guía de Tallas a un costado del precio */}
-                  <button
-                    onClick={() => setShowSizeGuide(true)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-gold/10 hover:bg-rose-gold/15 border border-rose-gold/25 hover:border-rose-gold/40 text-rose-gold text-[9px] font-bold uppercase tracking-[0.15em] transition-all duration-300 transform hover:scale-105 shadow-sm"
-                  >
-                    <Ruler className="w-3.5 h-3.5" />
-                    <span>Guía de Tallas</span>
-                  </button>
                 </div>
 
                 <p className="text-gray-500 dark:text-gray-400 font-serif italic text-lg leading-relaxed">

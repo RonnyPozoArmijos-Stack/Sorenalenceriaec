@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Menu, X, Sun, Moon, Home, Sparkles, Heart, FileText, MapPin } from 'lucide-react';
+import { ShoppingBag, Menu, X, Home, Sparkles, Heart, FileText, MapPin } from 'lucide-react';
 import { ExpandableTabs } from './ui/expandable-tabs';
 
 interface HeaderProps {
   cartCount: number;
   onOpenCart: () => void;
-  isDarkMode: boolean;
-  onToggleTheme: () => void;
   onNavClick?: () => void;
 }
 
@@ -16,8 +14,6 @@ const HEADER_OFFSET = 90;
 const Header: React.FC<HeaderProps> = ({ 
   cartCount, 
   onOpenCart, 
-  isDarkMode,
-  onToggleTheme,
   onNavClick
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,14 +49,17 @@ const Header: React.FC<HeaderProps> = ({
           return;
         }
 
-        const sections = ['catalogo', 'historia', 'politicas', 'contacto'];
-        const scrollPosition = window.scrollY + HEADER_OFFSET + 120;
+        const sections = ['contacto', 'politicas', 'historia', 'catalogo'];
+        const scrollPosition = window.scrollY + HEADER_OFFSET + 140;
 
         for (const id of sections) {
           const element = document.getElementById(id);
-          if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
-            setActiveSection(id);
-            break;
+          if (element) {
+            const top = element.getBoundingClientRect().top + window.pageYOffset;
+            if (scrollPosition >= top) {
+              setActiveSection(id);
+              break;
+            }
           }
         }
         timeoutId = 0;
@@ -74,19 +73,20 @@ const Header: React.FC<HeaderProps> = ({
     };
   }, []);
 
-  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const scrollToSection = (targetId: string) => {
     if (onNavClick) onNavClick();
     setIsMobileMenuOpen(false);
 
-    const targetId = href.replace('#', '');
+    if (targetId === 'inicio') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const element = document.getElementById(targetId);
-    
     if (element) {
-      setTimeout(() => {
-        const offsetPosition = targetId === 'inicio' ? 0 : element.offsetTop - (window.innerWidth < 768 ? 80 : HEADER_OFFSET);
-        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-      }, 50);
+      const yOffset = -(window.innerWidth < 768 ? 85 : HEADER_OFFSET);
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -98,8 +98,7 @@ const Header: React.FC<HeaderProps> = ({
     { title: 'Encuéntranos', icon: MapPin },
   ];
 
-  const controlTabs = [
-    { title: isDarkMode ? 'Modo Claro' : 'Modo Oscuro', icon: isDarkMode ? Sun : Moon },
+  const cartTabs = [
     { title: `Carrito${cartCount > 0 ? ` (${cartCount})` : ''}`, icon: ShoppingBag }
   ];
 
@@ -117,56 +116,32 @@ const Header: React.FC<HeaderProps> = ({
   const handleTabChange = (index: number | null) => {
     if (index === null) return;
     const targetMap = ['inicio', 'catalogo', 'historia', 'politicas', 'contacto'];
-    const targetId = targetMap[index];
-    if (targetId === 'inicio') {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 50);
-      return;
-    }
-    const element = document.getElementById(targetId);
-    if (element) {
-      setTimeout(() => {
-        const offsetPosition = element.offsetTop - (window.innerWidth < 768 ? 80 : HEADER_OFFSET);
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      }, 50);
-    }
-  };
-
-  const handleControlTabChange = (index: number | null) => {
-    if (index === null) return;
-    if (index === 0) {
-      onToggleTheme();
-    } else if (index === 1) {
-      onOpenCart();
-    }
+    scrollToSection(targetMap[index]);
   };
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[6000] bg-ivory-light/95 dark:bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/10 transition-colors duration-500">
+      <header className="fixed top-0 left-0 right-0 z-[6000] bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/15">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-24">
             
+            {/* Logo sin el EC */}
             <div className="flex-shrink-0 flex items-center z-[6100]">
-              <a href="#inicio" onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }} className="group flex items-center">
-                  <motion.img 
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      src="https://res.cloudinary.com/dyqz0n0to/image/upload/v1765400323/sorena_lenceria_logo_-removebg-preview_gsbva3.png" 
-                      alt="Sorena" 
-                      className="h-16 md:h-24 w-auto object-contain dark:invert-0 invert opacity-90 transition-opacity"
-                  />
-                  <motion.span 
-                    animate={{ opacity: [0.5, 1, 0.5], y: [-1, 1, -1] }} 
-                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                    className="text-lg md:text-xl relative -left-1 select-none pointer-events-none filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]"
-                  >
-                    🇪🇨
-                  </motion.span>
+              <a 
+                href="#inicio" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('inicio');
+                }} 
+                className="group flex items-center"
+              >
+                <motion.img 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  src="https://res.cloudinary.com/dyqz0n0to/image/upload/v1765400323/sorena_lenceria_logo_-removebg-preview_gsbva3.png" 
+                  alt="Sorena Lencería" 
+                  className="h-16 md:h-24 w-auto object-contain opacity-95 transition-opacity"
+                />
               </a>
             </div>
 
@@ -177,38 +152,30 @@ const Header: React.FC<HeaderProps> = ({
                 selectedIndex={getSelectedIndex()} 
                 onChange={handleTabChange}
                 activeColor="text-rose-gold"
-                className="bg-transparent border-rose-gold/10 dark:border-white/10"
+                className="bg-transparent border-white/10"
               />
             </nav>
 
-            {/* Desktop Control Tabs (Theme & Cart) / Mobile default actions */}
+            {/* Desktop Control Tabs (Bolsa de compras) / Mobile default actions */}
             <div className="flex items-center space-x-2 sm:space-x-4 z-[6100]">
               <div className="hidden lg:flex">
                 <ExpandableTabs 
-                  tabs={controlTabs} 
+                  tabs={cartTabs} 
                   selectedIndex={null} 
-                  onChange={handleControlTabChange}
+                  onChange={() => onOpenCart()}
                   activeColor="text-rose-gold"
-                  className="bg-transparent border-rose-gold/10 dark:border-white/10"
+                  className="bg-transparent border-white/10"
                 />
               </div>
 
-              {/* Mobile quick actions (always accessible) */}
+              {/* Mobile quick action: Shopping Bag button only */}
               <div className="flex lg:hidden items-center space-x-2">
                 <motion.button 
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={onToggleTheme} 
-                  className="p-2 text-gray-500 dark:text-gray-400 hover:text-rose-gold transition-colors"
-                >
-                  {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </motion.button>
-
-                <motion.button 
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
                   onClick={onOpenCart}
-                  className={`relative p-2 transition-colors ${isCartAnimating ? 'text-rose-gold scale-125' : ''}`}
+                  className={`relative p-2 text-soft-white hover:text-rose-gold transition-colors ${isCartAnimating ? 'text-rose-gold scale-125' : ''}`}
+                  aria-label="Abrir carrito"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   {cartCount > 0 && (
@@ -223,10 +190,12 @@ const Header: React.FC<HeaderProps> = ({
                 </motion.button>
               </div>
 
+              {/* Mobile Hamburger toggle */}
               <div className="relative group flex flex-col items-center lg:hidden">
                 <button 
-                  className="p-2 text-warm-charcoal dark:text-white" 
+                  className="p-2 text-white" 
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  aria-label="Menú principal"
                 >
                   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
@@ -237,7 +206,7 @@ const Header: React.FC<HeaderProps> = ({
       </header>
       <div className="h-[92px] md:h-[128px]"></div>
 
-      {/* Mobile Drawer Menu featuring full-fledged ExpandableTabs */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
@@ -245,51 +214,46 @@ const Header: React.FC<HeaderProps> = ({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[5900] bg-ivory-light/95 dark:bg-rich-black/95 flex flex-col justify-center items-center lg:hidden"
+            className="fixed inset-0 z-[5900] bg-rich-black/95 backdrop-blur-2xl flex flex-col justify-center items-center lg:hidden"
           >
             <div className="flex flex-col items-center justify-center space-y-10 w-full max-w-sm px-6 text-center">
               <div className="space-y-2">
-                <h3 className="font-serif italic text-3xl text-rose-gold font-light">Sorena Lencería</h3>
-                <p className="text-[10px] tracking-[0.3em] font-mono text-gray-400 dark:text-gray-500 uppercase">Menú Interactivo</p>
+                <h3 className="font-serif italic text-4xl text-rose-gold font-light">Sorena Lencería</h3>
+                <p className="text-xs tracking-[0.3em] font-mono text-gray-400 uppercase">Menú de Navegación</p>
               </div>
 
               <div className="w-full flex-col space-y-6 flex items-center justify-center">
-                <div className="flex flex-col items-center space-y-2 w-full">
-                  <p className="text-[10.5px] uppercase tracking-wider text-rose-gold font-bold font-mono">Navegación</p>
+                <div className="flex flex-col items-center space-y-3 w-full">
                   <ExpandableTabs 
                     tabs={navTabs} 
                     selectedIndex={getSelectedIndex()} 
                     onChange={(idx) => {
                       handleTabChange(idx);
-                      setIsMobileMenuOpen(false);
                     }}
                     activeColor="text-rose-gold"
-                    className="border-rose-gold/25 dark:border-white/10 shadow-xl p-2.5 bg-white/40 dark:bg-black/40 backdrop-blur-md"
+                    className="border-white/15 shadow-2xl p-3 bg-black/60 backdrop-blur-md"
                   />
                 </div>
 
-                <div className="flex flex-col items-center space-y-2 w-full">
-                  <p className="text-[10.5px] uppercase tracking-wider text-rose-gold font-bold font-mono">Controles</p>
-                  <ExpandableTabs 
-                    tabs={controlTabs} 
-                    selectedIndex={null} 
-                    onChange={(idx) => {
-                      handleControlTabChange(idx);
-                      if (idx === 1) {
-                        setIsMobileMenuOpen(false);
-                      }
+                <div className="w-full pt-2">
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onOpenCart();
                     }}
-                    activeColor="text-rose-gold"
-                    className="border-rose-gold/25 dark:border-white/10 shadow-xl p-2.5 bg-white/40 dark:bg-black/40 backdrop-blur-md"
-                  />
+                    className="w-full py-4 rounded-2xl bg-rose-gold text-white font-bold uppercase tracking-[0.25em] text-xs shadow-xl flex items-center justify-center gap-3 hover:bg-rose-gold-dark transition-all"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Ver Carrito {cartCount > 0 ? `(${cartCount})` : ''}</span>
+                  </button>
                 </div>
               </div>
 
-              <div className="w-16 h-px bg-rose-gold/20"></div>
+              <div className="w-16 h-px bg-rose-gold/30"></div>
 
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[10px] tracking-[0.4em] uppercase text-gray-400 hover:text-rose-gold transition-colors font-bold"
+                className="text-xs tracking-[0.35em] uppercase text-gray-400 hover:text-rose-gold transition-colors font-bold"
               >
                 Cerrar Menú
               </button>

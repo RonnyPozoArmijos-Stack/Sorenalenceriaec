@@ -260,9 +260,8 @@ async function startServer() {
 
   // API Route for AI Size Agent
   app.post("/api/size-agent", async (req, res) => {
+    const messages = req.body?.messages;
     try {
-      const { messages } = req.body;
-
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: "Mensajes no válidos" });
       }
