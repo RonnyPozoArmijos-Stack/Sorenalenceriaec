@@ -124,18 +124,6 @@ export const PRODUCTS: Product[] = [
     description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
   },
   {
-    id: 511,
-    title: "Sofia",
-    price: 24.99,
-    img: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429694/WhatsApp_Image_2026-07-30_at_11.27.53_AM_4_vrjk35.jpg",
-    secondaryImg: "https://res.cloudinary.com/dyqz0n0to/image/upload/v1785429697/WhatsApp_Image_2026-07-30_at_11.27.56_AM_4_clzn2s.jpg",
-    category: "Conjuntos",
-    tag: "NUEVO",
-    availableSizes: ['XL'],
-    inStock: true,
-    description: "Diseño exclusivo de Sorena Lencería. Materiales de alta calidad que se ajustan a tu figura para brindarte comodidad y sensualidad."
-  },
-  {
     id: 512,
     title: "Marian",
     price: 24.99,

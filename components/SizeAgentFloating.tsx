@@ -180,9 +180,9 @@ const SizeAgentFloating: React.FC = () => {
     // 11. Consultas por Tallas específicas (XL, L, M, S, XS, Única)
     if (/\b(xl|extra large|extra grande)\b/.test(text) || text.includes('talla xl') || text.includes('para xl') || text.includes('medidas xl')) {
       const xlResponses = [
-        `✨ Para la Talla XL (Busto 103-110 cm | Cadera 109-115 cm | Brasier 38B/40B), te super recomiendo nuestros hermosos modelos: Amore ($29.99), Sofia ($24.99) y Marian ($24.99). ${pickVaried(closings)}`,
-        `✨ ¡En Talla XL lucirás espectacular! Tus medidas correspondientes son busto 103-110 cm y cadera 109-115 cm. Nuestros modelos destacados en XL son Amore ($29.99) y Sofia ($24.99). ${pickVaried(closings)}`,
-        `✨ En Sorena la Talla XL abarca brasieres 38B/40B y pantalón 42. Tenemos los conjuntos Amore ($29.99), Marian ($24.99) y Sofia ($24.99) disponibles. ${pickVaried(closings)}`
+        `✨ Para la Talla XL (Busto 103-110 cm | Cadera 109-115 cm | Brasier 38B/40B), te super recomiendo nuestros hermosos modelos: Amore ($29.99) y Marian ($24.99). ${pickVaried(closings)}`,
+        `✨ ¡En Talla XL lucirás espectacular! Tus medidas correspondientes son busto 103-110 cm y cadera 109-115 cm. Nuestros modelos destacados en XL son Amore ($29.99) y Marian ($24.99). ${pickVaried(closings)}`,
+        `✨ En Sorena la Talla XL abarca brasieres 38B/40B y pantalón 42. Tenemos los conjuntos Amore ($29.99) y Marian ($24.99) disponibles. ${pickVaried(closings)}`
       ];
       return pickVaried(xlResponses);
     }
@@ -234,7 +234,6 @@ const SizeAgentFloating: React.FC = () => {
       { name: 'julieta', price: '$21.99', size: 'M' },
       { name: 'gabriela', price: '$24.99', size: 'L' },
       { name: 'amore', price: '$29.99', size: 'XL' },
-      { name: 'sofia', price: '$24.99', size: 'XL' },
       { name: 'marian', price: '$24.99', size: 'XL' },
       { name: 'ambar', price: '$19.99', size: 'XS' },
       { name: 'oliva', price: '$24.99', size: 'S' },
@@ -266,7 +265,7 @@ const SizeAgentFloating: React.FC = () => {
     if (/\b(32b|34a|32c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es S. Te sugiero los modelos Lore ($24.99), Catalina ($24.99) y Oliva ($24.99). ${pickVaried(closings)}`;
     if (/\b(34b|36a|34c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es M. Te sugiero los modelos Victoria ($29.99), Valentina ($24.99) y Julieta ($21.99). ${pickVaried(closings)}`;
     if (/\b(36b|38a|36c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es L. Te sugiero los modelos Gabriela ($24.99), Selva ($24.99) y Gala ($24.99). ${pickVaried(closings)}`;
-    if (/\b(38b|40b|38c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es XL. Te sugiero los modelos Amore ($29.99), Sofia ($24.99) y Marian ($24.99). ${pickVaried(closings)}`;
+    if (/\b(38b|40b|38c)\b/.test(text)) return `${pickVaried(greetings)} Según tu brasier habitual, tu talla ideal es XL. Te sugiero los modelos Amore ($29.99) y Marian ($24.99). ${pickVaried(closings)}`;
 
     // 14. Medidas numéricas en cm
     const numbers = text.match(/\d+/g)?.map(Number) || [];
@@ -276,7 +275,7 @@ const SizeAgentFloating: React.FC = () => {
       if (num >= 84 && num <= 89) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es S. Te recomiendo Lore ($24.99) y Catalina ($24.99). ${pickVaried(closings)}`;
       if (num >= 90 && num <= 95) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es M. Te recomiendo Victoria ($29.99) y Valentina ($24.99). ${pickVaried(closings)}`;
       if (num >= 96 && num <= 102) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es L. Te recomiendo Gabriela ($24.99) y Selva ($24.99). ${pickVaried(closings)}`;
-      if (num >= 103 && num <= 115) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es XL. Te recomiendo Amore ($29.99) y Sofia ($24.99). ${pickVaried(closings)}`;
+      if (num >= 103 && num <= 115) return `${pickVaried(greetings)} Con tu medida de ${num} cm, tu talla ideal es XL. Te recomiendo Amore ($29.99) y Marian ($24.99). ${pickVaried(closings)}`;
     }
 
     // 15. Cómo medir
