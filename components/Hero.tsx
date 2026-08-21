@@ -38,55 +38,46 @@ const Hero: React.FC = () => {
     },
   };
 
-  const desktopHeroImageUrl = getOptimizedImageUrl(
+  const heroVideoUrl = 'https://res.cloudinary.com/dyqz0n0to/video/upload/v1787326000/heroscrub_neqfmt.mp4';
+  const heroPosterUrl = getOptimizedImageUrl(
     'https://res.cloudinary.com/dyqz0n0to/image/upload/v1785444160/ChatGPT_Image_30_jul_2026_03_41_34_p.m._b2vpa2.png', 
     { width: 1400, quality: 'auto', format: 'auto' }
-  );
-
-  const mobileHeroImageUrl = getOptimizedImageUrl(
-    'https://res.cloudinary.com/dyqz0n0to/image/upload/v1786813307/ChatGPT_Image_15_ago_2026_11_57_43_hl8i7s.png',
-    { width: 900, quality: 'auto', format: 'auto' }
   );
 
   return (
     <div 
       id="inicio" 
-      className="relative overflow-hidden mb-8 md:mb-12 min-h-[80vh] sm:min-h-[90vh] flex flex-col justify-center items-center sm:items-start scroll-mt-24 md:scroll-mt-32 py-12 sm:py-0"
+      className="relative overflow-hidden mb-4 md:mb-8 min-h-[85vh] sm:min-h-[92vh] flex flex-col justify-center items-center sm:items-start scroll-mt-20 md:scroll-mt-24"
     >
-      {/* Background Image Container with Hardware Acceleration */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-        {/* Mobile Cover Image */}
-        <div 
-          className="block md:hidden w-full h-full bg-cover bg-center transition-all duration-500"
-          style={{
-            backgroundImage: `url("${mobileHeroImageUrl}")`, 
-            opacity: 0.95, 
-            filter: 'contrast(1.02) brightness(1.02)', 
-          }}
-        />
-        {/* Desktop Cover Image */}
-        <div 
-          className="hidden md:block w-full h-full bg-cover bg-[center_top_15%] sm:bg-center transition-all duration-500"
-          style={{
-            backgroundImage: `url("${desktopHeroImageUrl}")`, 
-            opacity: 0.95, 
-            filter: 'contrast(1.02) brightness(1.02)', 
-          }}
-        />
+      {/* Background Video Container with Hardware Acceleration */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-rich-black">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={heroPosterUrl}
+          className="w-full h-full object-cover object-[82%_top] sm:object-[70%_top] md:object-[center_top] transition-all duration-700"
+          style={{ filter: 'brightness(1.08) contrast(1.04)' }}
+        >
+          <source src={heroVideoUrl} type="video/mp4" />
+          Tu navegador no soporta videos en formato MP4.
+        </video>
       </div>
       
-      {/* LUXURY GRADIENT OVERLAYS */}
-      <div className="absolute inset-0 bg-rich-black/40 md:bg-gradient-to-r md:from-rich-black/90 md:via-rich-black/40 md:to-transparent pointer-events-none" />
+      {/* CRYSTAL CLEAR GRADIENT OVERLAYS (Ultra translucent so the video is vivid and bright) */}
+      <div className="absolute inset-0 bg-rich-black/15 md:bg-gradient-to-r md:from-rich-black/65 md:via-rich-black/15 md:to-transparent pointer-events-none" />
       
       {/* Subtle Golden Radial Highlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,165,165,0.15),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(212,165,165,0.1),transparent_60%)] pointer-events-none" />
 
       {/* Content Container */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-7xl w-full mx-auto text-center sm:text-left px-5 sm:px-12 md:px-16 lg:px-20 py-6 sm:py-24 relative z-10"
+        className="max-w-7xl w-full mx-auto text-center sm:text-left px-5 sm:px-12 md:px-16 lg:px-20 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-16 relative z-10"
       >
         <div className="max-w-2xl mx-auto sm:mx-0 bg-transparent p-0 border-none shadow-none flex flex-col items-center sm:items-start">
           <motion.div variants={itemVariants} className="flex items-center justify-center sm:justify-start gap-3 mb-2.5 sm:mb-4">

@@ -117,9 +117,9 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[6000] bg-rich-black/95 backdrop-blur-xl border-b border-rose-gold/15">
+      <header className="fixed top-0 left-0 right-0 z-[6000] bg-rich-black/75 backdrop-blur-md border-b border-rose-gold/15 transition-colors duration-300">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 md:h-24">
+          <div className="flex justify-between items-center h-20 md:h-24">
             
             {/* Logo sin el EC */}
             <div className="flex-shrink-0 flex items-center z-[6100]">
@@ -129,14 +129,14 @@ const Header: React.FC<HeaderProps> = ({
                   e.preventDefault();
                   scrollToSection('inicio');
                 }} 
-                className="group flex items-center"
+                className="group flex items-center py-1"
               >
                 <motion.img 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   src="https://res.cloudinary.com/dyqz0n0to/image/upload/v1765400323/sorena_lenceria_logo_-removebg-preview_gsbva3.png" 
                   alt="Sorena Lencería" 
-                  className="h-16 md:h-24 w-auto object-contain opacity-95 transition-opacity"
+                  className="h-16 sm:h-18 md:h-22 w-auto object-contain drop-shadow-[0_2px_12px_rgba(212,165,165,0.25)] opacity-95 transition-all"
                 />
               </a>
             </div>
