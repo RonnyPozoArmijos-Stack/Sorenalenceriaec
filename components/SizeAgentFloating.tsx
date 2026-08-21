@@ -189,32 +189,32 @@ const SizeAgentFloating: React.FC = () => {
 
     if (text.includes('talla l') || text.includes('para l') || text.includes('medidas l') || /\b(talla l|soy l|medida l)\b/.test(text)) {
       const lResponses = [
-        `✨ Para Talla L (Busto 96-102 cm | Cadera 103-108 cm | Brasier 36B/38A), te recomiendo los fabulosos modelos: Gabriela ($24.99), Selva ($24.99), Gala ($24.99) y Rocío ($19.99). ${pickVaried(closings)}`,
-        `✨ En Talla L tus medidas ideales son busto 96-102 cm. Nuestros modelos estrella disponibles son Gabriela ($24.99), Gala ($24.99) y Dahlia ($19.99). ${pickVaried(closings)}`
+        `✨ Para Talla L (Busto 96-102 cm | Cadera 103-108 cm | Brasier 36B/38A), te recomiendo los fabulosos modelos: Noa ($24.99), Gabriela ($24.99), Selva ($24.99), Gala ($24.99) y Rocío ($19.99). ${pickVaried(closings)}`,
+        `✨ En Talla L tus medidas ideales son busto 96-102 cm. Nuestros modelos estrella disponibles son Noa ($24.99), Gabriela ($24.99), Gala ($24.99) y Dahlia ($19.99). ${pickVaried(closings)}`
       ];
       return pickVaried(lResponses);
     }
 
     if (text.includes('talla m') || text.includes('para m') || text.includes('medidas m') || /\b(talla m|soy m|medida m)\b/.test(text)) {
       const mResponses = [
-        `✨ Para Talla M (Busto 90-95 cm | Cadera 97-102 cm | Brasier 34B/36A), te recomiendo nuestros hermosos conjuntos: Victoria ($29.99), Valentina ($24.99), Renna ($24.99) y Julieta ($21.99). ${pickVaried(closings)}`,
-        `✨ Tu talla M corresponde a brasier 34B y pantalón 38. Los modelos más pedidos en M son Victoria ($29.99), Valentina ($24.99) y Elegancia ($21.99). ${pickVaried(closings)}`
+        `✨ Para Talla M (Busto 90-95 cm | Cadera 97-102 cm | Brasier 34B/36A), te recomiendo nuestros hermosos conjuntos: Noa ($24.99), Jade ($24.99), Siena ($24.99), Livia ($19.99), Victoria ($29.99) y Valentina ($24.99). ${pickVaried(closings)}`,
+        `✨ Tu talla M corresponde a brasier 34B y pantalón 38. Los modelos más pedidos en M son Noa ($24.99), Jade ($24.99), Siena ($24.99), Livia ($19.99) y Victoria ($29.99). ${pickVaried(closings)}`
       ];
       return pickVaried(mResponses);
     }
 
     if (text.includes('talla s') || text.includes('para s') || text.includes('medidas s') || /\b(talla s|soy s|medida s)\b/.test(text)) {
       const sResponses = [
-        `✨ Para Talla S (Busto 84-89 cm | Cadera 91-96 cm | Brasier 32B/34A), te recomiendo los conjuntos: Lore ($24.99), Catalina ($24.99), Oliva ($24.99) y Flavia ($19.99). ${pickVaried(closings)}`,
-        `✨ En Talla S tus medidas van de 84 a 89 cm de busto. Te lucirán divino los modelos Lore ($24.99), Mística ($24.99) y Romance ($19.99). ${pickVaried(closings)}`
+        `✨ Para Talla S (Busto 84-89 cm | Cadera 91-96 cm | Brasier 32B/34A), te recomiendo los conjuntos: Iris ($19.99), Nayade ($24.99), Lore ($24.99), Catalina ($24.99) y Oliva ($24.99). ${pickVaried(closings)}`,
+        `✨ En Talla S tus medidas van de 84 a 89 cm de busto. Te lucirán divino los modelos Iris ($19.99), Nayade ($24.99), Lore ($24.99) y Mística ($24.99). ${pickVaried(closings)}`
       ];
       return pickVaried(sResponses);
     }
 
     if (text.includes('talla xs') || text.includes('para xs') || text.includes('medidas xs') || /\b(talla xs|soy xs|medida xs)\b/.test(text)) {
       const xsResponses = [
-        `✨ Para Talla XS (Busto 78-83 cm | Cadera 85-90 cm | Brasier 30A/32A), te recomiendo los hermosos conjuntos: Isavelle ($21.99) y Ámbar ($19.99). ${pickVaried(closings)}`,
-        `✨ En Talla XS disponemos de los finos modelos Isavelle ($21.99) y Ámbar ($19.99), ideales para busto 78-83 cm. ${pickVaried(closings)}`
+        `✨ Para Talla XS (Busto 78-83 cm | Cadera 85-90 cm | Brasier 30A/32A), te recomiendo los hermosos conjuntos: Cielo ($19.99), Isavelle ($21.99) y Ámbar ($19.99). ${pickVaried(closings)}`,
+        `✨ En Talla XS disponemos de los finos modelos Cielo ($19.99), Isavelle ($21.99) y Ámbar ($19.99), ideales para busto 78-83 cm. ${pickVaried(closings)}`
       ];
       return pickVaried(xsResponses);
     }
@@ -225,6 +225,13 @@ const SizeAgentFloating: React.FC = () => {
 
     // 12. Búsqueda de producto específico por nombre
     const products = [
+      { name: 'cielo', price: '$19.99', size: 'XS' },
+      { name: 'iris', price: '$19.99', size: 'S' },
+      { name: 'nayade', price: '$24.99', size: 'S' },
+      { name: 'livia', price: '$19.99', size: 'M' },
+      { name: 'noa', price: '$24.99', size: 'M y L' },
+      { name: 'jade', price: '$24.99', size: 'M' },
+      { name: 'siena', price: '$24.99', size: 'M' },
       { name: 'isavelle', price: '$21.99', size: 'XS' },
       { name: 'lore', price: '$24.99', size: 'S' },
       { name: 'catalina', price: '$24.99', size: 'S' },

@@ -190,6 +190,13 @@ async function startServer() {
 
     // 12. Búsqueda de producto específico por nombre
     const products = [
+      { name: 'cielo', price: '$19.99', size: 'XS' },
+      { name: 'iris', price: '$19.99', size: 'S' },
+      { name: 'nayade', price: '$24.99', size: 'S' },
+      { name: 'livia', price: '$19.99', size: 'M' },
+      { name: 'noa', price: '$24.99', size: 'M y L' },
+      { name: 'jade', price: '$24.99', size: 'M' },
+      { name: 'siena', price: '$24.99', size: 'M' },
       { name: 'isavelle', price: '$21.99', size: 'XS' },
       { name: 'lore', price: '$24.99', size: 'S' },
       { name: 'catalina', price: '$24.99', size: 'S' },
@@ -281,10 +288,10 @@ PERSONALIDAD Y TONO:
 
 BASE DE CONOCIMIENTO SOBRE SORENA LENCERÍA:
 1. CATÁLOGO CON PRECIOS Y TALLAS:
-   - Talla XS: Isavelle ($21.99), Ámbar ($19.99)
-   - Talla S: Lore ($24.99), Catalina ($24.99), Mística ($24.99), Oliva ($24.99), Romance ($19.99), Flavia ($19.99), Lavanda ($19.99), Amapola ($19.99), Malva ($19.99), Selene ($21.99)
-   - Talla M: Victoria ($29.99), Valentina ($24.99), Renna ($24.99), Julieta ($21.99), Elegancia ($21.99), Peonia ($19.99), Violeta ($19.99)
-   - Talla L: Gabriela ($24.99), Selva ($24.99), Gala ($24.99), Rocío ($19.99), Dahlia ($19.99), Lunaria ($14.99)
+   - Talla XS: Cielo ($19.99), Isavelle ($21.99), Ámbar ($19.99)
+   - Talla S: Iris ($19.99), Nayade ($24.99), Lore ($24.99), Catalina ($24.99), Mística ($24.99), Oliva ($24.99), Romance ($19.99), Flavia ($19.99), Lavanda ($19.99), Amapola ($19.99), Malva ($19.99), Selene ($21.99)
+   - Talla M: Noa ($24.99), Jade ($24.99), Siena ($24.99), Livia ($19.99), Victoria ($29.99), Valentina ($24.99), Renna ($24.99), Julieta ($21.99), Elegancia ($21.99), Peonia ($19.99), Violeta ($19.99)
+   - Talla L: Noa ($24.99), Gabriela ($24.99), Selva ($24.99), Gala ($24.99), Rocío ($19.99), Dahlia ($19.99), Lunaria ($14.99)
    - Talla XL: Amore ($29.99), Marian ($24.99)
 
 2. GUÍA DE TALLAS Y MEDIDAS (cm / brasier habitual):
